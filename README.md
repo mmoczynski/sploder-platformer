@@ -37,3 +37,5 @@ This code was never written for open-source purposes. Therefore it may be diffic
 ## License
 
 See the license file for details.
+
+-test
