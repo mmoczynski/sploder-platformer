@@ -1,0 +1,24 @@
+{
+  "name": "sploder-platformer",
+  "version": "1.0.0",
+  "description": "JS, CSS and HTML5 port of Sploder Platformer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmoczynski/sploder-platformer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmoczynski/sploder-platformer/issues"
+  },
+  "homepage": "https://github.com/mmoczynski/sploder-platformer#readme",
+  "devDependencies": {
+    "fast-xml-parser": "^4.3.5",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
