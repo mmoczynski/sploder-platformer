@@ -4,4 +4,4 @@ Apparently, the original Sploder website has been recently shut down. This might
 
 ## Resources
 
-The Sploder Platformer creator has resources like audio in the [client/assets/sounds] directory. 
+The Sploder Platformer creator has resources like audio in the [client/assets/sounds](client/assets/sounds) directory.
