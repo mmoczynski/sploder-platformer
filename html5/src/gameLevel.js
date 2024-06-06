@@ -1,3 +1,8 @@
+/**
+ * This is a port of some of the functions from the client/GameLevel.as script
+ */
+
+
 let definitionTree = require("./definitionTree");
 
 const DEGREES_TO_RADIANS = 0;
