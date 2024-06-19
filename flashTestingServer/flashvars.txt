@@ -1,0 +1,6 @@
+{
+	PHPSESSID: "",
+	userid: "demo",
+	username: "demo",
+	creationdate: "20070102003743"
+};

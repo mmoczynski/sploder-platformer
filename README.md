@@ -1,6 +1,6 @@
-This is an unoffical fork of the original code of the Sploder Platformer Creator. The purpose of this fork is to port some features of the orignal code into HTML5 and JavaScript.This fork utlizes Webpack to combine all of the JavaScript files into one compact script for the creator. To learn more, [please read the orignal README file by Geoff](README.old.md).
+This is an unoffical fork of the original code of the Sploder Platformer Creator. The purpose of this fork is to port some features of the orignal code into HTML5 and JavaScript. This fork utlizes Webpack to combine all of the JavaScript files into one compact script for the creator. To learn more, [please read the orignal README file by Geoff](README.old.md).
 
-Currently, this fork aims to create an editor that can read 
+Currently, this fork aims to create an editor that can read and generate XML data that can be played on Sploder's Platformer Creator. I am not intending to port everything right now.
 
 Apparently, the original Sploder website has been recently shut down. This might make it harder to develop this.
 

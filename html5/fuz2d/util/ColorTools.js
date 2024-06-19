@@ -107,4 +107,4 @@ ColorTools.HTMLColorToNumber = function(html) {
     return parseInt("0x" + html.split("#").join("").split("0x").join(""), 16);
 }
 
-module.exports = ColorTools;
+export default ColorTools;

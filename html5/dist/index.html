@@ -1,133 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            html, body {
-                margin: 0;
-            }
-
-            * {
-                box-sizing: border-box;
-            }
-
-            .object {
-                background: #111;
-                margin: 5px;
-                padding: 5px;
-                border-radius: 10px;
-                height: 20vw;
-                width: 20vw;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            #menu {
-                display: flex;
-                padding: 0;
-                margin: 0;
-                background: purple;
-                color: white;
-                position: fixed;
-                width: 100%;
-                padding-left: 164px;
-                z-index: 2;
-                height: 10vh;
-            }
-
-            #menu li {
-                list-style: none;
-                padding: 10px 20px;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            #menu li:hover {
-                background: #301934;
-            }
-
-            #side-menu {
-                background: #444;
-                color: white;
-                width: 200px;
-                position: fixed;
-                top: 0;
-                z-index: 1;
-                height: 100vh;
-                padding-top: 10vh;
-            }
-
-            #main-canvas {
-                margin-top: 10vh;
-                margin-left: 20vw;
-                border: 1px solid #aaa;
-            }
-
-            #navigation {
-                padding: 0;
-                margin: 0;
-            }
-
-            #navigation li {
-                margin: 5px;
-                background: #222;
-                padding: 5px;
-                border-radius: 10px;
-            }
-
-            .icon {
-                border: 1px solid #aaa;
-                width: 100px;
-                height: 100px;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
         <script src="bundle.js"></script>
     </head>
     <body>
-        <ul style="display: none" id="menu">
-            <li>New</li>
-            <li>Load</li>
-            <li>Save</li>
-            <li>Save As</li>
-            <li>Test</li>
-            <li>Publish</li>
+        <ul id="menu">
+            <li id="new-game-menu-item">New</li>
+            <li id="load-game-menu-item">Load</li>
+            <li id="save-game-menu-item">Save</li>
+            <li id="save-game-as-menu-item">Save As</li>
+            <li id="test-game-menu-item">Test</li>
+            <li id="publish-game-menu-item">Publish</li>
         </ul>
         <canvas id="main-canvas" width="800" height="600"></canvas>
-        <div style="display: none" id="side-menu">
+        <div id="side-menu">
             <ul id="navigation">
-                <li>Blocks and Tiles</li>
-                <li>Walls and Decoration</li>
-                <li>Switches and Doors</li>
-                <li>Powerups</li>
-                <li>Enemies and Hazards</li>
+                <li class="obj-menu-item selected blocks-and-tiles">Blocks and Tiles</li>
+                <li class="obj-menu-item walls-and-decoration">Walls and Decoration</li>
+                <li class="obj-menu-item switches-and-doors">Switches and Doors</li>
+                <li class="obj-menu-item powerups">Powerups</li>
+                <li class="obj-menu-item enemies-and-hazards">Enemies and Hazards</li>
             </ul>
             <div id="elements">
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Floor</span>
-                </div>
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Pipe</span>
-                </div>
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Tile</span>
-                </div>
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Ramp Tile</span>
-                </div>
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Ramp Tile</span>
-                </div>
-                <div class="object">
-                    <div class="icon"></div>
-                    <span>Ramp Tile</span>
-                </div>
             </div>
         </div>
     </body>

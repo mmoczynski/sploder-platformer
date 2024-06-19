@@ -13,6 +13,9 @@
 * 
 */
 
+
+//import ColorTools from "./ColorTools";
+
 /**
  * 
  * Class constructor for TileDefinition class
@@ -38,6 +41,10 @@
  * @param {Boolean} smooth 
  * @param {Array} tileMap 
  */
+
+var TileGenerator = {
+    sampleScale: 2
+}
 
 function TileDefiniton (
     id = 0,
@@ -65,8 +72,8 @@ function TileDefiniton (
     this.back = back;
 			
     if (width == 0 || height == 0) {
-        this.width = Math.floor(grid_width * scale);
-        this.height = Math.floor(grid_height * scale);
+        this.width = Math.floor(TileDefiniton.grid_width * TileDefiniton.scale);
+        this.height = Math.floor(TileDefiniton.grid_height * TileDefiniton.scale);
     } else {
         this.width = width;
         this.height = height;
@@ -108,10 +115,10 @@ function TileDefiniton (
             1, 1, 1,
             1, 1, 1,
             1, 1, 1
-            ];
+        ];
     }
     
-    if (width > grid_width) cap = true;
+    if (width > TileDefiniton.grid_width) cap = true;
     
     if (backgroundColor < 0xff000000) backgroundColor += 0xff000000;
     if (edgeColor < 0xff000000) edgeColor += 0xff000000;
@@ -127,43 +134,43 @@ TileDefiniton.prototype.randomize = function(seed = 1) {
 
     var ss = sn.toString().split("0.").join("") + sn.toString().split("0.").join("");
 
-    backgroundColor = Math.min(0xffffffff, parseInt("0xff" + ss.substr(0, 6), 16) + ambientColor);
+    this.backgroundColor = Math.min(0xffffffff, parseInt("0xff" + ss.substr(0, 6), 16) + TileDefiniton.ambientColor);
     
-    if (back) {
+    if (this.back) {
 
-        backgroundColor -= 0xff000000;
-        backgroundColor = ColorTools.getTintedColor(backgroundColor, 0x000000, 0.7);
-        backgroundColor += 0xff000000;	
+        this.backgroundColor -= 0xff000000;
+        this.backgroundColor = ColorTools.getTintedColor(this.backgroundColor, 0x000000, 0.7);
+        this.backgroundColor += 0xff000000;	
         
     } else {
 
-        backgroundColor -= 0xff000000;
-        backgroundColor = ColorTools.getTintedColor(backgroundColor, 0xffffff, 0.4);
-        backgroundColor += 0xff000000;					
+        this.backgroundColor -= 0xff000000;
+        this.backgroundColor = ColorTools.getTintedColor(this.backgroundColor, 0xffffff, 0.4);
+        this.backgroundColor += 0xff000000;					
         
     }
 
     
-    edgeColor = parseInt("0xff" + ss.substr(6, 6), 16);
-    edgeThickness = Math.max(3 - (TileGenerator.sampleScale - 1), Math.min(6, Math.floor(parseInt(ss.charAt(13)) / 2)));
-    cellsX = 2 + Math.floor(parseInt(ss.charAt(14)) / 2);
-    cellsY = 2 + Math.floor(parseInt(ss.charAt(15)) / 2);
-    perturbation = Math.max(0, parseInt(ss.charAt(16)) / 10 - 0.1);
-    randomSeed = seed;
-    bond = parseInt(ss.charAt(17)) < 4;
-    cap = (parseInt(ss.charAt(18)) > 5 || cellsX < 4 || cellsY < 4);
-    noiseLevel = Math.floor(parseInt(ss.charAt(19)));
-    edgeDepth = Math.floor(parseInt(ss.charAt(20)) / 2);
-    recess = parseInt(ss.charAt(21)) > 3;
-    smooth = parseInt(ss.charAt(22)) < 5;
+    this.edgeColor = parseInt("0xff" + ss.substr(6, 6), 16);
+    this.edgeThickness = Math.max(3 - (TileGenerator.sampleScale - 1), Math.min(6, Math.floor(parseInt(ss.charAt(13)) / 2)));
+    this.cellsX = 2 + Math.floor(parseInt(ss.charAt(14)) / 2);
+    this.cellsY = 2 + Math.floor(parseInt(ss.charAt(15)) / 2);
+    this.perturbation = Math.max(0, parseInt(ss.charAt(16)) / 10 - 0.1);
+    this.randomSeed = seed;
+    this.bond = parseInt(ss.charAt(17)) < 4;
+    this.cap = (parseInt(ss.charAt(18)) > 5 || cellsX < 4 || cellsY < 4);
+    this.noiseLevel = Math.floor(parseInt(ss.charAt(19)));
+    this.edgeDepth = Math.floor(parseInt(ss.charAt(20)) / 2);
+    this.recess = parseInt(ss.charAt(21)) > 3;
+    this.smooth = parseInt(ss.charAt(22)) < 5;
 
-    if (width == 0) width = Math.floor(grid_width * scale);
-    if (height == 0) height = Math.floor(grid_height * scale);
+    if (this.width == 0) this.width = Math.floor(grid_width * scale);
+    if (this.height == 0) this.height = Math.floor(grid_height * scale);
     
-    if (smooth) cap = true;
-    if (smooth) recess = true;
-    if (bond) perturbation *= 0.5;
-    if (width > grid_width) cap = true;
+    if (this.smooth) this.cap = true;
+    if (this.smooth) this.recess = true;
+    if (this.bond) this.perturbation *= 0.5;
+    if (this.width > this.grid_width) this.cap = true;
     
 }
 
@@ -245,3 +252,5 @@ TileDefiniton.prototype.edgeDepth = 1;
 TileDefiniton.prototype.recess = false;
 TileDefiniton.prototype.smooth = false;
 TileDefiniton.prototype.back = false;
+
+//module.exports = TileDefiniton;

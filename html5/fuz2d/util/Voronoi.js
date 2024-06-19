@@ -12,7 +12,7 @@
 * 
 * This library needs a JavaScript equivalent of the following:
 *
-* flash.display.BitmapData: 
+* flash.display.BitmapData [Might be replaceable using JavaScript canvas]: 
 * https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/display/BitmapData.html
 *
 * flash.display.Graphics [Might be replaceable using JavaScript canvas]:
@@ -230,6 +230,21 @@ class Voronoi {
     
     get clip() { return _clip; }
     
+    /**
+     * 
+     * @param {Sprite} clip 
+     * @param {Number} width 
+     * @param {Number} height 
+     * @param {Number} backgroundColor 
+     * @param {Number} edgeColor 
+     * @param {Number} edgeThickness 
+     * @param {Number} cellsX 
+     * @param {Number} cellsY 
+     * @param {Number} perturbation 
+     * @param {Number} randomSeed 
+     * @param {Boolean} bond 
+     */
+
     constructor (
         clip, 
         width = 100, 
@@ -583,3 +598,5 @@ class Voronoi {
     }
     
 }
+
+module.exports = Voronoi;

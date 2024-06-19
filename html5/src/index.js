@@ -1,13 +1,9 @@
-//var levelParser = require("./levelParser");
-
 const DefinitionTree = require("./definitionTree");
 const Game = require("./game");
+const generateDefintionsHTML = require("./generateDefinitionsHTML");
 
-//console.log(new DefinitionTree());
-
-function Creator() {
-
-}
+// Creator object
+const Creator = {}
 
 Creator.gridSize = 60;
 
@@ -33,8 +29,6 @@ Creator.GridCell = function(x,y) {
 
     this.y = this.numberofGridsY * Creator.gridSize;
 
-
-
 }
 
 Creator.GridCell.prototype.pointInGrid = function(x, y) {
@@ -59,8 +53,6 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
 
 Creator.gameInstance = Game.createFromXMLString(str1)
 
-console.log(Creator);
-
 /*** Test code for showing locations of objects as circles***/
 
 window.addEventListener("load",function(){
@@ -73,6 +65,8 @@ window.addEventListener("load",function(){
 
     ctx.translate(canvas.width / 2,canvas.height / 2);
     ctx.scale(1,-1);
+
+    Creator.objectMenuItems = generateDefintionsHTML();
 
     this.setInterval(function(){
 
@@ -132,6 +126,6 @@ window.addEventListener("load",function(){
        canvasOffsetY = event.offsetY;
     });
 
-
+    
     
 })

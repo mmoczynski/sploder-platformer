@@ -123,6 +123,11 @@ module.exports = Game;
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+/**
+ * This is a port of some of the functions from the client/GameLevel.as script
+ */
+
+
 let definitionTree = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
 
 const DEGREES_TO_RADIANS = 0;
@@ -235,6 +240,101 @@ module.exports = GameLevel;
 
 /***/ }),
 
+/***/ "./html5/src/generateDefinitionsHTML.js":
+/*!**********************************************!*\
+  !*** ./html5/src/generateDefinitionsHTML.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const definitionTree = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
+
+function createMenuItem(definition) {
+
+    var elm = document.createElement("div");
+    elm.classList.add("object");
+
+    var span = document.createElement("span");
+    span.innerText = definition["@_cname"];
+    elm.appendChild(span);
+
+    return elm;
+}
+
+function changeSelectionClass(targetElement) {
+    var oldElm = document.querySelector("#navigation").querySelector(".selected");
+    oldElm.classList.remove("selected");
+    targetElement.classList.add("selected");
+}
+
+function generateDefintionsHTML() {
+
+    var o = {
+        blocks_and_tiles: document.createElement("div"),
+        walls_and_decoration: document.createElement("div"),
+        switches_and_doors: document.createElement("div"),
+        powerups: document.createElement("div"),
+        hazards: document.createElement("div")
+    };
+
+    for(let i = 0; i < definitionTree.categories.block.length; i++) {
+        o.blocks_and_tiles.appendChild(createMenuItem(definitionTree.categories.block[i]));
+    }
+
+    for(let i = 0; i < definitionTree.categories.blockbehind.length; i++) {
+        o.walls_and_decoration.appendChild(createMenuItem(definitionTree.categories.blockbehind[i]));
+    }
+
+    for(let i = 0; i < definitionTree.categories.trigger.length; i++) {
+        o.switches_and_doors.appendChild(createMenuItem(definitionTree.categories.trigger[i]));
+    }
+
+    for(let i = 0; i < definitionTree.categories.powerup.length; i++) {
+        o.powerups.appendChild(createMenuItem(definitionTree.categories.powerup[i]));
+    }
+
+    for(let i = 0; i < definitionTree.categories.hazard.length; i++) {
+        o.hazards.appendChild(createMenuItem(definitionTree.categories.hazard[i]));
+    }
+
+    // Event Listener for Blocks and Tiles
+
+    document.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", function(){
+        document.querySelector("#elements").innerHTML = "";
+        document.querySelector("#elements").appendChild(o.blocks_and_tiles);
+        changeSelectionClass(this);
+    });
+
+    document.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", function(){
+        document.querySelector("#elements").innerHTML = "";
+        document.querySelector("#elements").appendChild(o.walls_and_decoration);
+        changeSelectionClass(this);
+    });
+
+    document.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", function(){
+        document.querySelector("#elements").innerHTML = "";
+        document.querySelector("#elements").appendChild(o.switches_and_doors);
+        changeSelectionClass(this);
+    });
+
+    document.querySelector(".obj-menu-item.powerups").addEventListener("click", function(){
+        document.querySelector("#elements").innerHTML = "";
+        document.querySelector("#elements").appendChild(o.powerups);
+        changeSelectionClass(this);
+    });
+
+    document.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("click", function(){
+        document.querySelector("#elements").innerHTML = "";
+        document.querySelector("#elements").appendChild(o.hazards);
+        changeSelectionClass(this);
+    });
+
+    return o;
+}
+
+module.exports = generateDefintionsHTML;
+
+/***/ }),
+
 /***/ "./html5/definitions/definitions.json":
 /*!********************************************!*\
   !*** ./html5/definitions/definitions.json ***!
@@ -279,16 +379,12 @@ var __webpack_exports__ = {};
 /*!****************************!*\
   !*** ./html5/src/index.js ***!
   \****************************/
-//var levelParser = require("./levelParser");
-
 const DefinitionTree = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
 const Game = __webpack_require__(/*! ./game */ "./html5/src/game.js");
+const generateDefintionsHTML = __webpack_require__(/*! ./generateDefinitionsHTML */ "./html5/src/generateDefinitionsHTML.js");
 
-//console.log(new DefinitionTree());
-
-function Creator() {
-
-}
+// Creator object
+const Creator = {}
 
 Creator.gridSize = 60;
 
@@ -340,8 +436,6 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
 
 Creator.gameInstance = Game.createFromXMLString(str1)
 
-console.log(Creator);
-
 /*** Test code for showing locations of objects as circles***/
 
 window.addEventListener("load",function(){
@@ -354,6 +448,8 @@ window.addEventListener("load",function(){
 
     ctx.translate(canvas.width / 2,canvas.height / 2);
     ctx.scale(1,-1);
+
+    Creator.objectMenuItems = generateDefintionsHTML();
 
     this.setInterval(function(){
 

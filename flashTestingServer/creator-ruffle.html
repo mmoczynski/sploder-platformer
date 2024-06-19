@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        window.RufflePlayer = window.RufflePlayer || {}
+
+        window.RufflePlayer.config = {
+
+            autoplay: "auto",
+
+            socketProxy: [
+                {
+                    host: "www.sploder.com", // The address of the server that Flash tries to connect to
+                    port: 80, // The port that Flash tries to connect to
+                    proxyUrl: "ws://localhost:8081", // The actual proxy that Ruffle will connect to, instead of the above server
+                }
+            ]
+        };
+
+        //var fetchOld = fetch;
+
+        //function fetch() {
+            //console.log(arguments);
+          //  return fetchOld.call(this,arguments);
+        //}
+
+    </script>
+
+    <script defer src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+    <object width="800" height="600" data="creator2_b17.swf">
+    </object>
+</body>
+</html>
