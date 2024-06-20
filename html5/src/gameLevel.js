@@ -95,7 +95,7 @@ GameLevel.prototype.populateGame = function (str) {
             graphicAnimation = parseInt(arguments[7]);
         }
 
-        this.objects.push({
+        let o = {
             objectID: objectID,
             category: category,
             x: x,
@@ -105,8 +105,20 @@ GameLevel.prototype.populateGame = function (str) {
             graphic: graphic,
             graphicVersion: graphicVersion,
             graphicAnimation: graphicAnimation,
-            data: objectStrings[i].split(",")
-        })
+            data: objectStrings[i].split(","),
+        }
+
+        /**
+         * Convert back to xml data string
+         * @returns string
+         */
+
+        o.toString = function() {
+            let str = this.objectID + "," + this.x + "," + this.y;
+            return str;
+        }
+
+        this.objects.push(o)
 
     }
 }
