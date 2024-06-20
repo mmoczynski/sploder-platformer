@@ -220,7 +220,7 @@ GameLevel.prototype.populateGame = function (str) {
             graphicAnimation = parseInt(arguments[7]);
         }
 
-        this.objects.push({
+        let o = {
             objectID: objectID,
             category: category,
             x: x,
@@ -230,8 +230,20 @@ GameLevel.prototype.populateGame = function (str) {
             graphic: graphic,
             graphicVersion: graphicVersion,
             graphicAnimation: graphicAnimation,
-            data: objectStrings[i].split(",")
-        })
+            data: objectStrings[i].split(","),
+        }
+
+        /**
+         * Convert back to xml data string
+         * @returns string
+         */
+
+        o.toString = function() {
+            let str = this.objectID + "," + this.x + "," + this.y;
+            return str;
+        }
+
+        this.objects.push(o)
 
     }
 }
@@ -302,6 +314,7 @@ function generateDefintionsHTML() {
         document.querySelector("#elements").innerHTML = "";
         document.querySelector("#elements").appendChild(o.blocks_and_tiles);
         changeSelectionClass(this);
+        o.blocks_and_tiles.scrollTo(0,-temp1.scrollTop);
     });
 
     document.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", function(){
@@ -383,10 +396,16 @@ const DefinitionTree = __webpack_require__(/*! ./definitionTree */ "./html5/src/
 const Game = __webpack_require__(/*! ./game */ "./html5/src/game.js");
 const generateDefintionsHTML = __webpack_require__(/*! ./generateDefinitionsHTML */ "./html5/src/generateDefinitionsHTML.js");
 
-// Creator object
-const Creator = {}
+var img1 = document.createElement("img");
+img1.src = "./799.svg";
 
-Creator.gridSize = 60;
+// Creator object
+const Creator = {
+    gridSize: 60,
+    zoomFactor: 1,
+    deltaX: 0,
+    deltaY: 0,
+}
 
 /**
  * Constructor for grid cell object
@@ -409,8 +428,6 @@ Creator.GridCell = function(x,y) {
     */
 
     this.y = this.numberofGridsY * Creator.gridSize;
-
-
 
 }
 
@@ -464,9 +481,12 @@ window.addEventListener("load",function(){
         }
 
         Creator.mousePosition.world = {
-            x: canvasOffsetX - canvas.width/2,
-            y: -(canvasOffsetY - canvas.height/2)
+            x: canvasOffsetX - canvas.width/2 - Creator.deltaX,
+            y: -(canvasOffsetY - canvas.height/2) - Creator.deltaY
         }
+
+        document.querySelector("#mouse-info").innerHTML = "World Position:" +
+        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ")"
 
         Creator.mousePosition.gridCell = new Creator.GridCell(
             Creator.mousePosition.world.x,
@@ -479,7 +499,7 @@ window.addEventListener("load",function(){
 
             let o = Creator.gameInstance.level1.objects[i];
     
-            let k = 1;
+            let k = Creator.zoomFactor;
 
             if(Creator.mousePosition.gridCell.pointInGrid(o.x, o.y)) {
                 Creator.mousePosition.objectsInGrid.push(o);
@@ -487,7 +507,15 @@ window.addEventListener("load",function(){
     
             ctx.beginPath();
             //ctx.arc(o.x,o.y,1,0,2 * Math.PI);
-            ctx.rect((o.x - 30)*k,(o.y - 30)*k,60*k,60*k);
+
+            ctx.rect(
+                (o.x - 30)*k + Creator.deltaX ,
+                (o.y - 30)*k + Creator.deltaY,
+                60*k,
+                60*k
+            );
+
+            ctx.drawImage(img1,(o.x - 30) + Creator.deltaX,(o.x - 30) + Creator.deltaY)
             ctx.stroke();
         }
 
@@ -505,11 +533,32 @@ window.addEventListener("load",function(){
     },16.66);
 
     canvas.addEventListener("mousemove",function(event){
+
+       // Set new offset
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
+
+
     });
 
+    function transformByMouseDelta(event) {
 
+        Creator.deltaX += event.movementX;
+
+        // This is set to the addive inverse/negative of the movement 
+        // because the x direction goes up in the creator, not down
+        // The browser tracks the mouse using an x axis that goes down 
+
+        Creator.deltaY += -event.movementY;
+    }
+
+    canvas.addEventListener("mousedown", function(){
+        canvas.addEventListener("mousemove", transformByMouseDelta)
+    });
+
+    canvas.addEventListener("mouseup", function(){
+        canvas.removeEventListener("mousemove", transformByMouseDelta)
+    })
     
 })
 })();
