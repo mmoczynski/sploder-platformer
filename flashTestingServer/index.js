@@ -1,7 +1,9 @@
 const http = require("http");
 const fs = require("fs");
 
+// Object for associating projectIDs with 
 
+const projectIds = {}
 
 const server = http.createServer(function(req, res){
 
@@ -9,7 +11,6 @@ const server = http.createServer(function(req, res){
     console.log(new Date() + " : " + "URL Requested: " + req.url);
 
     // Null is used to make it so it can read it as binary file
-    
     if(req.url.includes("creator2_b17.swf")) {
 
         console.log(new Date() + " : Attemping to request flash file...");
@@ -29,6 +30,7 @@ const server = http.createServer(function(req, res){
 
     }
 
+    // Full game flash file
     else if(req.url.includes("fullgame2_b17.swf")) {
 
         console.log(new Date() + " : Attemping to request full game file...");
@@ -48,6 +50,7 @@ const server = http.createServer(function(req, res){
 
     }
 
+    // File for dealing with ruffle
     else if(req.url.endsWith("/creator")) {
         fs.readFile("./creator-ruffle.html", null, function(err, data){
             
@@ -63,37 +66,73 @@ const server = http.createServer(function(req, res){
         })
     }
 
-    else if(req.url.includes("php/getprojects.php")) {
-    
-        res.writeHead(200, {
-            "Content-Type": "Application/xml"
-          });
+    // Get project list from folder
 
-          // When selected, it requests
-          // /php/getproject.php?nosession=1&u=0&c=undefined&p=1946507&nocache=22685043
+    else if(req.url.includes("php/getprojects.php")) {
+
+        fs.readdir("./saved", function(err, stringArr){
+
+            // If error, end connection
+
+            if(err) {
+                console.log(err);
+                res.end();
+            }
+
+            else {
+
+                // Loop through members of saved directory
+
+                var xmlStr = "<projects>";
+
+                for(let i = 0; i < stringArr.length; i++) {
+
+                    // Get project name from file name for XML file
+                    let name = encodeURIComponent(stringArr[i].split(".")[0]);
+
+                    // Associate filename with project id
+                    projectIds[i] = name;
+
+                    // XML child element for project
+                    xmlStr += `<project id="proj${i}" src="proj1946507.xml" title="${name}" date="Sunday, July 25th 2010" archived="0"/>`
+                }
+
+                xmlStr += "</projects>"
+
+                res.writeHead(200, {
+                    "Content-Type": "Application/xml"
+                  });
+
+                res.write(xmlStr);
+
+                // When selected, it requests
+                // /php/getproject.php?nosession=1&u=0&c=undefined&p=1946507&nocache=22685043
       
-        res.write(`<projects total="1">
-          <project id="proj1946507" src="proj1946507.xml" title="Beyond%20The%20DMZ" date="Sunday, July 25th 2010" archived="0"/>
-          </projects>`);
-      
-        res.end();
+                res.end();
+
+            }
+
+        });
+    
     }
 
     // Currently gets project regardless of input for now
 
     else if(req.url.includes("getproject.php")) {
         
-            var x = `<project title="Grenade%20Test" pubkey="" fast="0" isprivate="0" mode="2" author="geoff" date="Wednesday, June 5, 2013" id="proj3730014" comments="1" g="1" bitview="0">
+        /*var x = `<project title="Grenade%20Test" pubkey="" fast="0" isprivate="0" mode="2" author="geoff" date="Wednesday, June 5, 2013" id="proj3730014" comments="1" g="1" bitview="0">
             <levels id="levels">
                 <level music="" env="5,336699,3300,100" name="">
                     55,-270,30,0,0,0|3,90,330,0,0,0|3,-30,390,0,0,0|3,90,210,0,0,0|3,30,390,0,0,0|3,90,390,0,0,0|3,30,150,0,0,0|3,-30,150,0,0,0|3,-30,330,0,0,0|3,90,270,0,0,0|55,-330,30,0,0,0|3,-30,210,0,0,0|55,-210,30,0,0,0|55,-150,30,0,0,0|55,-90,30,0,0,0|55,-30,30,0,0,0|55,30,30,0,0,0|55,90,30,0,0,0|55,-390,30,0,0,0|3,90,150,0,0,0|302,165,67,0,0,0|1,26,242,0,0,0|155,60,360,0,0,0
                 </level>
             </levels>
-        </project>`
+        </project>`*/
 
-    res.writeHead(200, {
-        "Content-Type": "Application/xml"
-      });
+        
+
+        res.writeHead(200, {
+            "Content-Type": "Application/xml"
+        });
   
         res.write(x);
   
