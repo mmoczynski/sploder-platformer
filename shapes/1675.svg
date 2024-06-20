@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:ffdec="https://www.free-decompiler.com/flash" xmlns:xlink="http://www.w3.org/1999/xlink" ffdec:objectType="shape" height="58.95px" width="195.45px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 11.3, 40.05)">
+    <path d="M114.9 -19.55 L126.55 -21.7 109.5 -6.5 114.9 -19.55 M131.1 -22.65 L140.75 -25.0 127.0 -12.75 131.1 -22.65" fill="#cccccc" fill-rule="evenodd" stroke="none"/>
+    <path d="M176.45 -37.35 L181.5 -23.5 Q178.1 -10.55 166.95 -1.1 155.5 8.6 139.75 11.45 L134.45 12.35 129.25 8.25 125.35 13.45 118.35 13.95 114.25 10.75 111.6 14.25 Q74.3 15.3 24.3 4.25 L24.3 -2.55 Q50.4 4.1 86.1 5.35 121.95 6.65 138.25 1.4 153.2 -3.45 162.1 -12.05 171.9 -21.5 176.45 -37.35" fill="#999999" fill-rule="evenodd" stroke="none"/>
+    <path d="M24.3 4.25 L24.3 16.25 12.3 16.25 12.3 4.25 -4.55 4.25 Q-8.65 -1.75 -8.65 -6.75 -8.65 -11.75 -4.55 -17.75 L12.3 -17.75 12.3 -32.25 24.3 -32.25 24.3 -17.75 24.3 -2.55 24.3 4.25 M12.3 4.25 L12.3 -17.75 12.3 4.25" fill="#993300" fill-rule="evenodd" stroke="none"/>
+    <path d="M24.3 -17.75 Q72.85 -12.75 114.9 -19.55 L109.5 -6.5 126.55 -21.7 131.1 -22.65 127.0 -12.75 140.75 -25.0 Q159.3 -29.9 176.45 -37.35 171.9 -21.5 162.1 -12.05 153.2 -3.45 138.25 1.4 121.95 6.65 86.1 5.35 50.4 4.1 24.3 -2.55 L24.3 -17.75" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+    <path d="M24.3 4.25 L24.3 16.25 12.3 16.25 12.3 4.25 -4.55 4.25 Q-8.65 -1.75 -8.65 -6.75 -8.65 -11.75 -4.55 -17.75 L12.3 -17.75 12.3 -32.25 24.3 -32.25 24.3 -17.75 Q72.85 -12.75 114.9 -19.55 L126.55 -21.7 131.1 -22.65 140.75 -25.0 Q159.3 -29.9 176.45 -37.35 L181.5 -23.5 Q178.1 -10.55 166.95 -1.1 155.5 8.6 139.75 11.45 L134.45 12.35 129.25 8.25 125.35 13.45 118.35 13.95 114.25 10.75 111.6 14.25 Q74.3 15.3 24.3 4.25 L24.3 -2.55 24.3 -17.75 M12.3 -17.75 L12.3 4.25" fill="none" stroke="#393d40" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="4.0"/>
+  </g>
+  <defs>
+    <linearGradient gradientTransform="matrix(0.0929, 0.0, 0.0, 0.0258, 100.35, -16.25)" gradientUnits="userSpaceOnUse" id="gradient0" spreadMethod="pad" x1="-819.2" x2="819.2">
+      <stop offset="0.0" stop-color="#d0d0d0"/>
+      <stop offset="1.0" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+</svg>
