@@ -15,32 +15,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _definitions_definitions_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../definitions/definitions.json */ "./html5/definitions/definitions.json");
 
 
-function DefinitionTree() {
-
-    this.categories = {}
-
-    let a = _definitions_definitions_json__WEBPACK_IMPORTED_MODULE_0__.objects.playobj
-
-    for(var i = 0; i < a.length; i++) {
-
-        // Assign objectID to dictionary entry
-        this[a[i]["@_cid"]] = a[i];
-
-        // Create category if it does not exist
-        if(!this.categories[a[i]["@_ctype"]]) {
-            this.categories[a[i]["@_ctype"]] = []
-        }
-
-        // Put object definition in category
-        this.categories[a[i]["@_ctype"]].push(a[i]);
-
-        
-    }
-
-
+const definitionTree = {
+    categories: {}
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DefinitionTree);
+let a = _definitions_definitions_json__WEBPACK_IMPORTED_MODULE_0__.objects.playobj
+
+for(var i = 0; i < a.length; i++) {
+
+    // Assign objectID to dictionary entry
+    definitionTree[a[i]["@_cid"]] = a[i];
+
+    // Create category if it does not exist
+    if(!definitionTree.categories[a[i]["@_ctype"]]) {
+        definitionTree.categories[a[i]["@_ctype"]] = []
+    }
+
+    // Put object definition in category
+    definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
+
+    
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (definitionTree);
 
 /***/ }),
 
@@ -278,8 +275,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
 
 
-let definitionTree = new _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"]();
-
 function createMenuItem(definition) {
 
     var elm = document.createElement("div");
@@ -308,24 +303,24 @@ function generateDefintionsHTML() {
         hazards: document.createElement("div")
     };
 
-    for(let i = 0; i < definitionTree.categories.block.length; i++) {
-        o.blocks_and_tiles.appendChild(createMenuItem(definitionTree.categories.block[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block.length; i++) {
+        o.blocks_and_tiles.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block[i]));
     }
 
-    for(let i = 0; i < definitionTree.categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(definitionTree.categories.blockbehind[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind.length; i++) {
+        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind[i]));
     }
 
-    for(let i = 0; i < definitionTree.categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(definitionTree.categories.trigger[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger.length; i++) {
+        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger[i]));
     }
 
-    for(let i = 0; i < definitionTree.categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(definitionTree.categories.powerup[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup.length; i++) {
+        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup[i]));
     }
 
-    for(let i = 0; i < definitionTree.categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(definitionTree.categories.hazard[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard.length; i++) {
+        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard[i]));
     }
 
     // Event Listener for Blocks and Tiles
@@ -581,7 +576,7 @@ Creator.GridCell.prototype.pointInGrid = function(x, y) {
 window.SploderPlatformerCreator = Creator;
 
 Creator.Game = _game__WEBPACK_IMPORTED_MODULE_1__["default"];
-Creator.DefinitionTree = _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"];
+Creator.definitionTree = _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 
 var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project" mode="2" date="Saturday, March 16, 2024" pubkey="" isprivate="0" fast="0" g="1" author="demo"><levels id="levels"><level name="" music="" avatar="0" env="8,6600cc,333333,100">3,210,210|3,90,90|3,30,30|3,150,150|3,270,270|3,330,330|3,390,330|3,450,330|3,390,270|3,390,210|1,-329,239</level></levels><graphics /><textures lastid="0" /></project>`

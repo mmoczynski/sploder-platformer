@@ -17,7 +17,7 @@ for(var i = 0; i < a.length; i++) {
     }
 
     // Put object definition in category
-    definitionTree[a[i]["@_ctype"]].push(a[i]);
+    definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
 
     
 }
