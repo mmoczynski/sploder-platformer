@@ -1,6 +1,4 @@
-import DefinitionTree from "./definitionTree";
-
-let definitionTree = new DefinitionTree();
+import definitionTree from "./definitionTree";
 
 function createMenuItem(definition) {
 
