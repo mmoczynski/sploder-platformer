@@ -1,6 +1,6 @@
-const DefinitionTree = require("./definitionTree");
-const Game = require("./game");
-const generateDefintionsHTML = require("./generateDefinitionsHTML");
+import DefinitionTree from "./definitionTree";
+import Game from "./game";
+import generateDefintionsHTML from "./generateDefinitionsHTML";
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";

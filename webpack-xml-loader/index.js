@@ -18,6 +18,6 @@ module.exports = function(xmlText) {
     
     console.log(obj.objects.playobj[0]);
 
-    let s = "module.exports = " + JSON.stringify(obj);
+    let s = "export default " + JSON.stringify(obj);
     return s;
 }

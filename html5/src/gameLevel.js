@@ -3,7 +3,7 @@
  */
 
 
-let definitionTree = require("./definitionTree");
+import definitionTree from "./definitionTree";
 
 const DEGREES_TO_RADIANS = 0;
 
@@ -58,29 +58,29 @@ GameLevel.prototype.populateGame = function (str) {
          * 
          */
 
-        let arguments = objectStrings[i].split(",");
+        let objectArguments = objectStrings[i].split(",");
 
         // Get type of object
-        let objectID = parseInt(arguments[0]);
+        let objectID = parseInt(objectArguments[0]);
 
         // Category object
 
         let category = definitionTree[objectID];
 
         // Get x coordinate
-        let x = parseInt(arguments[1]);
+        let x = parseInt(objectArguments[1]);
 
         // Get y coordinate
-        let y = parseInt(arguments[2]);
+        let y = parseInt(objectArguments[2]);
 
         // Get rotation
-        let rotation = parseInt(arguments[3]) * DEGREES_TO_RADIANS;
+        let rotation = parseInt(objectArguments[3]) * DEGREES_TO_RADIANS;
 
         // Get tile ID
         let tileID = undefined;
 
-        if(arguments.length > 3) {
-            tileID = parseInt(arguments[4]);
+        if(objectArguments.length > 3) {
+            tileID = parseInt(objectArguments[4]);
         }
 
         // Get graphics information
@@ -89,10 +89,10 @@ GameLevel.prototype.populateGame = function (str) {
         let graphicVersion = undefined;
         let graphicAnimation = undefined;
 
-        if(arguments.length > 4) {
-            graphic = parseInt(arguments[5]);
-            graphicVersion = parseInt(arguments[6]);
-            graphicAnimation = parseInt(arguments[7]);
+        if(objectArguments.length > 4) {
+            graphic = parseInt(objectArguments[5]);
+            graphicVersion = parseInt(objectArguments[6]);
+            graphicAnimation = parseInt(objectArguments[7]);
         }
 
         let o = {
@@ -123,4 +123,4 @@ GameLevel.prototype.populateGame = function (str) {
     }
 }
 
-module.exports = GameLevel;
+export default GameLevel;

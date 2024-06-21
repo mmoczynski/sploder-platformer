@@ -1,4 +1,4 @@
-const GameLevel = require("./gameLevel");
+import GameLevel from "./gameLevel";
 
 /**
  * This library is a partial port of the Game.as file created by Geoff.
@@ -64,7 +64,4 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 
 }
 
-
-
-
-module.exports = Game;
+export default Game;

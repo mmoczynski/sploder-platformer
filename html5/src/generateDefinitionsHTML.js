@@ -1,4 +1,6 @@
-const definitionTree = require("./definitionTree");
+import DefinitionTree from "./definitionTree";
+
+let definitionTree = new DefinitionTree();
 
 function createMenuItem(definition) {
 
@@ -84,4 +86,4 @@ function generateDefintionsHTML() {
     return o;
 }
 
-module.exports = generateDefintionsHTML;
+export default generateDefintionsHTML;

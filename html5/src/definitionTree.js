@@ -1,4 +1,4 @@
-const dictionary = require("../definitions/definitions.json");
+import dictionary from "../definitions/definitions.json"
 
 function DefinitionTree() {
 
@@ -25,4 +25,4 @@ function DefinitionTree() {
 
 }
 
-module.exports = new DefinitionTree();
+export default DefinitionTree;
