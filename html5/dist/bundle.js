@@ -144,33 +144,89 @@ const DEGREES_TO_RADIANS = 0;
 
 function GameLevel(game,levelNode) {
     this.game = game;
+
+    /**
+     * @type {Element}
+     */
+
     this.levelNode = levelNode;
     this.objects = [];
     this.populateGame();
 
-    // Enviornment argument array
-    this.envArgs = this.levelNode.getAttribute("env").split(",");
-
-    // Integer representing background image
-    this.bgImage = parseInt(this.envArgs[0]);
-
-    // RGB string representing sky color
-    this.skyColor = this.envArgs[1];
-
-    // Ground color
-    this.groundColor = this.envArgs[2];
-
-    // Value between 0 and 100 representing brightness
-    this.brightness = parseInt(this.envArgs[3]);
-
-    // Level name
-    this.name = this.levelNode.getAttribute("name");
-
-    // Avatar for player
-    this.avatar = parseInt(this.levelNode.getAttribute("avatar"));
+    let self = this;
 
     // Music information
     this.musicInfo = this.levelNode.getAttribute("music");
+
+    Object.defineProperties(this,{
+
+        // Integer representing background image
+        bgImage: self.defineEnvProperty(0),
+
+        // RGB string representing sky color
+        skyColor: self.defineEnvProperty(1),
+
+        // Ground color
+        groundColor: self.defineEnvProperty(2),
+
+        // Value between 0 and 100 representing brightness
+        brightness: self.defineEnvProperty(3),
+
+        // Level name
+        name: self.defineXMLProperty("name"),
+
+        // Avatar for player
+        avatar: self.defineXMLProperty("avatar"),
+
+        // Enviornment argument array
+
+        envArgs: {
+            get: function() {
+                return self.levelNode.getAttribute("env");
+            },
+        }
+
+    })
+}
+
+/**
+ * 
+ * @param {*} index - Index for XML env property argument
+ * @returns {PropertyDescriptorMap & ThisType<any>}
+ */
+
+GameLevel.prototype.defineEnvProperty = function(index) {
+
+    let self = this;
+
+    return {
+
+        get: function() {
+            return self.levelNode.getAttribute("env").split(",")[index];
+        },
+
+        set: function(value) {
+            let a = self.levelNode.getAttribute("env").split(",");
+            a[index] = value;
+            self.levelNode.setAttribute("env",a.join(",")); 
+        }
+
+    }
+}
+
+GameLevel.prototype.defineXMLProperty = function(name) {
+
+    let self = this;
+
+    return {
+        get: function() {
+            return self.levelNode.getAttribute(name);
+        },
+
+        set: function(value) {
+            self.levelNode.setAttribute(name, value);
+        }
+    }
 }
 
 GameLevel.prototype.populateGame = function (str) {
