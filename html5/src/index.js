@@ -11,6 +11,73 @@ const Creator = {
     zoomFactor: 1,
     deltaX: 0,
     deltaY: 0,
+
+    debugConfig: {
+        enabled: true,
+        selectedPointValue: 10
+    },
+
+    mouseTool: "transform-object"
+}
+
+/**
+ * Object for representing a point as relative to the world.
+ * @param {*} x 
+ * @param {*} y 
+ */
+
+function WorldPoint(x,y) {
+    this.x = x;
+    this.y = y;
+}
+
+/**
+ * 
+ * @returns Vector measuring point relative to canvas instead of world
+ * 
+ * Formula:
+ * 
+ * x_c = x_w + d_x + w/2
+ * y_c = -y_w + d_y + h/2
+ * 
+ */
+
+WorldPoint.prototype.toCanvasPoint = function() {
+
+    return new CanvasPoint(
+        this.x + Creator.deltaX + Creator.canvas.width/2, 
+        -this.y + Creator.deltaY + Creator.canvas.height/2
+    );
+
+}
+
+/**  
+ * Point that is relative to canvas
+ * @param {*} x 
+ * @param {*} y 
+ */
+
+function CanvasPoint(x,y) {
+    this.x = x;
+    this.y = y;
+}
+
+
+/*
+* Change canvas point to world point 
+* Formula (based on solving in algebra for world point in canvas point)
+*
+* x_w = x_c - d_x - w/2
+* y_w = -(y_c - h/2 - d_y)
+*
+*/
+CanvasPoint.prototype.toWorldPoint = function() {
+
+    return new WorldPoint(
+        this.x - Creator.deltaX - Creator.canvas.width / 2,
+        -(this.y - Creator.deltaY - Creator.canvas.height / 2)
+    )
+
 }
 
 /**
@@ -23,23 +90,39 @@ Creator.GridCell = function(x,y) {
 
     this.numberofGridsY = Math.floor(y/Creator.gridSize);
 
-    /**
-    * x-coordinate of the bottom left corner of the grid cell
-    */
 
-    this.x = this.numberOfGridsX * Creator.gridSize;
+    this.bottomLeft = new WorldPoint(
+        this.numberOfGridsX * Creator.gridSize,
+        this.numberofGridsY * Creator.gridSize,
+    )
 
-    /**
-    * y-coordinate of the bottom left corner of the grid cell
-    */
+    this.bottomRight = new WorldPoint(
+        this.bottomLeft.x + Creator.gridSize,
+        this.bottomLeft.y
+    )
 
-    this.y = this.numberofGridsY * Creator.gridSize;
+    this.topLeft = new WorldPoint(
+        this.bottomLeft.x,
+        this.bottomLeft.y + Creator.gridSize
+    )
+
+    this.topRight = new WorldPoint(
+        this.bottomLeft.x + Creator.gridSize,
+        this.bottomLeft.y + Creator.gridSize
+    )
+
+    this.center = new WorldPoint(
+        this.bottomLeft.x + Creator.gridSize / 2,
+        this.bottomLeft.y + Creator.gridSize / 2
+    )
 
 }
 
 Creator.GridCell.prototype.pointInGrid = function(x, y) {
 
-    if((this.x < x && x < this.x + Creator.gridSize) && ((this.y < y && y < this.y + Creator.gridSize))) {
+    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + Creator.gridSize) && 
+        (this.bottomLeft.y < y && y < this.bottomLeft.y + Creator.gridSize)
+    ) {
         return true;
     }
 
@@ -59,6 +142,10 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
 
 Creator.gameInstance = Game.createFromXMLString(str1)
 
+Creator.drawRectangle = function(x, y, w, h) {
+
+}
+
 /*** Test code for showing locations of objects as circles***/
 
 window.addEventListener("load",function(){
@@ -69,14 +156,20 @@ window.addEventListener("load",function(){
     let canvas = document.querySelector("#main-canvas");
     let ctx = canvas.getContext("2d");
 
-    ctx.translate(canvas.width / 2,canvas.height / 2);
-    ctx.scale(1,-1);
+    Creator.canvas = canvas;
+
+    //ctx.translate(canvas.width / 2,canvas.height / 2);
+    //ctx.scale(1,-1);
 
     Creator.objectMenuItems = generateDefintionsHTML();
 
     this.setInterval(function(){
 
         Creator.mousePosition = {
+
+            /**
+             * Get point of mous relative to canvas
+             */
 
             canvasOffset: {
                 x: canvasOffsetX,
@@ -86,55 +179,101 @@ window.addEventListener("load",function(){
             objectsInGrid: []
         }
 
-        Creator.mousePosition.world = {
-            x: canvasOffsetX - canvas.width/2 - Creator.deltaX,
-            y: -(canvasOffsetY - canvas.height/2) - Creator.deltaY
-        }
+        /**
+         * Get point of mouse relative to world
+         */
 
-        document.querySelector("#mouse-info").innerHTML = "World Position:" +
-        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ")"
+        Creator.mousePosition.world = new WorldPoint(
+            canvasOffsetX - Creator.deltaX - canvas.width/2,
+            -(canvasOffsetY - Creator.deltaY - canvas.height/2)
+        )
+
+        /**
+         * Get grid cell the mouse is hovering over
+         */
 
         Creator.mousePosition.gridCell = new Creator.GridCell(
             Creator.mousePosition.world.x,
             Creator.mousePosition.world.y
         ),
 
-        ctx.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+        document.querySelector("#mouse-info").innerHTML = "World Position:" +
+        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
+        "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
+        Creator.mousePosition.gridCell.bottomLeft.y + ")";
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         for(var i = 0; i < Creator.gameInstance.level1.objects.length; i++) {
 
             let o = Creator.gameInstance.level1.objects[i];
-    
-            let k = Creator.zoomFactor;
+
+            let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
 
             if(Creator.mousePosition.gridCell.pointInGrid(o.x, o.y)) {
                 Creator.mousePosition.objectsInGrid.push(o);
             }
-    
-            ctx.beginPath();
-            //ctx.arc(o.x,o.y,1,0,2 * Math.PI);
 
-            ctx.rect(
-                (o.x - 30)*k + Creator.deltaX ,
-                (o.y - 30)*k + Creator.deltaY,
-                60*k,
-                60*k
-            );
+            /*ctx.rect(
+                (o.x - 30) + Creator.deltaX + canvas.width/2,
+                ((-o.y - 30) + Creator.deltaY + canvas.height /2),
+                60,
+                60
+            );*/
 
-            ctx.drawImage(img1,(o.x - 30) + Creator.deltaX,(o.x - 30) + Creator.deltaY)
+            ctx.drawImage(
+                img1,
+                objCanvasPoint.x - 30,
+                objCanvasPoint.y - 30,
+            )
+
             ctx.stroke();
         }
 
         ctx.beginPath();
- 
+
+        let selectedObjCanvasPoint;
+
+        /** Get selected object point */
+
+        if(Creator.mousePosition.objectsInGrid.length) {
+
+            selectedObjCanvasPoint = new WorldPoint(
+                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1].x,
+                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1].y
+            ).toCanvasPoint();
+
+        }
+
+        let gridcellCanvasPoint = Creator.mousePosition.gridCell.topLeft.toCanvasPoint();
+
         ctx.rect(
-            Creator.mousePosition.gridCell.x,
-            Creator.mousePosition.gridCell.y,
+            gridcellCanvasPoint.x,
+            gridcellCanvasPoint.y,
             Creator.gridSize,
             Creator.gridSize
-        );
+        )
 
         ctx.stroke(); 
+
+        /**
+         * Used to see if objects in grid really do have a center
+         */
+
+        if(Creator.mousePosition.objectsInGrid.length) {
+
+            ctx.beginPath()
+
+            ctx.arc(
+                selectedObjCanvasPoint.x, 
+                selectedObjCanvasPoint.y, 
+                Creator.debugConfig.selectedPointValue, 
+                0, 
+                Math.PI * 2
+            );
+
+            ctx.stroke(); 
+        }
 
     },16.66);
 
@@ -147,23 +286,46 @@ window.addEventListener("load",function(){
 
     });
 
-    function transformByMouseDelta(event) {
+    /**
+     * 
+     * Mouse Tools
+     */
 
+    function transformViewportByMouse(event) {
         Creator.deltaX += event.movementX;
-
-        // This is set to the addive inverse/negative of the movement 
-        // because the x direction goes up in the creator, not down
-        // The browser tracks the mouse using an x axis that goes down 
-
-        Creator.deltaY += -event.movementY;
+        Creator.deltaY += event.movementY;
     }
 
+    function transformObjByMouse(event) {
+        transformingObject.x = Creator.mousePosition.gridCell.center.x;
+        transformingObject.y = Creator.mousePosition.gridCell.center.y;
+    }
+
+    let transformingObject;
+
     canvas.addEventListener("mousedown", function(){
-        canvas.addEventListener("mousemove", transformByMouseDelta)
+
+        if(Creator.mouseTool === "transform-viewport") {
+            canvas.addEventListener("mousemove", transformViewportByMouse)
+        }
+
+        if(Creator.mouseTool === "transform-object") {
+            transformingObject = Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1];
+            canvas.addEventListener("mousemove", transformObjByMouse)
+        }
+
     });
 
     canvas.addEventListener("mouseup", function(){
-        canvas.removeEventListener("mousemove", transformByMouseDelta)
+
+        if(Creator.mouseTool === "transform-viewport") {
+            canvas.removeEventListener("mousemove", transformViewportByMouse)
+        }
+
+        if(Creator.mouseTool === "transform-object") {
+            canvas.removeEventListener("mousemove", transformObjByMouse)
+        }
+
     })
     
 })
