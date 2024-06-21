@@ -9,7 +9,7 @@
         <script src="bundle.js"></script>
     </head>
     <body class="roboto-light">
-        <ul id="menu">
+        <ul class="file-menu" id="menu">
             <li id="new-game-menu-item">New</li>
             <li id="load-game-menu-item">Load</li>
             <li id="save-game-menu-item">Save</li>
@@ -17,6 +17,19 @@
             <li id="test-game-menu-item">Test</li>
             <li id="publish-game-menu-item">Publish</li>
         </ul>
+        <div id="level-editing-menu">
+            <select id="level-selection">
+                <option value="1">Level 1</option>
+            </select>
+            <span class="level-editing-button">+</span>
+            <span class="level-editing-button">-</span>
+            <span class="level-editing-button">T</span>
+            <span class="level-editing-button">C</span>
+            <span class="level-editing-button">N</span>
+            <span class="level-editing-button">M</span>
+            <span id="selection-count"></span>
+            <span id="graphics-button">G</span>
+        </div>
         <canvas id="main-canvas" width="800" height="600"></canvas>
         <div id="side-menu">
             <ul id="navigation">
