@@ -717,6 +717,27 @@ window.addEventListener("load",function(){
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
+        // Draw sky color
+        ctx.fillStyle = "#" + Creator.gameInstance.level1.skyColor;
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height * 0.5 + Creator.deltaY
+        );
+
+        // Draw underground
+        ctx.fillStyle = "#000000";
+        
+        ctx.fillRect(
+            0,
+            canvas.height * 0.5 + Creator.deltaY, 
+            canvas.width, 
+            canvas.height - Creator.deltaY
+        );
+
         for(var i = 0; i < Creator.gameInstance.level1.objects.length; i++) {
 
             let o = Creator.gameInstance.level1.objects[i];
@@ -830,16 +851,17 @@ window.addEventListener("load",function(){
     });
 
     canvas.addEventListener("mouseup", function(){
+        canvas.removeEventListener("mousemove", transformViewportByMouse)
+        canvas.removeEventListener("mousemove", transformObjByMouse)
+    });
 
-        if(Creator.mouseTool === "transform-viewport") {
-            canvas.removeEventListener("mousemove", transformViewportByMouse)
-        }
+    document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
+        Creator.mouseTool = "transform-viewport";
+    });
 
-        if(Creator.mouseTool === "transform-object") {
-            canvas.removeEventListener("mousemove", transformObjByMouse)
-        }
-
-    })
+    document.querySelector("#activate-object-transform").addEventListener("click", function(){
+        Creator.mouseTool = "transform-object";
+    });
     
 })
 })();

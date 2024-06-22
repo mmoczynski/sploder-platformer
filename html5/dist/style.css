@@ -113,3 +113,33 @@ html, body {
     height: 40px;
     align-items: center;
 }
+
+#mouse-info {
+    background: #333;
+    position: fixed;
+    z-index: 2;
+    width: 100vw;
+    bottom: 0;
+    color: white;
+    padding: 5px;
+}
+
+#right-buttons {
+    position: fixed;
+    z-index: 3;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    width: 3vw;
+    margin-top: 150px;
+}
+
+#right-buttons span {
+    background: #333;
+    color: white;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    cursor: pointer;
+}
