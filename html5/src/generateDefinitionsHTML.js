@@ -29,7 +29,45 @@ function generateDefintionsHTML() {
     };
 
     for(let i = 0; i < definitionTree.categories.block.length; i++) {
-        o.blocks_and_tiles.appendChild(createMenuItem(definitionTree.categories.block[i]));
+
+        var elm = createMenuItem(definitionTree.categories.block[i]);
+
+        // Closure for 
+
+        (function(e) {
+
+            e.addEventListener("mousedown", function(){
+
+                var newElm = document.createElement("img");
+                newElm.style.position = "absolute";
+                newElm.src = "799.svg";
+                newElm.style.zIndex = 300;
+
+                document.body.appendChild(newElm);
+
+                var move = function(event){
+                    newElm.style.left = event.x + "px";
+                    newElm.style.top = event.y + "px";
+                }
+
+                var disable = function() {
+                    document.body.removeEventListener("mousemove", move);
+                    document.body.removeEventListener("mouseup", disable);
+                    document.body.removeChild(newElm);
+                }
+
+                document.body.addEventListener("mousemove", move);
+                document.body.addEventListener("mouseup", disable);
+
+            });
+
+            
+
+        })(elm);
+
+    
+        o.blocks_and_tiles.appendChild(elm);
+
     }
 
     for(let i = 0; i < definitionTree.categories.blockbehind.length; i++) {

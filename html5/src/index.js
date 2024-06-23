@@ -1,24 +1,10 @@
 import definitionTree from "./definitionTree";
 import Game from "./game";
 import generateDefintionsHTML from "./generateDefinitionsHTML";
+import Creator from "./creator";
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
-
-// Creator object
-const Creator = {
-    gridSize: 60,
-    zoomFactor: 1,
-    deltaX: 0,
-    deltaY: 0,
-
-    debugConfig: {
-        enabled: true,
-        selectedPointValue: 10
-    },
-
-    mouseTool: "transform-object"
-}
 
 /**
  * Object for representing a point as relative to the world.

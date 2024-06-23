@@ -6,6 +6,7 @@
 
 html, body {
     margin: 0;
+    user-select: none; /** Used to prevent text selection when dragging things **/
 }
 
 * {

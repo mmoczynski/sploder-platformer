@@ -4,6 +4,30 @@ const definitionTree = {
     categories: {}
 }
 
+function Sprite(objectID) {
+
+    /**
+     * @type {HTMLImageElement[]}
+     */
+
+    this.frames = [];
+
+    /**
+     * Width
+     */
+    this.width = width;
+
+    /**
+     * Height
+     */
+
+    this.height = height;
+
+    this.objectID = objectID;
+}
+
+
+
 let a = dictionary.objects.playobj
 
 for(var i = 0; i < a.length; i++) {
