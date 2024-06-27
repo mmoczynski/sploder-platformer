@@ -296,11 +296,11 @@ class Voronoi {
         thickness = edgeThickness;
         this.cellsX = cellsX;
         this.cellsY = cellsY;
-        totalCells = (cellsX + 2) * (cellsY + 2);
+        this.totalCells = (cellsX + 2) * (cellsY + 2);
         perturb = Math.max(0, Math.min(1, perturbation));
         this.randomSeed = randomSeed;
         this.bond = bond
-        mapWidth = width;
+        this.mapWidth = width;
         mapHeight = height;
         
         ox = Math.floor(mapWidth / (cellsX + 2));
@@ -560,29 +560,29 @@ class Voronoi {
         
         this.g.clear();
         this.g.lineStyle(2, 0x000000, 1);
-        this.g.beginFill(bgColor, 1);
-        if (this.background) g.drawRect(0, 0, this.mapWidth + this.ox + ox, this.mapHeight + this.oy + this.oy);
+        this.g.beginFill(this.bgColor, 1);
+        if (this.background) g.drawRect(0, 0, this.mapWidth + this.ox + this.ox, this.mapHeight + this.oy + this.oy);
         this.g.endFill();
         
         this.g.lineStyle(this.thickness, this.fgColor, this._alpha);
         
-        for (i = 0; i < totalCells; i++) {
+        for (i = 0; i < this.totalCells; i++) {
             
-            n = i * cache + i + 1;
+            n = i * this.cache + i + 1;
             
-            for (j = i + 1; j < totalCells + 4; j++) {
+            for (j = i + 1; j < this.totalCells + 4; j++) {
                 
-                if (sx[n] > -Number.MAX_VALUE) {
+                if (this.sx[n] > -Number.MAX_VALUE) {
                     
                     if (offset) {
                         
-                        this.g.moveTo(sx[n] - ox, sy[n] - oy);
+                        this.g.moveTo(this.sx[n] - ox, sy[n] - oy);
                         this.g.lineTo(ex[n] - ox, ey[n] - oy);
                     
                     } else {
                         
-                        this.g.moveTo(sx[n], sy[n]);
-                        this.g.lineTo(ex[n], ey[n]);
+                        this.g.moveTo(this.sx[n], sy[n]);
+                        this.g.lineTo(this.ex[n], ey[n]);
                         
                     }
                     
