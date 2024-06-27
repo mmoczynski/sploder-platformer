@@ -2,6 +2,35 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./html5/src/creator.js":
+/*!******************************!*\
+  !*** ./html5/src/creator.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// Creator object
+const Creator = {
+    gridSize: 60,
+    zoomFactor: 1,
+    deltaX: 0,
+    deltaY: 0,
+
+    debugConfig: {
+        enabled: true,
+        selectedPointValue: 10
+    },
+
+    mouseTool: "transform-object"
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Creator);
+
+/***/ }),
+
 /***/ "./html5/src/definitionTree.js":
 /*!*************************************!*\
   !*** ./html5/src/definitionTree.js ***!
@@ -90,9 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Game(xmlDocument) {
     this.xmlDocument = xmlDocument;
-
-    this.level1 = new _gameLevel__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[0]);
-
+    this.level = new _gameLevel__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[0]);
     this.extractGraphicsFromXMLDocument();
 }
 
@@ -142,6 +169,10 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 
 }
 
+Game.prototype.selectLevelByIndex = function(i) {
+    this.level = new _gameLevel__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[i]);
+}
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);
 
 /***/ }),
@@ -164,7 +195,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * 
+ * @param {Game} game 
+ * @param {Element} levelNode 
+ */
+
 function GameLevel(game,levelNode) {
+
     this.game = game;
 
     /**
@@ -174,6 +212,8 @@ function GameLevel(game,levelNode) {
     this.levelNode = levelNode;
     this.objects = [];
     this.populateGame();
+
+    this.env = this.levelNode.getAttribute("env").split(",");
 
     let self = this;
 
@@ -193,24 +233,11 @@ function GameLevel(game,levelNode) {
 
         // Value between 0 and 100 representing brightness
         brightness: self.defineEnvProperty(3),
+    });
 
-        // Level name
-        name: self.defineXMLProperty("name"),
+    this.name = this.levelNode.getAttribute("name");
 
-        // Avatar for player
-        avatar: self.defineXMLProperty("avatar"),
-
-        // Enviornment argument array
-
-        envArgs: {
-
-            get: function() {
-                return self.levelNode.getAttribute("env");
-            },
-
-        }
-
-    })
+    this.avatar = this.levelNode.getAttribute("avatar");
 }
 
 /**
@@ -226,30 +253,13 @@ GameLevel.prototype.defineEnvProperty = function(index) {
     return {
 
         get: function() {
-            return self.levelNode.getAttribute("env").split(",")[index];
+            return self.env[index];
         },
 
         set: function(value) {
-            let a = self.levelNode.getAttribute("env").split(",");
-            a[index] = value;
-            self.levelNode.setAttribute("env",a.join(",")); 
+            self.env[index] = value;
         }
 
-    }
-}
-
-GameLevel.prototype.defineXMLProperty = function(name) {
-
-    let self = this;
-
-    return {
-        get: function() {
-            return self.levelNode.getAttribute(name);
-        },
-
-        set: function(value) {
-            self.levelNode.setAttribute(name, value);
-        }
     }
 }
 
@@ -354,6 +364,9 @@ GameObject.prototype.getDefinitionObject = function() {
     return _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"][this.objectID];
 }
 
+GameObject.prototype.toString = function() {
+    return this.data.join(",");
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameLevel);
 
 /***/ }),
@@ -497,6 +510,173 @@ function generateDefintionsHTML() {
 
 /***/ }),
 
+/***/ "./html5/src/point.js":
+/*!****************************!*\
+  !*** ./html5/src/point.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CanvasPoint: () => (/* binding */ CanvasPoint),
+/* harmony export */   Point: () => (/* binding */ Point),
+/* harmony export */   WorldPoint: () => (/* binding */ WorldPoint)
+/* harmony export */ });
+/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/**
+ * Point class. Based off this flash library:
+ * https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/geom/Point.html
+ * 
+ * 
+ */
+
+
+
+/*
+ * @param {Number} x 
+ * @param {Number} y 
+ */
+
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+
+    var self = this;
+
+    Object.defineProperties(this,{
+
+        length: {
+            
+            get: function() {
+                return Math.sqrt(
+                    Math.pow(self.x, 2) + Math.pow(self.y, 2)
+                );
+            }
+
+        }
+
+    })
+}
+
+/**
+ * 
+ * @param {Point} point1 
+ * @param {Point} point2 
+ */
+
+Point.distance = function(point1, point2) {
+
+}
+
+Point.interPolate = function(point1, point2, f) {
+
+}
+
+/*** Generate point given polar coordinates for angle and length ***/
+
+Point.polar = function() {
+
+}
+
+Point.prototype.add = function(point) {
+
+}
+
+Point.prototype.clone = function() {
+
+}
+
+Point.prototype.copyFrom = function() {
+
+}
+
+Point.prototype.equals = function() {
+
+}
+
+Point.prototype.normalize = function() {
+
+}
+
+Point.prototype.offset = function() {
+
+}
+
+Point.prototype.setTo = function() {
+
+}
+
+Point.prototype.toString = function() {
+
+}
+
+/**
+ * Object for representing a point as relative to the world.
+ * @extends {Point}
+ * @param {*} x 
+ * @param {*} y 
+ */
+
+function WorldPoint(x,y) {
+    Point.apply(this, arguments);
+}
+
+Object.assign(WorldPoint.prototype, Point.prototype);
+
+
+/**
+ * 
+ * @returns Vector measuring point relative to canvas instead of world
+ * 
+ * Formula:
+ * 
+ * x_c = x_w + d_x + w/2
+ * y_c = -y_w + d_y + h/2
+ * 
+ */
+
+WorldPoint.prototype.toCanvasPoint = function() {
+
+    return new CanvasPoint(
+        this.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width/2, 
+        -this.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height/2
+    );
+
+}
+
+/**  
+ * Point that is relative to canvas
+ * @extends {Point}
+ * @param {*} x 
+ * @param {*} y 
+ */
+
+function CanvasPoint(x,y) {
+    Point.apply(this, arguments)
+}
+
+Object.assign(CanvasPoint.prototype, Point.prototype);
+
+
+/*
+* Change canvas point to world point 
+* Formula (based on solving in algebra for world point in canvas point)
+*
+* x_w = x_c - d_x - w/2
+* y_w = -(y_c - h/2 - d_y)
+*
+*/
+CanvasPoint.prototype.toWorldPoint = function() {
+
+    return new WorldPoint(
+        this.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width / 2,
+        -(this.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height / 2)
+    )
+
+}
+
+/***/ }),
+
 /***/ "./html5/definitions/definitions.json":
 /*!********************************************!*\
   !*** ./html5/definitions/definitions.json ***!
@@ -573,6 +753,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game */ "./html5/src/game.js");
 /* harmony import */ var _generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./generateDefinitionsHTML */ "./html5/src/generateDefinitionsHTML.js");
+/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+
+
 
 
 
@@ -580,123 +764,48 @@ __webpack_require__.r(__webpack_exports__);
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
 
-// Creator object
-const Creator = {
-    gridSize: 60,
-    zoomFactor: 1,
-    deltaX: 0,
-    deltaY: 0,
-
-    debugConfig: {
-        enabled: true,
-        selectedPointValue: 10
-    },
-
-    mouseTool: "transform-object"
-}
-
-/**
- * Object for representing a point as relative to the world.
- * @param {*} x 
- * @param {*} y 
- */
-
-function WorldPoint(x,y) {
-    this.x = x;
-    this.y = y;
-}
-
-/**
- * 
- * @returns Vector measuring point relative to canvas instead of world
- * 
- * Formula:
- * 
- * x_c = x_w + d_x + w/2
- * y_c = -y_w + d_y + h/2
- * 
- */
-
-WorldPoint.prototype.toCanvasPoint = function() {
-
-    return new CanvasPoint(
-        this.x + Creator.deltaX + Creator.canvas.width/2, 
-        -this.y + Creator.deltaY + Creator.canvas.height/2
-    );
-
-}
-
-/**  
- * Point that is relative to canvas
- * @param {*} x 
- * @param {*} y 
- */
-
-function CanvasPoint(x,y) {
-    this.x = x;
-    this.y = y;
-}
-
-
-/*
-* Change canvas point to world point 
-* Formula (based on solving in algebra for world point in canvas point)
-*
-* x_w = x_c - d_x - w/2
-* y_w = -(y_c - h/2 - d_y)
-*
-*/
-CanvasPoint.prototype.toWorldPoint = function() {
-
-    return new WorldPoint(
-        this.x - Creator.deltaX - Creator.canvas.width / 2,
-        -(this.y - Creator.deltaY - Creator.canvas.height / 2)
-    )
-
-}
-
 /**
  * Constructor for grid cell object
  */
 
-Creator.GridCell = function(x,y) {
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell = function(x,y) {
 
-    this.numberOfGridsX = Math.floor(x/Creator.gridSize);
+    this.numberOfGridsX = Math.floor(x/_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize);
 
-    this.numberofGridsY = Math.floor(y/Creator.gridSize);
+    this.numberofGridsY = Math.floor(y/_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize);
 
 
-    this.bottomLeft = new WorldPoint(
-        this.numberOfGridsX * Creator.gridSize,
-        this.numberofGridsY * Creator.gridSize,
+    this.bottomLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+        this.numberOfGridsX * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
+        this.numberofGridsY * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
     )
 
-    this.bottomRight = new WorldPoint(
-        this.bottomLeft.x + Creator.gridSize,
+    this.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
         this.bottomLeft.y
     )
 
-    this.topLeft = new WorldPoint(
+    this.topLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
         this.bottomLeft.x,
-        this.bottomLeft.y + Creator.gridSize
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
     )
 
-    this.topRight = new WorldPoint(
-        this.bottomLeft.x + Creator.gridSize,
-        this.bottomLeft.y + Creator.gridSize
+    this.topRight = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
     )
 
-    this.center = new WorldPoint(
-        this.bottomLeft.x + Creator.gridSize / 2,
-        this.bottomLeft.y + Creator.gridSize / 2
+    this.center = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize / 2,
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize / 2
     )
 
 }
 
-Creator.GridCell.prototype.pointInGrid = function(x, y) {
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell.prototype.pointInGrid = function(x, y) {
 
-    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + Creator.gridSize) && 
-        (this.bottomLeft.y < y && y < this.bottomLeft.y + Creator.gridSize)
+    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize) && 
+        (this.bottomLeft.y < y && y < this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize)
     ) {
         return true;
     }
@@ -707,17 +816,21 @@ Creator.GridCell.prototype.pointInGrid = function(x, y) {
 
 }
 
-window.SploderPlatformerCreator = Creator;
+window.SploderPlatformerCreator = _creator__WEBPACK_IMPORTED_MODULE_3__["default"];
 
-Creator.Game = _game__WEBPACK_IMPORTED_MODULE_1__["default"];
-Creator.definitionTree = _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"];
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].Game = _game__WEBPACK_IMPORTED_MODULE_1__["default"];
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].definitionTree = _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 
 var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project" mode="2" date="Saturday, March 16, 2024" pubkey="" isprivate="0" fast="0" g="1" author="demo"><levels id="levels"><level name="" music="" avatar="0" env="8,6600cc,333333,100">3,210,210|3,90,90|3,30,30|3,150,150|3,270,270|3,330,330|3,390,330|3,450,330|3,390,270|3,390,210|1,-329,239</level></levels><graphics /><textures lastid="0" /></project>`
 
-Creator.gameInstance = _game__WEBPACK_IMPORTED_MODULE_1__["default"].createFromXMLString(str1)
+/**
+ * @type {Game}
+ */
 
-Creator.drawRectangle = function(x, y, w, h) {
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance = _game__WEBPACK_IMPORTED_MODULE_1__["default"].createFromXMLString(str1)
+
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].drawRectangle = function(x, y, w, h) {
 
 }
 
@@ -731,16 +844,18 @@ window.addEventListener("load",function(){
     let canvas = document.querySelector("#main-canvas");
     let ctx = canvas.getContext("2d");
 
-    Creator.canvas = canvas;
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
 
     //ctx.translate(canvas.width / 2,canvas.height / 2);
     //ctx.scale(1,-1);
 
-    Creator.objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
     this.setInterval(function(){
 
-        Creator.mousePosition = {
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML = "";
+
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition = {
 
             /**
              * Get point of mous relative to canvas
@@ -758,36 +873,36 @@ window.addEventListener("load",function(){
          * Get point of mouse relative to world
          */
 
-        Creator.mousePosition.world = new WorldPoint(
-            canvasOffsetX - Creator.deltaX - canvas.width/2,
-            -(canvasOffsetY - Creator.deltaY - canvas.height/2)
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+            canvasOffsetX - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX - canvas.width/2,
+            -(canvasOffsetY - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY - canvas.height/2)
         )
 
         /**
          * Get grid cell the mouse is hovering over
          */
 
-        Creator.mousePosition.gridCell = new Creator.GridCell(
-            Creator.mousePosition.world.x,
-            Creator.mousePosition.world.y
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell = new _creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell(
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
         ),
 
         document.querySelector("#mouse-info").innerHTML = "World Position:" +
-        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
-        "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
-        Creator.mousePosition.gridCell.bottomLeft.y + ")";
+        "(" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x + ", " + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y + ") " +
+        "Gridcell Bottom Left: (" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.x + ", " + 
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.y + ")";
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
         // Draw sky color
-        ctx.fillStyle = "#" + Creator.gameInstance.level1.skyColor;
+        ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
 
         ctx.fillRect(
             0,
             0,
             canvas.width,
-            canvas.height * 0.5 + Creator.deltaY
+            canvas.height * 0.5 + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
         );
 
         // Draw underground
@@ -795,19 +910,27 @@ window.addEventListener("load",function(){
         
         ctx.fillRect(
             0,
-            canvas.height * 0.5 + Creator.deltaY, 
+            canvas.height * 0.5 + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY, 
             canvas.width, 
-            canvas.height - Creator.deltaY
+            canvas.height - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
         );
 
-        for(var i = 0; i < Creator.gameInstance.level1.objects.length; i++) {
+        for(var i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
 
-            let o = Creator.gameInstance.level1.objects[i];
+            /**
+             * @type {GameObject}
+             */
 
-            let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
+            let o = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i];
 
-            if(Creator.mousePosition.gridCell.pointInGrid(o.x, o.y)) {
-                Creator.mousePosition.objectsInGrid.push(o);
+            // Write object data to level XML
+
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
+
+            let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
+
+            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y)) {
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
             }
 
             /*ctx.rect(
@@ -832,22 +955,22 @@ window.addEventListener("load",function(){
 
         /** Get selected object point */
 
-        if(Creator.mousePosition.objectsInGrid.length) {
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
 
-            selectedObjCanvasPoint = new WorldPoint(
-                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1].x,
-                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1].y
+            selectedObjCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].x,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].y
             ).toCanvasPoint();
 
         }
 
-        let gridcellCanvasPoint = Creator.mousePosition.gridCell.topLeft.toCanvasPoint();
+        let gridcellCanvasPoint = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.topLeft.toCanvasPoint();
 
         ctx.rect(
             gridcellCanvasPoint.x,
             gridcellCanvasPoint.y,
-            Creator.gridSize,
-            Creator.gridSize
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
         )
 
         ctx.stroke(); 
@@ -856,14 +979,14 @@ window.addEventListener("load",function(){
          * Used to see if objects in grid really do have a center
          */
 
-        if(Creator.mousePosition.objectsInGrid.length) {
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
 
             ctx.beginPath()
 
             ctx.arc(
                 selectedObjCanvasPoint.x, 
                 selectedObjCanvasPoint.y, 
-                Creator.debugConfig.selectedPointValue, 
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].debugConfig.selectedPointValue, 
                 0, 
                 Math.PI * 2
             );
@@ -888,41 +1011,41 @@ window.addEventListener("load",function(){
      */
 
     function transformViewportByMouse(event) {
-        Creator.deltaX += event.movementX;
-        Creator.deltaY += event.movementY;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += event.movementX;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += event.movementY;
     }
 
     function transformObjByMouse(event) {
-        transformingObject.x = Creator.mousePosition.gridCell.center.x;
-        transformingObject.y = Creator.mousePosition.gridCell.center.y;
+        transformingObject.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.center.x;
+        transformingObject.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.center.y;
     }
 
     let transformingObject;
 
     canvas.addEventListener("mousedown", function(){
 
-        if(Creator.mouseTool === "transform-viewport") {
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport") {
             canvas.addEventListener("mousemove", transformViewportByMouse)
         }
 
-        if(Creator.mouseTool === "transform-object") {
-            transformingObject = Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1];
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-object") {
+            transformingObject = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1];
             canvas.addEventListener("mousemove", transformObjByMouse)
         }
 
     });
 
-    canvas.addEventListener("mouseup", function(){
+    window.addEventListener("mouseup", function(){
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
     });
 
     document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
-        Creator.mouseTool = "transform-viewport";
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "transform-viewport";
     });
 
     document.querySelector("#activate-object-transform").addEventListener("click", function(){
-        Creator.mouseTool = "transform-object";
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "transform-object";
     });
     
 })

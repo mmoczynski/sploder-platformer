@@ -5,7 +5,14 @@
 
 import definitionTree from "./definitionTree";
 
+/**
+ * 
+ * @param {Game} game 
+ * @param {Element} levelNode 
+ */
+
 function GameLevel(game,levelNode) {
+
     this.game = game;
 
     /**
@@ -15,6 +22,8 @@ function GameLevel(game,levelNode) {
     this.levelNode = levelNode;
     this.objects = [];
     this.populateGame();
+
+    this.env = this.levelNode.getAttribute("env").split(",");
 
     let self = this;
 
@@ -34,24 +43,11 @@ function GameLevel(game,levelNode) {
 
         // Value between 0 and 100 representing brightness
         brightness: self.defineEnvProperty(3),
+    });
 
-        // Level name
-        name: self.defineXMLProperty("name"),
+    this.name = this.levelNode.getAttribute("name");
 
-        // Avatar for player
-        avatar: self.defineXMLProperty("avatar"),
-
-        // Enviornment argument array
-
-        envArgs: {
-
-            get: function() {
-                return self.levelNode.getAttribute("env");
-            },
-
-        }
-
-    })
+    this.avatar = this.levelNode.getAttribute("avatar");
 }
 
 /**
@@ -67,30 +63,13 @@ GameLevel.prototype.defineEnvProperty = function(index) {
     return {
 
         get: function() {
-            return self.levelNode.getAttribute("env").split(",")[index];
+            return self.env[index];
         },
 
         set: function(value) {
-            let a = self.levelNode.getAttribute("env").split(",");
-            a[index] = value;
-            self.levelNode.setAttribute("env",a.join(",")); 
+            self.env[index] = value;
         }
 
-    }
-}
-
-GameLevel.prototype.defineXMLProperty = function(name) {
-
-    let self = this;
-
-    return {
-        get: function() {
-            return self.levelNode.getAttribute(name);
-        },
-
-        set: function(value) {
-            self.levelNode.setAttribute(name, value);
-        }
     }
 }
 
@@ -105,11 +84,16 @@ GameLevel.prototype.populateGame = function (str) {
     var objectStrings = this.levelNode.innerHTML.split("|");
 
     for(var i = 0; i < objectStrings.length; i++) {
-        this.objects.push(new GameObject(objectStrings[i]));
+        this.objects.push(new GameObject(...objectStrings[i].split(",")));
     }
 }
 
-function GameObject(objectArgumentsString) {
+/**
+ * @param {...Integer} 
+ * @param x - X
+ */
+
+function GameObject() {
 
     let self = this;
 
@@ -121,7 +105,7 @@ function GameObject(objectArgumentsString) {
      * 
      */
 
-    this.data = objectArgumentsString.split(",");
+    this.data = Array.from(arguments);
 
     // Get type of object
     //let objectID = parseInt(objectArguments[0]);
@@ -193,6 +177,10 @@ GameObject.prototype.defineArgumentInteger = function(index) {
 
 GameObject.prototype.getDefinitionObject = function() {
     return definitionTree[this.objectID];
+}
+
+GameObject.prototype.toString = function() {
+    return this.data.join(",");
 }
 
 export default GameLevel;

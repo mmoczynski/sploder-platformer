@@ -2,69 +2,10 @@ import definitionTree from "./definitionTree";
 import Game from "./game";
 import generateDefintionsHTML from "./generateDefinitionsHTML";
 import Creator from "./creator";
+import { WorldPoint } from "./point";
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
-
-/**
- * Object for representing a point as relative to the world.
- * @param {*} x 
- * @param {*} y 
- */
-
-function WorldPoint(x,y) {
-    this.x = x;
-    this.y = y;
-}
-
-/**
- * 
- * @returns Vector measuring point relative to canvas instead of world
- * 
- * Formula:
- * 
- * x_c = x_w + d_x + w/2
- * y_c = -y_w + d_y + h/2
- * 
- */
-
-WorldPoint.prototype.toCanvasPoint = function() {
-
-    return new CanvasPoint(
-        this.x + Creator.deltaX + Creator.canvas.width/2, 
-        -this.y + Creator.deltaY + Creator.canvas.height/2
-    );
-
-}
-
-/**  
- * Point that is relative to canvas
- * @param {*} x 
- * @param {*} y 
- */
-
-function CanvasPoint(x,y) {
-    this.x = x;
-    this.y = y;
-}
-
-
-/*
-* Change canvas point to world point 
-* Formula (based on solving in algebra for world point in canvas point)
-*
-* x_w = x_c - d_x - w/2
-* y_w = -(y_c - h/2 - d_y)
-*
-*/
-CanvasPoint.prototype.toWorldPoint = function() {
-
-    return new WorldPoint(
-        this.x - Creator.deltaX - Creator.canvas.width / 2,
-        -(this.y - Creator.deltaY - Creator.canvas.height / 2)
-    )
-
-}
 
 /**
  * Constructor for grid cell object
@@ -126,6 +67,10 @@ Creator.definitionTree = definitionTree;
 
 var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project" mode="2" date="Saturday, March 16, 2024" pubkey="" isprivate="0" fast="0" g="1" author="demo"><levels id="levels"><level name="" music="" avatar="0" env="8,6600cc,333333,100">3,210,210|3,90,90|3,30,30|3,150,150|3,270,270|3,330,330|3,390,330|3,450,330|3,390,270|3,390,210|1,-329,239</level></levels><graphics /><textures lastid="0" /></project>`
 
+/**
+ * @type {Game}
+ */
+
 Creator.gameInstance = Game.createFromXMLString(str1)
 
 Creator.drawRectangle = function(x, y, w, h) {
@@ -150,6 +95,8 @@ window.addEventListener("load",function(){
     Creator.objectMenuItems = generateDefintionsHTML();
 
     this.setInterval(function(){
+
+        Creator.gameInstance.level.levelNode.innerHTML = "";
 
         Creator.mousePosition = {
 
@@ -192,7 +139,7 @@ window.addEventListener("load",function(){
 
 
         // Draw sky color
-        ctx.fillStyle = "#" + Creator.gameInstance.level1.skyColor;
+        ctx.fillStyle = "#" + Creator.gameInstance.level.skyColor;
 
         ctx.fillRect(
             0,
@@ -211,9 +158,17 @@ window.addEventListener("load",function(){
             canvas.height - Creator.deltaY
         );
 
-        for(var i = 0; i < Creator.gameInstance.level1.objects.length; i++) {
+        for(var i = 0; i < Creator.gameInstance.level.objects.length; i++) {
 
-            let o = Creator.gameInstance.level1.objects[i];
+            /**
+             * @type {GameObject}
+             */
+
+            let o = Creator.gameInstance.level.objects[i];
+
+            // Write object data to level XML
+
+            Creator.gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
 
             let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
 
@@ -323,7 +278,7 @@ window.addEventListener("load",function(){
 
     });
 
-    canvas.addEventListener("mouseup", function(){
+    window.addEventListener("mouseup", function(){
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
     });
