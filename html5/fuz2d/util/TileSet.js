@@ -10,7 +10,7 @@
 *
 */
 
-const TileDefinition = require("./TileDefinition.js");
+const TileDefinition = require("./tileDefinition.js");
 const Voronoi = require("./Voronoi.js");
 
 class TileSet {

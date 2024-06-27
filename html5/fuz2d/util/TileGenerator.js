@@ -24,8 +24,8 @@
 */
 
 const Voronoi = require("./Voronoi");
-const TileDefinition = require("./TileDefinition")
-const ColorTools = require("./ColorTools");
+const TileDefinition = require("./tileDefinition.js")
+const ColorTools = require("./colorTools.js");
 const Rectangle = require("../../flash-polyfills/geom/rectangle.js");
 
 /*package fuz2d.util {

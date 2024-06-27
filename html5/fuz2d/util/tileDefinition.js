@@ -125,6 +125,36 @@ function TileDefiniton (
 
 }
 
+/*** Public Static properties for class ***/
+
+TileDefiniton.ambientColor = 0x000000;
+
+TileDefiniton.grid_width = 60;
+TileDefiniton.grid_height = 60;
+TileDefiniton.scale = 1;
+
+/*** Some Public class properties ***/
+
+TileDefiniton.prototype.width = 0;
+TileDefiniton.prototype.height = 0;
+TileDefiniton.prototype.backgroundColor = 0xff998844; 
+TileDefiniton.prototype.edgeColor = 0xff660000; 
+TileDefiniton.prototype.edgeThickness = 2;
+TileDefiniton.prototype.cellsX = 4;
+TileDefiniton.prototype.cellsY = 4; 
+TileDefiniton.prototype.perturbation = 0.3; 
+TileDefiniton.prototype.randomSeed = 1;
+TileDefiniton.prototype.bond = false;
+TileDefiniton.prototype.noiseLevel = 7;
+TileDefiniton.prototype.bevel = false;
+TileDefiniton.prototype.cap = false;
+TileDefiniton.prototype.edgeDepth = 1;
+TileDefiniton.prototype.recess = false;
+TileDefiniton.prototype.smooth = false;
+TileDefiniton.prototype.back = false;
+
+//module.exports = TileDefiniton;
+
 TileDefiniton.prototype.randomize = function(seed = 1) {
 			
     var sn = seed;
@@ -158,19 +188,19 @@ TileDefiniton.prototype.randomize = function(seed = 1) {
     this.perturbation = Math.max(0, parseInt(ss.charAt(16)) / 10 - 0.1);
     this.randomSeed = seed;
     this.bond = parseInt(ss.charAt(17)) < 4;
-    this.cap = (parseInt(ss.charAt(18)) > 5 || cellsX < 4 || cellsY < 4);
+    this.cap = (parseInt(ss.charAt(18)) > 5 || this.cellsX < 4 || this.cellsY < 4);
     this.noiseLevel = Math.floor(parseInt(ss.charAt(19)));
     this.edgeDepth = Math.floor(parseInt(ss.charAt(20)) / 2);
     this.recess = parseInt(ss.charAt(21)) > 3;
     this.smooth = parseInt(ss.charAt(22)) < 5;
 
-    if (this.width == 0) this.width = Math.floor(grid_width * scale);
-    if (this.height == 0) this.height = Math.floor(grid_height * scale);
+    if (this.width == 0) this.width = Math.floor(TileDefiniton.grid_width * TileDefiniton.scale);
+    if (this.height == 0) this.height = Math.floor(TileDefiniton.grid_height * TileDefiniton.scale);
     
     if (this.smooth) this.cap = true;
     if (this.smooth) this.recess = true;
     if (this.bond) this.perturbation *= 0.5;
-    if (this.width > this.grid_width) this.cap = true;
+    if (this.width > TileDefiniton.grid_width) this.cap = true;
     
 }
 
@@ -224,33 +254,3 @@ TileDefiniton.prototype.inject = function (parameters) {
 TileDefiniton.prototype.clone = function() {
     return new TileDefinition(0, this.back, this.toString());
 }
-
-/*** Public Static properties for class ***/
-
-TileDefiniton.ambientColor = 0x000000;
-
-TileDefiniton.grid_width = 60;
-TileDefiniton.grid_height = 60;
-TileDefiniton.scale = 1;
-
-/*** Some Public class properties ***/
-
-TileDefiniton.prototype.width = 0;
-TileDefiniton.prototype.height = 0;
-TileDefiniton.prototype.backgroundColor = 0xff998844; 
-TileDefiniton.prototype.edgeColor = 0xff660000; 
-TileDefiniton.prototype.edgeThickness = 2;
-TileDefiniton.prototype.cellsX = 4;
-TileDefiniton.prototype.cellsY = 4; 
-TileDefiniton.prototype.perturbation = 0.3; 
-TileDefiniton.prototype.randomSeed = 1;
-TileDefiniton.prototype.bond = false;
-TileDefiniton.prototype.noiseLevel = 7;
-TileDefiniton.prototype.bevel = false;
-TileDefiniton.prototype.cap = false;
-TileDefiniton.prototype.edgeDepth = 1;
-TileDefiniton.prototype.recess = false;
-TileDefiniton.prototype.smooth = false;
-TileDefiniton.prototype.back = false;
-
-//module.exports = TileDefiniton;
