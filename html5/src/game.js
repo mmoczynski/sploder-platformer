@@ -12,9 +12,7 @@ import GameLevel from "./gameLevel";
 
 function Game(xmlDocument) {
     this.xmlDocument = xmlDocument;
-
-    this.level1 = new GameLevel(this,this.xmlDocument.getElementsByTagName("level")[0]);
-
+    this.level = new GameLevel(this,this.xmlDocument.getElementsByTagName("level")[0]);
     this.extractGraphicsFromXMLDocument();
 }
 
@@ -62,6 +60,10 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 
     }
 
+}
+
+Game.prototype.selectLevelByIndex = function(i) {
+    this.level = new GameLevel(this,this.xmlDocument.getElementsByTagName("level")[i]);
 }
 
 export default Game;
