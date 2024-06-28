@@ -63,7 +63,7 @@ html, body {
 
 #main-canvas {
     margin-top: var(--file-header-height);
-    margin-left: 20vw;
+    margin-left: var(--object-menu-width);
     border: 1px solid #aaa;
 }
 
@@ -136,11 +136,43 @@ html, body {
     margin-top: 150px;
 }
 
-#right-buttons span {
+.right-button {
     background: #333;
     color: white;
     width: 40px;
     height: 40px;
     margin-top: 5px;
     cursor: pointer;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+}
+
+#delete-selection {
+    background-image: url(images/icons/cross-svgrepo-com.svg);
+}
+
+#activate-viewport-transform {
+    background-image: url(images/icons/pointer-svgrepo-com.svg);
+}
+
+#activate-object-transform {
+    background-image: url(images/icons/pointer-svgrepo-com-2.svg);
+}
+
+#zoom-in {
+    background-image: url(images/icons/plus-large-svgrepo-com.svg);
+}
+
+#zoom-out {
+    background-image: url(images/icons/minus-svgrepo-com.svg);
+}
+
+#reset-delta {
+    background-image: url(images/icons/square-svgrepo-com.svg);
+}
+
+#settings {
+    background-image: url(images/icons/settings-svgrepo-com.svg);
 }
