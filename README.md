@@ -11,3 +11,7 @@ The Sploder Platformer creator had resources like audio in the [client/assets/so
 The graphics, materials and animations for the Sploder Platformer creator are stored in [client/assets/library_new.swf](client/assets/library_new.swf). A program like [JPEXS](https://github.com/jindrapetrik/jpexs-decompiler) is recommended to extract them.
 
 Some of the shapes have been already extracted and can be seen in the [shapes](/shapes) directory. They are SVG files used to construct objects in the game.
+
+## Testing Server
+
+There is a testing server located in [flashTestingServer](flashTestingServer) that is used to test the creator in flash or [ruffle](https://ruffle.rs/).
