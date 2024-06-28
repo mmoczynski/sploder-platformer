@@ -10,7 +10,22 @@ const Creator = {
         selectedPointValue: 10
     },
 
-    mouseTool: "transform-object"
+    mouseTool: "select-objects",
+
+    /**
+    * Variable to see if there exists a selected object that is pointed to by mouse
+    * If it does exist, then this is set to true in the object loop.
+    * Otherwise, it is kept as "false"
+    */
+
+    selectedObjectPointedToExists: false,
+
+    /**
+     * Array of selected objects
+     * @type {GameObject[]}
+     */
+
+    selectedObjects: []
 }
 
 export default Creator;

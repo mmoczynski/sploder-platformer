@@ -24,7 +24,22 @@ const Creator = {
         selectedPointValue: 10
     },
 
-    mouseTool: "transform-object"
+    mouseTool: "select-objects",
+
+    /**
+    * Variable to see if there exists a selected object that is pointed to by mouse
+    * If it does exist, then this is set to true in the object loop.
+    * Otherwise, it is kept as "false"
+    */
+
+    selectedObjectPointedToExists: false,
+
+    /**
+     * Array of selected objects
+     * @type {GameObject[]}
+     */
+
+    selectedObjects: []
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Creator);
@@ -274,11 +289,16 @@ GameLevel.prototype.populateGame = function (str) {
     var objectStrings = this.levelNode.innerHTML.split("|");
 
     for(var i = 0; i < objectStrings.length; i++) {
-        this.objects.push(new GameObject(objectStrings[i]));
+        this.objects.push(new GameObject(...objectStrings[i].split(",")));
     }
 }
 
-function GameObject(objectArgumentsString) {
+/**
+ * @param {...Integer} 
+ * @param x - X
+ */
+
+function GameObject() {
 
     let self = this;
 
@@ -290,7 +310,7 @@ function GameObject(objectArgumentsString) {
      * 
      */
 
-    this.data = objectArgumentsString.split(",");
+    this.data = Array.from(arguments);
 
     // Get type of object
     //let objectID = parseInt(objectArguments[0]);
@@ -367,6 +387,7 @@ GameObject.prototype.getDefinitionObject = function() {
 GameObject.prototype.toString = function() {
     return this.data.join(",");
 }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameLevel);
 
 /***/ }),
@@ -855,6 +876,9 @@ window.addEventListener("load",function(){
 
         _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML = "";
 
+        // Default value for Creator.selectedObjectPointedToExists.
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
+
         _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition = {
 
             /**
@@ -929,7 +953,20 @@ window.addEventListener("load",function(){
 
             let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
 
-            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y)) {
+            // Check if object is in the grid cell pointed to by mouse
+            let isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y);
+
+            // Check if object is in selection array
+            let isSelected = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.includes(o);
+
+            // If object is pointed to and also in selection, set variable
+
+            if(isInGrid && isSelected) {
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = true;
+                console.log(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists);
+            }
+
+            if(isInGrid) {
                 _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
             }
 
@@ -947,6 +984,27 @@ window.addEventListener("load",function(){
             )
 
             ctx.stroke();
+
+            // If object is selected
+
+            if(isSelected) {
+                
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "blue";
+
+                ctx.beginPath();
+
+                ctx.rect(
+                    objCanvasPoint.x - 30,
+                    objCanvasPoint.y - 30,
+                    60,
+                    60
+                );
+
+                ctx.stroke();
+
+            };
+            
         }
 
         ctx.beginPath();
@@ -1016,28 +1074,91 @@ window.addEventListener("load",function(){
     }
 
     function transformObjByMouse(event) {
-        transformingObject.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.center.x;
-        transformingObject.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.center.y;
+        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += event.movementX;
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += -event.movementY;
+        }
     }
 
-    let transformingObject;
+    let topLeftSelectionWorldPoint = null;
+    
+    canvas.addEventListener("mousedown", function(event){
 
-    canvas.addEventListener("mousedown", function(){
+        /**
+         * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
+         *
+        */
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport") {
-            canvas.addEventListener("mousemove", transformViewportByMouse)
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists) {
+            canvas.addEventListener("mousemove", transformObjByMouse);
         }
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-object") {
-            transformingObject = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1];
-            canvas.addEventListener("mousemove", transformObjByMouse)
+        /**
+         * Add objects to selectedObjects array or set array to singleton
+         * array given that there are objects in gridcell pointed to by mouse
+         * 
+         */
+
+        if(!_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
+
+            if(event.shiftKey) {
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.push(
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1]
+                )
+            }
+
+            else {
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects = [
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1]
+                ];
+                //console.log("Selected Object Reset")
+            }
+
         }
+
+        if(!_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
+
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects = [];
+
+            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport") {
+                canvas.addEventListener("mousemove", transformViewportByMouse)
+            }
+
+            else if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "select-objects") {
+                topLeftSelectionWorldPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
+                );
+
+            }   
+
+        }
+            
 
     });
 
     window.addEventListener("mouseup", function(){
+
+        // Disable mousemove events
+
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
+
+        // Snap objects to grid
+
+        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
+           let gridCell = new _creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x, _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y); 
+           _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x = gridCell.center.x;
+           _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y = gridCell.center.y;
+        }
+
+        // Clear selected objects
+        // Set length to zero instead of initalizing new array to preserve reference to single object
+        //selectedObjects.length = 0
+
+        // Set selection rectangle corner to null
+        topLeftSelectionWorldPoint = null;
+
     });
 
     document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
@@ -1045,10 +1166,19 @@ window.addEventListener("load",function(){
     });
 
     document.querySelector("#activate-object-transform").addEventListener("click", function(){
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "transform-object";
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "select-objects";
+    });
+
+    document.querySelector("#zoom-in").addEventListener("click", function(){
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor += 0.1
+    });
+
+    document.querySelector("#zoom-out").addEventListener("click", function(){
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor -= 0.1
     });
     
-})
+});
+
 })();
 
 /******/ })()

@@ -98,6 +98,9 @@ window.addEventListener("load",function(){
 
         Creator.gameInstance.level.levelNode.innerHTML = "";
 
+        // Default value for Creator.selectedObjectPointedToExists.
+        Creator.selectedObjectPointedToExists = false;
+
         Creator.mousePosition = {
 
             /**
@@ -172,7 +175,20 @@ window.addEventListener("load",function(){
 
             let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
 
-            if(Creator.mousePosition.gridCell.pointInGrid(o.x, o.y)) {
+            // Check if object is in the grid cell pointed to by mouse
+            let isInGrid = Creator.mousePosition.gridCell.pointInGrid(o.x, o.y);
+
+            // Check if object is in selection array
+            let isSelected = Creator.selectedObjects.includes(o);
+
+            // If object is pointed to and also in selection, set variable
+
+            if(isInGrid && isSelected) {
+                Creator.selectedObjectPointedToExists = true;
+                console.log(Creator.selectedObjectPointedToExists);
+            }
+
+            if(isInGrid) {
                 Creator.mousePosition.objectsInGrid.push(o);
             }
 
@@ -190,6 +206,27 @@ window.addEventListener("load",function(){
             )
 
             ctx.stroke();
+
+            // If object is selected
+
+            if(isSelected) {
+                
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "blue";
+
+                ctx.beginPath();
+
+                ctx.rect(
+                    objCanvasPoint.x - 30,
+                    objCanvasPoint.y - 30,
+                    60,
+                    60
+                );
+
+                ctx.stroke();
+
+            };
+            
         }
 
         ctx.beginPath();
@@ -259,28 +296,91 @@ window.addEventListener("load",function(){
     }
 
     function transformObjByMouse(event) {
-        transformingObject.x = Creator.mousePosition.gridCell.center.x;
-        transformingObject.y = Creator.mousePosition.gridCell.center.y;
+        for(let i = 0; i < Creator.selectedObjects.length; i++) {
+            Creator.selectedObjects[i].x += event.movementX;
+            Creator.selectedObjects[i].y += -event.movementY;
+        }
     }
 
-    let transformingObject;
+    let topLeftSelectionWorldPoint = null;
+    
+    canvas.addEventListener("mousedown", function(event){
 
-    canvas.addEventListener("mousedown", function(){
+        /**
+         * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
+         *
+        */
 
-        if(Creator.mouseTool === "transform-viewport") {
-            canvas.addEventListener("mousemove", transformViewportByMouse)
+        if(Creator.selectedObjectPointedToExists) {
+            canvas.addEventListener("mousemove", transformObjByMouse);
         }
 
-        if(Creator.mouseTool === "transform-object") {
-            transformingObject = Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1];
-            canvas.addEventListener("mousemove", transformObjByMouse)
+        /**
+         * Add objects to selectedObjects array or set array to singleton
+         * array given that there are objects in gridcell pointed to by mouse
+         * 
+         */
+
+        if(!Creator.selectedObjectPointedToExists && Creator.mousePosition.objectsInGrid.length) {
+
+            if(event.shiftKey) {
+                Creator.selectedObjects.push(
+                    Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1]
+                )
+            }
+
+            else {
+                Creator.selectedObjects = [
+                    Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1]
+                ];
+                //console.log("Selected Object Reset")
+            }
+
         }
+
+        if(!Creator.selectedObjectPointedToExists && !Creator.mousePosition.objectsInGrid.length) {
+
+            Creator.selectedObjects = [];
+
+            if(Creator.mouseTool === "transform-viewport") {
+                canvas.addEventListener("mousemove", transformViewportByMouse)
+            }
+
+            else if(Creator.mouseTool === "select-objects") {
+                topLeftSelectionWorldPoint = new WorldPoint(
+                    Creator.mousePosition.world.x,
+                    Creator.mousePosition.world.y
+                );
+
+            }   
+
+        }
+            
 
     });
 
     window.addEventListener("mouseup", function(){
+
+        // Disable mousemove events
+
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
+
+        // Snap objects to grid
+
+        for(let i = 0; i < Creator.selectedObjects.length; i++) {
+           let gridCell = new Creator.GridCell(Creator.selectedObjects[i].x, Creator.selectedObjects[i].y); 
+           Creator.selectedObjects[i].x = gridCell.center.x;
+           Creator.selectedObjects[i].y = gridCell.center.y;
+        }
+
+        // Clear selected objects
+        // Set length to zero instead of initalizing new array to preserve reference to single object
+        //selectedObjects.length = 0
+
+        // Set selection rectangle corner to null
+        topLeftSelectionWorldPoint = null;
+
     });
 
     document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
@@ -288,7 +388,15 @@ window.addEventListener("load",function(){
     });
 
     document.querySelector("#activate-object-transform").addEventListener("click", function(){
-        Creator.mouseTool = "transform-object";
+        Creator.mouseTool = "select-objects";
+    });
+
+    document.querySelector("#zoom-in").addEventListener("click", function(){
+        Creator.zoomFactor += 0.1
+    });
+
+    document.querySelector("#zoom-out").addEventListener("click", function(){
+        Creator.zoomFactor -= 0.1
     });
     
-})
+});

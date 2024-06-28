@@ -1,6 +1,7 @@
 /**
  * 
- * JS Implementation of: https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/geom/Rectangle.html
+ * JS Implementation of: 
+ * https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/geom/Rectangle.html
  * 
  * @author @mmoczynski
  * 
