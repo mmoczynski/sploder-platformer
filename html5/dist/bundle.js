@@ -651,16 +651,16 @@ Object.assign(WorldPoint.prototype, Point.prototype);
  * 
  * Formula:
  * 
- * x_c = x_w + d_x + w/2
- * y_c = -y_w + d_y + h/2
+ * x_c = x_w * k + d_x + w/2
+ * y_c = -y_w * k + d_y + h/2
  * 
  */
 
 WorldPoint.prototype.toCanvasPoint = function() {
 
     return new CanvasPoint(
-        this.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width/2, 
-        -this.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height/2
+        (this.x * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width/2), 
+        (-this.y * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height/2)
     );
 
 }
@@ -683,15 +683,17 @@ Object.assign(CanvasPoint.prototype, Point.prototype);
 * Change canvas point to world point 
 * Formula (based on solving in algebra for world point in canvas point)
 *
-* x_w = x_c - d_x - w/2
-* y_w = -(y_c - h/2 - d_y)
+* x_w = (x_c - d_x - w/2)/k
+* y_w = -(y_c - h/2 - d_y)/k
+*
 *
 */
+
 CanvasPoint.prototype.toWorldPoint = function() {
 
     return new WorldPoint(
-        this.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width / 2,
-        -(this.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height / 2)
+        (this.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width / 2) / _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor,
+        -(this.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height / 2) / _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor
     )
 
 }
@@ -784,7 +786,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
-
 /**
  * Constructor for grid cell object
  */
@@ -863,6 +864,19 @@ window.addEventListener("load",function(){
     let canvasOffsetY;
 
     let canvas = document.querySelector("#main-canvas");
+
+    let canvasPositionX = canvas.getBoundingClientRect().x;
+    let canvasPositionY = canvas.getBoundingClientRect().y;
+
+    function setCanvasDim() {
+        canvas.width = window.innerWidth - canvasPositionX;
+        canvas.height = window.innerHeight - canvasPositionY;
+    }
+
+    setCanvasDim();
+
+    window.addEventListener("resize", setCanvasDim)
+
     let ctx = canvas.getContext("2d");
 
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
@@ -885,10 +899,12 @@ window.addEventListener("load",function(){
              * Get point of mous relative to canvas
              */
 
-            canvasOffset: {
+            /*canvasOffset: {
                 x: canvasOffsetX,
                 y: canvasOffsetY
-            },
+            },*/
+
+            canvasOffset: new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(canvasOffsetX, canvasOffsetY),
 
             objectsInGrid: []
         }
@@ -897,10 +913,13 @@ window.addEventListener("load",function(){
          * Get point of mouse relative to world
          */
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-            canvasOffsetX - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX - canvas.width/2,
-            -(canvasOffsetY - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY - canvas.height/2)
-        )
+        
+        /*Creator.mousePosition.world = new WorldPoint(
+            (canvasOffsetX  - Creator.deltaX - canvas.width /2)/Creator.zoomFactor,
+            -(canvasOffsetY - Creator.deltaY - canvas.height/2)/Creator.zoomFactor
+        )*/
+
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.toWorldPoint();
 
         /**
          * Get grid cell the mouse is hovering over
@@ -914,7 +933,8 @@ window.addEventListener("load",function(){
         document.querySelector("#mouse-info").innerHTML = "World Position:" +
         "(" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x + ", " + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y + ") " +
         "Gridcell Bottom Left: (" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.x + ", " + 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.y + ")";
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
+        canvasOffsetX + ", " + canvasOffsetY + ")";
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -922,11 +942,13 @@ window.addEventListener("load",function(){
         // Draw sky color
         ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
 
+        let centerWorldPointAsCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(0, 0).toCanvasPoint();
+
         ctx.fillRect(
             0,
             0,
             canvas.width,
-            canvas.height * 0.5 + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
+            centerWorldPointAsCanvasPoint.y
         );
 
         // Draw underground
@@ -934,7 +956,7 @@ window.addEventListener("load",function(){
         
         ctx.fillRect(
             0,
-            canvas.height * 0.5 + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY, 
+            centerWorldPointAsCanvasPoint.y, 
             canvas.width, 
             canvas.height - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
         );
@@ -979,8 +1001,10 @@ window.addEventListener("load",function(){
 
             ctx.drawImage(
                 img1,
-                objCanvasPoint.x - 30,
-                objCanvasPoint.y - 30,
+                objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                img1.width * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                img1.height * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
             )
 
             ctx.stroke();
@@ -989,16 +1013,16 @@ window.addEventListener("load",function(){
 
             if(isSelected) {
                 
-                ctx.lineWidth = 10;
+                ctx.lineWidth = 10 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
                 ctx.strokeStyle = "blue";
 
                 ctx.beginPath();
 
                 ctx.rect(
-                    objCanvasPoint.x - 30,
-                    objCanvasPoint.y - 30,
-                    60,
-                    60
+                    objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                    objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                    60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                    60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
                 );
 
                 ctx.stroke();
@@ -1027,8 +1051,8 @@ window.addEventListener("load",function(){
         ctx.rect(
             gridcellCanvasPoint.x,
             gridcellCanvasPoint.y,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
         )
 
         ctx.stroke(); 
@@ -1044,7 +1068,7 @@ window.addEventListener("load",function(){
             ctx.arc(
                 selectedObjCanvasPoint.x, 
                 selectedObjCanvasPoint.y, 
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].debugConfig.selectedPointValue, 
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].debugConfig.selectedPointValue * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor, 
                 0, 
                 Math.PI * 2
             );
@@ -1075,8 +1099,8 @@ window.addEventListener("load",function(){
 
     function transformObjByMouse(event) {
         for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += event.movementX;
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += -event.movementY;
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += event.movementX / _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += -event.movementY / _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
         }
     }
 

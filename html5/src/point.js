@@ -105,16 +105,16 @@ Object.assign(WorldPoint.prototype, Point.prototype);
  * 
  * Formula:
  * 
- * x_c = x_w + d_x + w/2
- * y_c = -y_w + d_y + h/2
+ * x_c = x_w * k + d_x + w/2
+ * y_c = -y_w * k + d_y + h/2
  * 
  */
 
 WorldPoint.prototype.toCanvasPoint = function() {
 
     return new CanvasPoint(
-        this.x + Creator.deltaX + Creator.canvas.width/2, 
-        -this.y + Creator.deltaY + Creator.canvas.height/2
+        (this.x * Creator.zoomFactor + Creator.deltaX + Creator.canvas.width/2), 
+        (-this.y * Creator.zoomFactor + Creator.deltaY + Creator.canvas.height/2)
     );
 
 }
@@ -137,15 +137,17 @@ Object.assign(CanvasPoint.prototype, Point.prototype);
 * Change canvas point to world point 
 * Formula (based on solving in algebra for world point in canvas point)
 *
-* x_w = x_c - d_x - w/2
-* y_w = -(y_c - h/2 - d_y)
+* x_w = (x_c - d_x - w/2)/k
+* y_w = -(y_c - h/2 - d_y)/k
+*
 *
 */
+
 CanvasPoint.prototype.toWorldPoint = function() {
 
     return new WorldPoint(
-        this.x - Creator.deltaX - Creator.canvas.width / 2,
-        -(this.y - Creator.deltaY - Creator.canvas.height / 2)
+        (this.x - Creator.deltaX - Creator.canvas.width / 2) / Creator.zoomFactor,
+        -(this.y - Creator.deltaY - Creator.canvas.height / 2) / Creator.zoomFactor
     )
 
 }

@@ -2,11 +2,10 @@ import definitionTree from "./definitionTree";
 import Game from "./game";
 import generateDefintionsHTML from "./generateDefinitionsHTML";
 import Creator from "./creator";
-import { WorldPoint } from "./point";
+import { WorldPoint, CanvasPoint } from "./point";
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
-
 /**
  * Constructor for grid cell object
  */
@@ -85,6 +84,19 @@ window.addEventListener("load",function(){
     let canvasOffsetY;
 
     let canvas = document.querySelector("#main-canvas");
+
+    let canvasPositionX = canvas.getBoundingClientRect().x;
+    let canvasPositionY = canvas.getBoundingClientRect().y;
+
+    function setCanvasDim() {
+        canvas.width = window.innerWidth - canvasPositionX;
+        canvas.height = window.innerHeight - canvasPositionY;
+    }
+
+    setCanvasDim();
+
+    window.addEventListener("resize", setCanvasDim)
+
     let ctx = canvas.getContext("2d");
 
     Creator.canvas = canvas;
@@ -107,10 +119,12 @@ window.addEventListener("load",function(){
              * Get point of mous relative to canvas
              */
 
-            canvasOffset: {
+            /*canvasOffset: {
                 x: canvasOffsetX,
                 y: canvasOffsetY
-            },
+            },*/
+
+            canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
 
             objectsInGrid: []
         }
@@ -119,10 +133,13 @@ window.addEventListener("load",function(){
          * Get point of mouse relative to world
          */
 
-        Creator.mousePosition.world = new WorldPoint(
-            canvasOffsetX - Creator.deltaX - canvas.width/2,
-            -(canvasOffsetY - Creator.deltaY - canvas.height/2)
-        )
+        
+        /*Creator.mousePosition.world = new WorldPoint(
+            (canvasOffsetX  - Creator.deltaX - canvas.width /2)/Creator.zoomFactor,
+            -(canvasOffsetY - Creator.deltaY - canvas.height/2)/Creator.zoomFactor
+        )*/
+
+        Creator.mousePosition.world = Creator.mousePosition.canvasOffset.toWorldPoint();
 
         /**
          * Get grid cell the mouse is hovering over
@@ -136,7 +153,8 @@ window.addEventListener("load",function(){
         document.querySelector("#mouse-info").innerHTML = "World Position:" +
         "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
         "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
-        Creator.mousePosition.gridCell.bottomLeft.y + ")";
+        Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
+        canvasOffsetX + ", " + canvasOffsetY + ")";
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -144,11 +162,13 @@ window.addEventListener("load",function(){
         // Draw sky color
         ctx.fillStyle = "#" + Creator.gameInstance.level.skyColor;
 
+        let centerWorldPointAsCanvasPoint = new WorldPoint(0, 0).toCanvasPoint();
+
         ctx.fillRect(
             0,
             0,
             canvas.width,
-            canvas.height * 0.5 + Creator.deltaY
+            centerWorldPointAsCanvasPoint.y
         );
 
         // Draw underground
@@ -156,7 +176,7 @@ window.addEventListener("load",function(){
         
         ctx.fillRect(
             0,
-            canvas.height * 0.5 + Creator.deltaY, 
+            centerWorldPointAsCanvasPoint.y, 
             canvas.width, 
             canvas.height - Creator.deltaY
         );
@@ -201,8 +221,10 @@ window.addEventListener("load",function(){
 
             ctx.drawImage(
                 img1,
-                objCanvasPoint.x - 30,
-                objCanvasPoint.y - 30,
+                objCanvasPoint.x - 30 * Creator.zoomFactor,
+                objCanvasPoint.y - 30 * Creator.zoomFactor,
+                img1.width * Creator.zoomFactor,
+                img1.height * Creator.zoomFactor
             )
 
             ctx.stroke();
@@ -211,16 +233,16 @@ window.addEventListener("load",function(){
 
             if(isSelected) {
                 
-                ctx.lineWidth = 10;
+                ctx.lineWidth = 10 * Creator.zoomFactor;
                 ctx.strokeStyle = "blue";
 
                 ctx.beginPath();
 
                 ctx.rect(
-                    objCanvasPoint.x - 30,
-                    objCanvasPoint.y - 30,
-                    60,
-                    60
+                    objCanvasPoint.x - 30 * Creator.zoomFactor,
+                    objCanvasPoint.y - 30 * Creator.zoomFactor,
+                    60 * Creator.zoomFactor,
+                    60 * Creator.zoomFactor
                 );
 
                 ctx.stroke();
@@ -249,8 +271,8 @@ window.addEventListener("load",function(){
         ctx.rect(
             gridcellCanvasPoint.x,
             gridcellCanvasPoint.y,
-            Creator.gridSize,
-            Creator.gridSize
+            Creator.gridSize * Creator.zoomFactor,
+            Creator.gridSize * Creator.zoomFactor
         )
 
         ctx.stroke(); 
@@ -266,7 +288,7 @@ window.addEventListener("load",function(){
             ctx.arc(
                 selectedObjCanvasPoint.x, 
                 selectedObjCanvasPoint.y, 
-                Creator.debugConfig.selectedPointValue, 
+                Creator.debugConfig.selectedPointValue * Creator.zoomFactor, 
                 0, 
                 Math.PI * 2
             );
@@ -297,8 +319,8 @@ window.addEventListener("load",function(){
 
     function transformObjByMouse(event) {
         for(let i = 0; i < Creator.selectedObjects.length; i++) {
-            Creator.selectedObjects[i].x += event.movementX;
-            Creator.selectedObjects[i].y += -event.movementY;
+            Creator.selectedObjects[i].x += event.movementX / Creator.zoomFactor;
+            Creator.selectedObjects[i].y += -event.movementY / Creator.zoomFactor;
         }
     }
 
