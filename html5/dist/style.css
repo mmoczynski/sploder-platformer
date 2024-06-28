@@ -153,11 +153,11 @@ html, body {
     background-image: url(images/icons/cross-svgrepo-com.svg);
 }
 
-#activate-viewport-transform {
+#activate-object-transform {
     background-image: url(images/icons/pointer-svgrepo-com.svg);
 }
 
-#activate-object-transform {
+#activate-viewport-transform {
     background-image: url(images/icons/pointer-svgrepo-com-2.svg);
 }
 
