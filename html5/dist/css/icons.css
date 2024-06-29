@@ -3,7 +3,7 @@
 */
 
 #delete-selection {
-    background-image: url(images/icons/cross-svgrepo-com.svg);
+    background-image: url(../images/icons/cross-svgrepo-com.svg);
 }
 
 /*
@@ -11,7 +11,7 @@
 */
 
 #activate-object-transform {
-    background-image: url(images/icons/pointer-svgrepo-com.svg);
+    background-image: url(../images/icons/pointer-svgrepo-com.svg);
 }
 
 /**
@@ -19,7 +19,7 @@
 */
 
 #activate-viewport-transform {
-    background-image: url(images/icons/pointer-svgrepo-com-2.svg);
+    background-image: url(../images/icons/pointer-svgrepo-com-2.svg);
 }
 
 /*
@@ -27,7 +27,7 @@
 */
 
 #zoom-in {
-    background-image: url(images/icons/plus-large-svgrepo-com.svg);
+    background-image: url(../images/icons/plus-large-svgrepo-com.svg);
 }
 
 /*
@@ -35,7 +35,7 @@
 */
 
 #zoom-out {
-    background-image: url(images/icons/minus-svgrepo-com.svg);
+    background-image: url(../images/icons/minus-svgrepo-com.svg);
 }
 
 /*
@@ -43,7 +43,7 @@
 */
 
 #reset-delta {
-    background-image: url(images/icons/square-svgrepo-com.svg);
+    background-image: url(../images/icons/square-svgrepo-com.svg);
 }
 
 /*
@@ -51,5 +51,5 @@
 */
 
 #settings {
-    background-image: url(images/icons/settings-svgrepo-com.svg);
+    background-image: url(../images/icons/settings-svgrepo-com.svg);
 }
