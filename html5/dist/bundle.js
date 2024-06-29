@@ -1118,9 +1118,6 @@ window.addEventListener("load",function(){
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
 
-       _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaX = canvasOffsetX - event.offsetX;
-       _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaY = canvasOffsetY - event.offsetY;
-
        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
             document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
        }
@@ -1141,8 +1138,8 @@ window.addEventListener("load",function(){
      */
 
     function transformViewportByMouse(event) {
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaX;
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaY;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += event.movementX;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += event.movementY;
     }
 
     function transformObjByMouse(event) {
@@ -1250,7 +1247,7 @@ window.addEventListener("load",function(){
                 _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
             ).toWorldPoint();
 
-            // Select all objects found in selection rectangle
+            // Select all objects found in selection
 
             for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
 
