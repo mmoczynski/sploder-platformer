@@ -35,6 +35,21 @@ const Creator = {
     selectionRect: {
         topLeft: null,
         bottomRight: null,
+    },
+
+    mousePosition: {
+        objectsInGrid: []
+    },
+
+    leadObject: {
+
+        object: null,
+
+        offset: {
+            x: null,
+            y: null
+        }
+
     }
 }
 

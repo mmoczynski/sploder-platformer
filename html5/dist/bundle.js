@@ -49,6 +49,21 @@ const Creator = {
     selectionRect: {
         topLeft: null,
         bottomRight: null,
+    },
+
+    mousePosition: {
+        objectsInGrid: []
+    },
+
+    leadObject: {
+
+        object: null,
+
+        offset: {
+            x: null,
+            y: null
+        }
+
     }
 }
 
@@ -903,7 +918,7 @@ window.addEventListener("load",function(){
         // Default value for Creator.selectedObjectPointedToExists.
         _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition = {
+        /*Creator.mousePosition = {
 
             /**
              * Get point of mous relative to canvas
@@ -912,12 +927,17 @@ window.addEventListener("load",function(){
             /*canvasOffset: {
                 x: canvasOffsetX,
                 y: canvasOffsetY
-            },*/
+            },
 
-            canvasOffset: new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(canvasOffsetX, canvasOffsetY),
+            canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
 
             objectsInGrid: []
-        }
+        }**/
+
+        // Reset objects in grid array
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
+
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(canvasOffsetX, canvasOffsetY);
 
         /**
          * Get point of mouse relative to world
@@ -1143,9 +1163,25 @@ window.addEventListener("load",function(){
     }
 
     function transformObjByMouse(event) {
+
+        let oldPos = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y
+        )
+
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.x;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.y;
+
+        let dx = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x - oldPos.x;
+        let dy = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y - oldPos.y;
+
         for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += event.movementX / _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += -event.movementY / _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
+
+            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i] !== _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object) {
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += dx;
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += dy;
+            }
+
         }
     }
 
@@ -1155,6 +1191,8 @@ window.addEventListener("load",function(){
     }
 
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = null;
+
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object = null;
     
     canvas.addEventListener("mousedown", function(event){
 
@@ -1164,7 +1202,16 @@ window.addEventListener("load",function(){
         */
 
         if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists) {
+
             canvas.addEventListener("mousemove", transformObjByMouse);
+
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1
+            ];
+            
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y
+
         }
 
         /**

@@ -113,7 +113,7 @@ window.addEventListener("load",function(){
         // Default value for Creator.selectedObjectPointedToExists.
         Creator.selectedObjectPointedToExists = false;
 
-        Creator.mousePosition = {
+        /*Creator.mousePosition = {
 
             /**
              * Get point of mous relative to canvas
@@ -122,12 +122,17 @@ window.addEventListener("load",function(){
             /*canvasOffset: {
                 x: canvasOffsetX,
                 y: canvasOffsetY
-            },*/
+            },
 
             canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
 
             objectsInGrid: []
-        }
+        }**/
+
+        // Reset objects in grid array
+        Creator.mousePosition.objectsInGrid = [];
+
+        Creator.mousePosition.canvasOffset = new CanvasPoint(canvasOffsetX, canvasOffsetY);
 
         /**
          * Get point of mouse relative to world
@@ -353,9 +358,25 @@ window.addEventListener("load",function(){
     }
 
     function transformObjByMouse(event) {
+
+        let oldPos = new WorldPoint(
+            Creator.leadObject.object.x,
+            Creator.leadObject.object.y
+        )
+
+        Creator.leadObject.object.x = Creator.mousePosition.world.x - Creator.leadObject.offset.x;
+        Creator.leadObject.object.y = Creator.mousePosition.world.y - Creator.leadObject.offset.y;
+
+        let dx = Creator.leadObject.object.x - oldPos.x;
+        let dy = Creator.leadObject.object.y - oldPos.y;
+
         for(let i = 0; i < Creator.selectedObjects.length; i++) {
-            Creator.selectedObjects[i].x += event.movementX / Creator.zoomFactor;
-            Creator.selectedObjects[i].y += -event.movementY / Creator.zoomFactor;
+
+            if(Creator.selectedObjects[i] !== Creator.leadObject.object) {
+                Creator.selectedObjects[i].x += dx;
+                Creator.selectedObjects[i].y += dy;
+            }
+
         }
     }
 
@@ -365,6 +386,8 @@ window.addEventListener("load",function(){
     }
 
     Creator.selectionRect.bottomRight = null;
+
+    Creator.leadObject.object = null;
     
     canvas.addEventListener("mousedown", function(event){
 
@@ -374,7 +397,16 @@ window.addEventListener("load",function(){
         */
 
         if(Creator.selectedObjectPointedToExists) {
+
             canvas.addEventListener("mousemove", transformObjByMouse);
+
+            Creator.leadObject.object = Creator.mousePosition.objectsInGrid[
+                Creator.mousePosition.objectsInGrid.length - 1
+            ];
+            
+            Creator.leadObject.offset.x = Creator.mousePosition.world.x - Creator.leadObject.object.x
+            Creator.leadObject.offset.y = Creator.mousePosition.world.y - Creator.leadObject.object.y
+
         }
 
         /**
