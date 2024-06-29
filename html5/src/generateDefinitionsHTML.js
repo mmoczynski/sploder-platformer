@@ -1,4 +1,3 @@
-import Creator from "./creator";
 import definitionTree from "./definitionTree";
 
 function createMenuItem(definition) {

@@ -13,7 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // Creator object
-const Creator = {
+
+const creator = {
     gridSize: 60,
     zoomFactor: 1,
     deltaX: 0,
@@ -84,7 +85,7 @@ const Creator = {
     }
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Creator);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (creator);
 
 /***/ }),
 
@@ -444,9 +445,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
-/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
-
+/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
 
 
 function createMenuItem(definition) {
@@ -477,9 +476,9 @@ function generateDefintionsHTML() {
         hazards: document.createElement("div")
     };
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.block.length; i++) {
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block.length; i++) {
 
-        var elm = createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.block[i]);
+        var elm = createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block[i]);
 
         // Closure for 
 
@@ -519,20 +518,20 @@ function generateDefintionsHTML() {
 
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.blockbehind[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind.length; i++) {
+        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.trigger[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger.length; i++) {
+        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.powerup[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup.length; i++) {
+        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.hazard[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard.length; i++) {
+        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard[i]));
     }
 
     // Event Listener for Blocks and Tiles
@@ -1141,9 +1140,6 @@ img1.src = "./799.svg";
 
 window.SploderPlatformerCreator = _creator__WEBPACK_IMPORTED_MODULE_3__["default"];
 
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].Game = _game__WEBPACK_IMPORTED_MODULE_1__["default"];
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].definitionTree = _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"];
-
 
 var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project" mode="2" date="Saturday, March 16, 2024" pubkey="" isprivate="0" fast="0" g="1" author="demo"><levels id="levels"><level name="" music="" avatar="0" env="8,6600cc,333333,100">3,210,210|3,90,90|3,30,30|3,150,150|3,270,270|3,330,330|3,390,330|3,450,330|3,390,270|3,390,210|1,-329,239</level></levels><graphics /><textures lastid="0" /></project>`
 
@@ -1173,9 +1169,6 @@ let ctx = canvas.getContext("2d");
 
 _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
 
-//ctx.translate(canvas.width / 2,canvas.height / 2);
-//ctx.scale(1,-1);
-
 _creator__WEBPACK_IMPORTED_MODULE_3__["default"].objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
 setInterval(function(){
@@ -1185,34 +1178,12 @@ setInterval(function(){
     // Default value for Creator.selectedObjectPointedToExists.
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
 
-    /*Creator.mousePosition = {
-
-        /**
-         * Get point of mous relative to canvas
-         */
-
-        /*canvasOffset: {
-            x: canvasOffsetX,
-            y: canvasOffsetY
-        },
-
-        canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
-
-        objectsInGrid: []
-    }**/
-
     // Reset objects in grid array
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
 
     /**
      * Get point of mouse relative to world
      */
-
-    
-    /*Creator.mousePosition.world = new WorldPoint(
-        (canvasOffsetX  - Creator.deltaX - canvas.width /2)/Creator.zoomFactor,
-        -(canvasOffsetY - Creator.deltaY - canvas.height/2)/Creator.zoomFactor
-    )*/
 
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.toWorldPoint();
 
@@ -1224,12 +1195,6 @@ setInterval(function(){
         _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
         _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
     ),
-
-    /**document.querySelector("#mouse-info").innerHTML = "World Position:" +
-    "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
-    "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
-    Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
-    canvasOffsetX + ", " + canvasOffsetY + ")";**/
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1285,13 +1250,6 @@ setInterval(function(){
         if(isInGrid) {
             _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
         }
-
-        /*ctx.rect(
-            (o.x - 30) + Creator.deltaX + canvas.width/2,
-            ((-o.y - 30) + Creator.deltaY + canvas.height /2),
-            60,
-            60
-        );*/
 
         ctx.drawImage(
             img1,
@@ -1374,26 +1332,6 @@ setInterval(function(){
 
         ctx.stroke();
     }
-
-    /**
-     * Used to see if objects in grid really do have a center
-     * (Comment out for debugging)
-     */
-
-    /**if(Creator.mousePosition.objectsInGrid.length) {
-
-        ctx.beginPath()
-
-        ctx.arc(
-            selectedObjCanvasPoint.x, 
-            selectedObjCanvasPoint.y, 
-            Creator.debugConfig.selectedPointValue * Creator.zoomFactor, 
-            0, 
-            Math.PI * 2
-        );
-
-        ctx.stroke(); 
-    }**/
 
 },16.66);
 

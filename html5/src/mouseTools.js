@@ -1,23 +1,23 @@
-import Creator from "./creator";
+import creator from "./creator";
 import { GridCell } from "./grid";
 import { WorldPoint, CanvasPoint } from "./point";
 
-Creator.canvas.addEventListener("mousemove",function(event){
+creator.canvas.addEventListener("mousemove",function(event){
 
-    Creator.mousePosition.canvasOffset = new CanvasPoint(
+    creator.mousePosition.canvasOffset = new CanvasPoint(
         event.offsetX, 
         event.offsetY
     );
 
-    if(Creator.mouseTool === "transform-viewport" && !Creator.mousePosition.objectsInGrid.length) {
+    if(creator.mouseTool === "transform-viewport" && !creator.mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
     }
 
-    if(Creator.mouseTool === "select-objects" && !Creator.mousePosition.objectsInGrid.length) {
+    if(creator.mouseTool === "select-objects" && !creator.mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to select objects"
     }
 
-    if(Creator.mousePosition.objectsInGrid.length && !Creator.selectedObjects.length) {
+    if(creator.mousePosition.objectsInGrid.length && !creator.selectedObjects.length) {
          document.querySelector("#mouse-info").innerText = "Click to select object"
     }
 
@@ -29,8 +29,8 @@ Creator.canvas.addEventListener("mousemove",function(event){
  */
 
 function transformViewportByMouse(event) {
-    Creator.deltaX += event.movementX;
-    Creator.deltaY += event.movementY;
+    creator.deltaX += event.movementX;
+    creator.deltaY += event.movementY;
 }
 
 /**
@@ -45,52 +45,52 @@ function transformViewportByMouse(event) {
 function transformObjByMouse(event) {
 
     let oldPos = new WorldPoint(
-        Creator.leadObject.object.x,
-        Creator.leadObject.object.y
+        creator.leadObject.object.x,
+        creator.leadObject.object.y
     )
 
-    Creator.leadObject.object.x = Creator.mousePosition.world.x - Creator.leadObject.offset.x;
-    Creator.leadObject.object.y = Creator.mousePosition.world.y - Creator.leadObject.offset.y;
+    creator.leadObject.object.x = creator.mousePosition.world.x - creator.leadObject.offset.x;
+    creator.leadObject.object.y = creator.mousePosition.world.y - creator.leadObject.offset.y;
 
-    let dx = Creator.leadObject.object.x - oldPos.x;
-    let dy = Creator.leadObject.object.y - oldPos.y;
+    let dx = creator.leadObject.object.x - oldPos.x;
+    let dy = creator.leadObject.object.y - oldPos.y;
 
-    for(let i = 0; i < Creator.selectedObjects.length; i++) {
+    for(let i = 0; i < creator.selectedObjects.length; i++) {
 
-        if(Creator.selectedObjects[i] !== Creator.leadObject.object) {
-            Creator.selectedObjects[i].x += dx;
-            Creator.selectedObjects[i].y += dy;
+        if(creator.selectedObjects[i] !== creator.leadObject.object) {
+            creator.selectedObjects[i].x += dx;
+            creator.selectedObjects[i].y += dy;
         }
 
     }
 }
 
 function changeSelectionRectByMouse() {
-    Creator.selectionRect.bottomRight.x = Creator.mousePosition.canvasOffset.x
-    Creator.selectionRect.bottomRight.y = Creator.mousePosition.canvasOffset.y
+    creator.selectionRect.bottomRight.x = creator.mousePosition.canvasOffset.x
+    creator.selectionRect.bottomRight.y = creator.mousePosition.canvasOffset.y
 }
 
-Creator.selectionRect.bottomRight = null;
+creator.selectionRect.bottomRight = null;
 
-Creator.leadObject.object = null;
+creator.leadObject.object = null;
 
-Creator.canvas.addEventListener("mousedown", function(event){
+creator.canvas.addEventListener("mousedown", function(event){
 
     /**
      * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
      *
  */
 
-    if(Creator.selectedObjectPointedToExists) {
+    if(creator.selectedObjectPointedToExists) {
 
-        Creator.canvas.addEventListener("mousemove", transformObjByMouse);
+        creator.canvas.addEventListener("mousemove", transformObjByMouse);
 
-        Creator.leadObject.object = Creator.mousePosition.objectsInGrid[
-            Creator.mousePosition.objectsInGrid.length - 1
+        creator.leadObject.object = creator.mousePosition.objectsInGrid[
+            creator.mousePosition.objectsInGrid.length - 1
         ];
         
-        Creator.leadObject.offset.x = Creator.mousePosition.world.x - Creator.leadObject.object.x
-        Creator.leadObject.offset.y = Creator.mousePosition.world.y - Creator.leadObject.object.y
+        creator.leadObject.offset.x = creator.mousePosition.world.x - creator.leadObject.object.x
+        creator.leadObject.offset.y = creator.mousePosition.world.y - creator.leadObject.object.y
 
     }
 
@@ -100,44 +100,44 @@ Creator.canvas.addEventListener("mousedown", function(event){
      * 
      */
 
-    if(!Creator.selectedObjectPointedToExists && Creator.mousePosition.objectsInGrid.length) {
+    if(!creator.selectedObjectPointedToExists && creator.mousePosition.objectsInGrid.length) {
 
         if(event.shiftKey) {
-            Creator.selectedObjects.push(
-                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1]
+            creator.selectedObjects.push(
+                creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1]
             )
         }
 
         else {
-            Creator.selectedObjects = [
-                Creator.mousePosition.objectsInGrid[Creator.mousePosition.objectsInGrid.length - 1]
+            creator.selectedObjects = [
+                creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1]
             ];
             //console.log("Selected Object Reset")
         }
 
     }
 
-    if(!Creator.selectedObjectPointedToExists && !Creator.mousePosition.objectsInGrid.length) {
+    if(!creator.selectedObjectPointedToExists && !creator.mousePosition.objectsInGrid.length) {
 
-        Creator.selectedObjects = [];
+        creator.selectedObjects = [];
 
-        if(Creator.mouseTool === "transform-viewport") {
-            Creator.canvas.addEventListener("mousemove", transformViewportByMouse);
+        if(creator.mouseTool === "transform-viewport") {
+            creator.canvas.addEventListener("mousemove", transformViewportByMouse);
         }
 
-        else if(Creator.mouseTool === "select-objects") {
+        else if(creator.mouseTool === "select-objects") {
 
-            Creator.selectionRect.topLeft = new CanvasPoint(
-                Creator.mousePosition.canvasOffset.x,
-                Creator.mousePosition.canvasOffset.y
+            creator.selectionRect.topLeft = new CanvasPoint(
+                creator.mousePosition.canvasOffset.x,
+                creator.mousePosition.canvasOffset.y
             );
 
-            Creator.selectionRect.bottomRight = new CanvasPoint(
-                Creator.mousePosition.canvasOffset.x,
-                Creator.mousePosition.canvasOffset.y
+            creator.selectionRect.bottomRight = new CanvasPoint(
+                creator.mousePosition.canvasOffset.x,
+                creator.mousePosition.canvasOffset.y
             );
 
-            Creator.canvas.addEventListener("mousemove", changeSelectionRectByMouse);
+            creator.canvas.addEventListener("mousemove", changeSelectionRectByMouse);
 
         }   
 
@@ -150,42 +150,42 @@ window.addEventListener("mouseup", function(){
 
     // Disable mousemove events
 
-    Creator.canvas.removeEventListener("mousemove", transformViewportByMouse)
-    Creator.canvas.removeEventListener("mousemove", transformObjByMouse)
-    Creator.canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+    creator.canvas.removeEventListener("mousemove", transformViewportByMouse)
+    creator.canvas.removeEventListener("mousemove", transformObjByMouse)
+    creator.canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
 
 
-    if(Creator.selectionRect.topLeft && Creator.selectionRect.bottomRight) {
+    if(creator.selectionRect.topLeft && creator.selectionRect.bottomRight) {
 
-        let selectionCanvasWidth = Creator.selectionRect.bottomRight.x - Creator.selectionRect.topLeft.x;
-        let selectionCanvasHeight = Creator.selectionRect.bottomRight.y - Creator.selectionRect.topLeft.y;
+        let selectionCanvasWidth = creator.selectionRect.bottomRight.x - creator.selectionRect.topLeft.x;
+        let selectionCanvasHeight = creator.selectionRect.bottomRight.y - creator.selectionRect.topLeft.y;
 
         // Get bottom left corner of selection rectangle and convert it to point in world
 
         let bottomLeftWorldCorner = new CanvasPoint(
-            Creator.selectionRect.topLeft.x,
-            Creator.selectionRect.topLeft.y + selectionCanvasHeight
+            creator.selectionRect.topLeft.x,
+            creator.selectionRect.topLeft.y + selectionCanvasHeight
         ).toWorldPoint();
 
         // Get top left corner of selection rectangle and convert it to point in world
 
         let topRightWorldCorner = new CanvasPoint(
-            Creator.selectionRect.topLeft.x + selectionCanvasWidth,
-            Creator.selectionRect.topLeft.y
+            creator.selectionRect.topLeft.x + selectionCanvasWidth,
+            creator.selectionRect.topLeft.y
         ).toWorldPoint();
 
         // Select all objects found in selection
 
-        for(let i = 0; i < Creator.gameInstance.level.objects.length; i++) {
+        for(let i = 0; i < creator.gameInstance.level.objects.length; i++) {
 
-            let x = Creator.gameInstance.level.objects[i].x;
-            let y = Creator.gameInstance.level.objects[i].y;
+            let x = creator.gameInstance.level.objects[i].x;
+            let y = creator.gameInstance.level.objects[i].y;
 
             let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
             let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
 
             if(inXInterval && inYInterval) {
-                Creator.selectedObjects.push(Creator.gameInstance.level.objects[i])
+                creator.selectedObjects.push(creator.gameInstance.level.objects[i])
             }
 
 
@@ -195,15 +195,15 @@ window.addEventListener("mouseup", function(){
 
     // Clear selection rectangle objects
 
-    Creator.selectionRect.topLeft = null
-    Creator.selectionRect.bottomRight = null
+    creator.selectionRect.topLeft = null
+    creator.selectionRect.bottomRight = null
 
     // Snap objects to grid
 
-    for(let i = 0; i < Creator.selectedObjects.length; i++) {
-    let gridCell = new GridCell(Creator.selectedObjects[i].x, Creator.selectedObjects[i].y); 
-    Creator.selectedObjects[i].x = gridCell.center.x;
-    Creator.selectedObjects[i].y = gridCell.center.y;
+    for(let i = 0; i < creator.selectedObjects.length; i++) {
+    let gridCell = new GridCell(creator.selectedObjects[i].x, creator.selectedObjects[i].y); 
+    creator.selectedObjects[i].x = gridCell.center.x;
+    creator.selectedObjects[i].y = gridCell.center.y;
     }
 
     // Clear selected objects
@@ -215,9 +215,9 @@ window.addEventListener("mouseup", function(){
 });
 
 document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
-    Creator.mouseTool = "transform-viewport";
+    creator.mouseTool = "transform-viewport";
 });
 
 document.querySelector("#activate-object-transform").addEventListener("click", function(){
-    Creator.mouseTool = "select-objects";
+    creator.mouseTool = "select-objects";
 });

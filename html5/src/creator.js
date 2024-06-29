@@ -1,5 +1,6 @@
 // Creator object
-const Creator = {
+
+const creator = {
     gridSize: 60,
     zoomFactor: 1,
     deltaX: 0,
@@ -70,4 +71,4 @@ const Creator = {
     }
 }
 
-export default Creator;
+export default creator;

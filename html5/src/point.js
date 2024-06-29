@@ -5,7 +5,7 @@
  * 
  */
 
-import Creator from "./creator";
+import creator from "./creator";
 
 /*
  * @param {Number} x 
@@ -113,8 +113,8 @@ Object.assign(WorldPoint.prototype, Point.prototype);
 WorldPoint.prototype.toCanvasPoint = function() {
 
     return new CanvasPoint(
-        (this.x * Creator.zoomFactor + Creator.deltaX + Creator.canvas.width/2), 
-        (-this.y * Creator.zoomFactor + Creator.deltaY + Creator.canvas.height/2)
+        (this.x * creator.zoomFactor + creator.deltaX + creator.canvas.width/2), 
+        (-this.y * creator.zoomFactor + creator.deltaY + creator.canvas.height/2)
     );
 
 }
@@ -146,8 +146,8 @@ Object.assign(CanvasPoint.prototype, Point.prototype);
 CanvasPoint.prototype.toWorldPoint = function() {
 
     return new WorldPoint(
-        (this.x - Creator.deltaX - Creator.canvas.width / 2) / Creator.zoomFactor,
-        -(this.y - Creator.deltaY - Creator.canvas.height / 2) / Creator.zoomFactor
+        (this.x - creator.deltaX - creator.canvas.width / 2) / creator.zoomFactor,
+        -(this.y - creator.deltaY - creator.canvas.height / 2) / creator.zoomFactor
     )
 
 }
