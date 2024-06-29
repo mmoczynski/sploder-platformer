@@ -236,3 +236,33 @@ document.querySelector("#activate-viewport-transform").addEventListener("click",
 document.querySelector("#activate-object-transform").addEventListener("click", function(){
     creator.mouseTool = "select-objects";
 });
+
+/*** Right side buttons info ***/
+
+document.querySelector("#delete-selection").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to delete the selected objects"
+});
+
+document.querySelector("#activate-viewport-transform").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to make it so dragging the mouse creates a rectangle that selects objects inside it."
+});
+
+document.querySelector("#activate-object-transform").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to make it so dragging the mouse drags the playfield."
+});
+
+document.querySelector("#zoom-in").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to zoom in playfield."
+});
+
+document.querySelector("#zoom-out").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to zoom out playfield."
+});
+
+document.querySelector("#reset-delta").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to see all of playfield."
+});
+
+document.querySelector("#settings").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to edit level background and colors."
+});
