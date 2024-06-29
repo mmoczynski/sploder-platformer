@@ -1,4 +1,8 @@
-This is an unoffical fork of the original code of the Sploder Platformer Creator. The purpose of this fork is to port some features of the orignal code into HTML5 and JavaScript. This fork utlizes Webpack to combine all of the JavaScript files into one compact script for the creator. To learn more, [please read the orignal README file by Geoff](README.old.md).
+This is an unoffical fork of the original code of the Sploder Platformer Creator. To learn more about the original, [please read the orignal README file by Geoff](README.old.md). 
+
+The purpose of this fork is to port some features of the orignal code into HTML5 and JavaScript. This JavaScript fork divides the script into parts using [ECMA 6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). This requires something like a server to test. It is recommended to use [Microsoft Visual Studio code](https://visualstudio.microsoft.com/) and the [live server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to develop this.
+
+If one does not want to use visual studio code or does not want to use a live server plugin, this fork includes Webpack to combine all of the JavaScript files into one compact script for the creator.
 
 Currently, this fork aims to create an editor that can read and generate XML data that can be played on Sploder's Platformer Creator. I am not intending to port everything right now.
 
