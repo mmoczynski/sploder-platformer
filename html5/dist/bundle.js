@@ -31,6 +31,8 @@ const Creator = {
 
     mouseTool: "select-objects",
 
+    canvas: document.querySelector("#main-canvas"),
+
     /**
     * Variable to see if there exists a selected object that is pointed to by mouse
     * If it does exist, then this is set to true in the object loop.
@@ -52,10 +54,25 @@ const Creator = {
     },
 
     mousePosition: {
-        objectsInGrid: []
+
+        /**
+         * @type {GameObject[]}
+         */
+
+        objectsInGrid: [],
+
+        /**
+         * @type {GridCell|null}
+         */
+
+        gridCell: null
     },
 
     leadObject: {
+
+        /**
+         * @type {GameObject|Null}
+         */
 
         object: null,
 
@@ -427,7 +444,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
+/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
+
 
 
 function createMenuItem(definition) {
@@ -458,9 +477,9 @@ function generateDefintionsHTML() {
         hazards: document.createElement("div")
     };
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block.length; i++) {
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.block.length; i++) {
 
-        var elm = createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block[i]);
+        var elm = createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.block[i]);
 
         // Closure for 
 
@@ -500,20 +519,20 @@ function generateDefintionsHTML() {
 
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.blockbehind.length; i++) {
+        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.blockbehind[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.trigger.length; i++) {
+        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.trigger[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.powerup.length; i++) {
+        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.powerup[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard[i]));
+    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.hazard.length; i++) {
+        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_1__["default"].categories.hazard[i]));
     }
 
     // Event Listener for Blocks and Tiles
@@ -553,6 +572,307 @@ function generateDefintionsHTML() {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (generateDefintionsHTML);
+
+/***/ }),
+
+/***/ "./html5/src/grid.js":
+/*!***************************!*\
+  !*** ./html5/src/grid.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GridCell: () => (/* binding */ GridCell)
+/* harmony export */ });
+/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+
+
+
+function GridCell(x,y) {
+
+    this.numberOfGridsX = Math.floor(x/_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
+
+    this.numberofGridsY = Math.floor(y/_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
+
+
+    this.bottomLeft = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.numberOfGridsX * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+        this.numberofGridsY * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+    )
+
+    this.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+        this.bottomLeft.y
+    )
+
+    this.topLeft = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x,
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
+    )
+
+    this.topRight = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
+    )
+
+    this.center = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2,
+        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2
+    )
+
+}
+
+GridCell.prototype.pointInGrid = function(x, y) {
+
+    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize) && 
+        (this.bottomLeft.y < y && y < this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize)
+    ) {
+        return true;
+    }
+
+    else {
+        return false;
+    }
+
+}
+
+/***/ }),
+
+/***/ "./html5/src/mouseTools.js":
+/*!*********************************!*\
+  !*** ./html5/src/mouseTools.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./grid */ "./html5/src/grid.js");
+/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+
+
+
+
+_creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove",function(event){
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+        event.offsetX, 
+        event.offsetY
+    );
+
+    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+         document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
+    }
+
+    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects" && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+         document.querySelector("#mouse-info").innerText = "Drag to select objects"
+    }
+
+    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length) {
+         document.querySelector("#mouse-info").innerText = "Click to select object"
+    }
+
+});
+
+/**
+ * 
+ * Mouse Tools
+ */
+
+function transformViewportByMouse(event) {
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX += event.movementX;
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY += event.movementY;
+}
+
+/**
+ * A naive solution might be to transform objects by mouse delta.
+ * However, in that method, if an object is shaked extremely fast, then it abnormally shifts.
+ * This might be due to floating point numbers
+ * Therefore, all objects transform in respect to one being moved to by the mouse.
+ * 
+ * @param {*} event 
+ */
+
+function transformObjByMouse(event) {
+
+    let oldPos = new _point__WEBPACK_IMPORTED_MODULE_2__.WorldPoint(
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x,
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
+    )
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x;
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y;
+
+    let dx = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x - oldPos.x;
+    let dy = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y - oldPos.y;
+
+    for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
+
+        if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i] !== _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object) {
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x += dx;
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y += dy;
+        }
+
+    }
+}
+
+function changeSelectionRectByMouse() {
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+}
+
+_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null;
+
+_creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = null;
+
+_creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousedown", function(event){
+
+    /**
+     * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
+     *
+ */
+
+    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists) {
+
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformObjByMouse);
+
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1
+        ];
+        
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
+
+    }
+
+    /**
+     * Add objects to selectedObjects array or set array to singleton
+     * array given that there are objects in gridcell pointed to by mouse
+     * 
+     */
+
+    if(!_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+
+        if(event.shiftKey) {
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
+            )
+        }
+
+        else {
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
+            ];
+            //console.log("Selected Object Reset")
+        }
+
+    }
+
+    if(!_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [];
+
+        if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport") {
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformViewportByMouse);
+        }
+
+        else if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects") {
+
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+            );
+
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+            );
+
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", changeSelectionRectByMouse);
+
+        }   
+
+    }
+        
+
+});
+
+window.addEventListener("mouseup", function(){
+
+    // Disable mousemove events
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformViewportByMouse)
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformObjByMouse)
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+
+
+    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight) {
+
+        let selectionCanvasWidth = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x;
+        let selectionCanvasHeight = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y;
+
+        // Get bottom left corner of selection rectangle and convert it to point in world
+
+        let bottomLeftWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x,
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y + selectionCanvasHeight
+        ).toWorldPoint();
+
+        // Get top left corner of selection rectangle and convert it to point in world
+
+        let topRightWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x + selectionCanvasWidth,
+            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y
+        ).toWorldPoint();
+
+        // Select all objects found in selection
+
+        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects.length; i++) {
+
+            let x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].x;
+            let y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].y;
+
+            let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
+            let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
+
+            if(inXInterval && inYInterval) {
+                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i])
+            }
+
+
+        }
+
+    }
+
+    // Clear selection rectangle objects
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = null
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null
+
+    // Snap objects to grid
+
+    for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
+    let gridCell = new _grid__WEBPACK_IMPORTED_MODULE_1__.GridCell(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x, _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y); 
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x = gridCell.center.x;
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y = gridCell.center.y;
+    }
+
+    // Clear selected objects
+    // Set length to zero instead of initalizing new array to preserve reference to single object
+    //selectedObjects.length = 0
+
+    // Set selection rectangle corner to null
+
+});
+
+document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "transform-viewport";
+});
+
+document.querySelector("#activate-object-transform").addEventListener("click", function(){
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "select-objects";
+});
 
 /***/ }),
 
@@ -803,6 +1123,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./generateDefinitionsHTML */ "./html5/src/generateDefinitionsHTML.js");
 /* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
 /* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./grid */ "./html5/src/grid.js");
+/* harmony import */ var _mouseTools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mouseTools */ "./html5/src/mouseTools.js");
+
+
 
 
 
@@ -814,54 +1138,6 @@ img1.src = "./799.svg";
 /**
  * Constructor for grid cell object
  */
-
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell = function(x,y) {
-
-    this.numberOfGridsX = Math.floor(x/_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize);
-
-    this.numberofGridsY = Math.floor(y/_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize);
-
-
-    this.bottomLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-        this.numberOfGridsX * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
-        this.numberofGridsY * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
-    )
-
-    this.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
-        this.bottomLeft.y
-    )
-
-    this.topLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-        this.bottomLeft.x,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
-    )
-
-    this.topRight = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize
-    )
-
-    this.center = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize / 2,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize / 2
-    )
-
-}
-
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell.prototype.pointInGrid = function(x, y) {
-
-    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize) && 
-        (this.bottomLeft.y < y && y < this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize)
-    ) {
-        return true;
-    }
-
-    else {
-        return false;
-    }
-
-}
 
 window.SploderPlatformerCreator = _creator__WEBPACK_IMPORTED_MODULE_3__["default"];
 
@@ -877,481 +1153,257 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
 
 _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance = _game__WEBPACK_IMPORTED_MODULE_1__["default"].createFromXMLString(str1)
 
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].drawRectangle = function(x, y, w, h) {
-
-}
-
 /*** Test code for showing locations of objects as circles***/
 
-window.addEventListener("load",function(){
+let canvas = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas;
 
-    let canvasOffsetX;
-    let canvasOffsetY;
+let canvasPositionX = canvas.getBoundingClientRect().x;
+let canvasPositionY = canvas.getBoundingClientRect().y;
 
-    let canvas = document.querySelector("#main-canvas");
+function setCanvasDim() {
+    canvas.width = window.innerWidth - canvasPositionX;
+    canvas.height = window.innerHeight - canvasPositionY;
+}
 
-    let canvasPositionX = canvas.getBoundingClientRect().x;
-    let canvasPositionY = canvas.getBoundingClientRect().y;
+setCanvasDim();
 
-    function setCanvasDim() {
-        canvas.width = window.innerWidth - canvasPositionX;
-        canvas.height = window.innerHeight - canvasPositionY;
-    }
+window.addEventListener("resize", setCanvasDim)
 
-    setCanvasDim();
+let ctx = canvas.getContext("2d");
 
-    window.addEventListener("resize", setCanvasDim)
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
 
-    let ctx = canvas.getContext("2d");
+//ctx.translate(canvas.width / 2,canvas.height / 2);
+//ctx.scale(1,-1);
 
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
+_creator__WEBPACK_IMPORTED_MODULE_3__["default"].objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
-    //ctx.translate(canvas.width / 2,canvas.height / 2);
-    //ctx.scale(1,-1);
+setInterval(function(){
 
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML = "";
 
-    this.setInterval(function(){
+    // Default value for Creator.selectedObjectPointedToExists.
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML = "";
-
-        // Default value for Creator.selectedObjectPointedToExists.
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
-
-        /*Creator.mousePosition = {
-
-            /**
-             * Get point of mous relative to canvas
-             */
-
-            /*canvasOffset: {
-                x: canvasOffsetX,
-                y: canvasOffsetY
-            },
-
-            canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
-
-            objectsInGrid: []
-        }**/
-
-        // Reset objects in grid array
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
-
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(canvasOffsetX, canvasOffsetY);
+    /*Creator.mousePosition = {
 
         /**
-         * Get point of mouse relative to world
+         * Get point of mous relative to canvas
          */
 
-        
-        /*Creator.mousePosition.world = new WorldPoint(
-            (canvasOffsetX  - Creator.deltaX - canvas.width /2)/Creator.zoomFactor,
-            -(canvasOffsetY - Creator.deltaY - canvas.height/2)/Creator.zoomFactor
-        )*/
+        /*canvasOffset: {
+            x: canvasOffsetX,
+            y: canvasOffsetY
+        },
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.toWorldPoint();
+        canvasOffset: new CanvasPoint(canvasOffsetX, canvasOffsetY),
+
+        objectsInGrid: []
+    }**/
+
+    // Reset objects in grid array
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
+
+    /**
+     * Get point of mouse relative to world
+     */
+
+    
+    /*Creator.mousePosition.world = new WorldPoint(
+        (canvasOffsetX  - Creator.deltaX - canvas.width /2)/Creator.zoomFactor,
+        -(canvasOffsetY - Creator.deltaY - canvas.height/2)/Creator.zoomFactor
+    )*/
+
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.toWorldPoint();
+
+    /**
+     * Get grid cell the mouse is hovering over
+     */
+
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell = new _grid__WEBPACK_IMPORTED_MODULE_5__.GridCell(
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
+    ),
+
+    /**document.querySelector("#mouse-info").innerHTML = "World Position:" +
+    "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
+    "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
+    Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
+    canvasOffsetX + ", " + canvasOffsetY + ")";**/
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw sky color
+    ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
+
+    let centerWorldPointAsCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(0, 0).toCanvasPoint();
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        centerWorldPointAsCanvasPoint.y
+    );
+
+    // Draw underground
+    ctx.fillStyle = "#000000";
+    
+    ctx.fillRect(
+        0,
+        centerWorldPointAsCanvasPoint.y, 
+        canvas.width, 
+        canvas.height - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
+    );
+
+    for(var i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
 
         /**
-         * Get grid cell the mouse is hovering over
+         * @type {GameObject}
          */
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell = new _creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell(
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
-        ),
+        let o = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i];
 
-        /**document.querySelector("#mouse-info").innerHTML = "World Position:" +
-        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
-        "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
-        Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
-        canvasOffsetX + ", " + canvasOffsetY + ")";**/
+        // Write object data to level XML
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
 
-        // Draw sky color
-        ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
+        let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
 
-        let centerWorldPointAsCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(0, 0).toCanvasPoint();
+        // Check if object is in the grid cell pointed to by mouse
+        let isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y);
 
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            centerWorldPointAsCanvasPoint.y
-        );
+        // Check if object is in selection array
+        let isSelected = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.includes(o);
 
-        // Draw underground
-        ctx.fillStyle = "#000000";
-        
-        ctx.fillRect(
-            0,
-            centerWorldPointAsCanvasPoint.y, 
-            canvas.width, 
-            canvas.height - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
-        );
+        // If object is pointed to and also in selection, set variable
 
-        for(var i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
-
-            /**
-             * @type {GameObject}
-             */
-
-            let o = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i];
-
-            // Write object data to level XML
-
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
-
-            let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
-
-            // Check if object is in the grid cell pointed to by mouse
-            let isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y);
-
-            // Check if object is in selection array
-            let isSelected = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.includes(o);
-
-            // If object is pointed to and also in selection, set variable
-
-            if(isInGrid && isSelected) {
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = true;
-                console.log(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists);
-            }
-
-            if(isInGrid) {
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
-            }
-
-            /*ctx.rect(
-                (o.x - 30) + Creator.deltaX + canvas.width/2,
-                ((-o.y - 30) + Creator.deltaY + canvas.height /2),
-                60,
-                60
-            );*/
-
-            ctx.drawImage(
-                img1,
-                objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                img1.width * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                img1.height * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
-            )
-
-            ctx.stroke();
-
-            // If object is selected
-
-            if(isSelected) {
-                
-                ctx.lineWidth = 10 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
-                ctx.strokeStyle = "blue";
-
-                ctx.beginPath();
-
-                ctx.rect(
-                    objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                    objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                    60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                    60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
-                );
-
-                ctx.stroke();
-
-            };
-            
+        if(isInGrid && isSelected) {
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = true;
+            console.log(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists);
         }
 
-        ctx.beginPath();
-
-        let selectedObjCanvasPoint;
-
-        /** Get selected object point */
-
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-
-            selectedObjCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].x,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].y
-            ).toCanvasPoint();
-
+        if(isInGrid) {
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
         }
 
-        let gridcellCanvasPoint = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.topLeft.toCanvasPoint();
+        /*ctx.rect(
+            (o.x - 30) + Creator.deltaX + canvas.width/2,
+            ((-o.y - 30) + Creator.deltaY + canvas.height /2),
+            60,
+            60
+        );*/
 
-        ctx.rect(
-            gridcellCanvasPoint.x,
-            gridcellCanvasPoint.y,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
+        ctx.drawImage(
+            img1,
+            objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+            objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+            img1.width * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+            img1.height * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
         )
 
-        ctx.stroke(); 
+        ctx.stroke();
 
-        // Draw selection rectangle, if it exists
+        // If object is selected
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
-
-            ctx.lineWidth = 1;
-
-            ctx.strokeStyle = "rgb(0,255,255)";
-
-            ctx.fillStyle = "rgb(0,255,255,0.5)"
+        if(isSelected) {
+            
+            ctx.lineWidth = 10 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
+            ctx.strokeStyle = "blue";
 
             ctx.beginPath();
 
             ctx.rect(
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
+                objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+                60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
             );
-
-            ctx.fill();
 
             ctx.stroke();
-        }
 
-        /**
-         * Used to see if objects in grid really do have a center
-         * (Comment out for debugging)
-         */
+        };
+        
+    }
 
-        /**if(Creator.mousePosition.objectsInGrid.length) {
+    ctx.beginPath();
 
-            ctx.beginPath()
+    let selectedObjCanvasPoint;
 
-            ctx.arc(
-                selectedObjCanvasPoint.x, 
-                selectedObjCanvasPoint.y, 
-                Creator.debugConfig.selectedPointValue * Creator.zoomFactor, 
-                0, 
-                Math.PI * 2
-            );
+    /** Get selected object point */
 
-            ctx.stroke(); 
-        }**/
+    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
 
-    },16.66);
+        selectedObjCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].x,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].y
+        ).toCanvasPoint();
 
-    canvas.addEventListener("mousemove",function(event){
+    }
 
-       // Set new offset
-       canvasOffsetX = event.offsetX;
-       canvasOffsetY = event.offsetY;
+    let gridcellCanvasPoint = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.topLeft.toCanvasPoint();
 
-       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-            document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
-       }
+    ctx.rect(
+        gridcellCanvasPoint.x,
+        gridcellCanvasPoint.y,
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
+    )
 
-       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "select-objects" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-            document.querySelector("#mouse-info").innerText = "Drag to select objects"
-       }
+    ctx.stroke(); 
 
-       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length) {
-            document.querySelector("#mouse-info").innerText = "Click to select object"
-       }
+    // Draw selection rectangle, if it exists
 
-    });
+    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
+
+        ctx.lineWidth = 1;
+
+        ctx.strokeStyle = "rgb(0,255,255)";
+
+        ctx.fillStyle = "rgb(0,255,255,0.5)"
+
+        ctx.beginPath();
+
+        ctx.rect(
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
+            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
+        );
+
+        ctx.fill();
+
+        ctx.stroke();
+    }
 
     /**
-     * 
-     * Mouse Tools
+     * Used to see if objects in grid really do have a center
+     * (Comment out for debugging)
      */
 
-    function transformViewportByMouse(event) {
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += event.movementX;
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += event.movementY;
-    }
+    /**if(Creator.mousePosition.objectsInGrid.length) {
 
-    function transformObjByMouse(event) {
+        ctx.beginPath()
 
-        let oldPos = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y
-        )
+        ctx.arc(
+            selectedObjCanvasPoint.x, 
+            selectedObjCanvasPoint.y, 
+            Creator.debugConfig.selectedPointValue * Creator.zoomFactor, 
+            0, 
+            Math.PI * 2
+        );
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.x;
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.y;
+        ctx.stroke(); 
+    }**/
 
-        let dx = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x - oldPos.x;
-        let dy = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y - oldPos.y;
+},16.66);
 
-        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
-
-            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i] !== _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object) {
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x += dx;
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y += dy;
-            }
-
-        }
-    }
-
-    function changeSelectionRectByMouse() {
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
-    }
-
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = null;
-
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object = null;
-    
-    canvas.addEventListener("mousedown", function(event){
-
-        /**
-         * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
-         *
-        */
-
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists) {
-
-            canvas.addEventListener("mousemove", transformObjByMouse);
-
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1
-            ];
-            
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.x
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.offset.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].leadObject.object.y
-
-        }
-
-        /**
-         * Add objects to selectedObjects array or set array to singleton
-         * array given that there are objects in gridcell pointed to by mouse
-         * 
-         */
-
-        if(!_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-
-            if(event.shiftKey) {
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.push(
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1]
-                )
-            }
-
-            else {
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects = [
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1]
-                ];
-                //console.log("Selected Object Reset")
-            }
-
-        }
-
-        if(!_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects = [];
-
-            if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport") {
-                canvas.addEventListener("mousemove", transformViewportByMouse);
-            }
-
-            else if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "select-objects") {
-
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x,
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
-                );
-
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x,
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
-                );
-
-                canvas.addEventListener("mousemove", changeSelectionRectByMouse);
-
-            }   
-
-        }
-            
-
-    });
-
-    window.addEventListener("mouseup", function(){
-
-        // Disable mousemove events
-
-        canvas.removeEventListener("mousemove", transformViewportByMouse)
-        canvas.removeEventListener("mousemove", transformObjByMouse)
-        canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
-
-
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
-
-            let selectionCanvasWidth = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x;
-            let selectionCanvasHeight = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y;
-
-            // Get bottom left corner of selection rectangle and convert it to point in world
-
-            let bottomLeftWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y + selectionCanvasHeight
-            ).toWorldPoint();
-
-            // Get top left corner of selection rectangle and convert it to point in world
-
-            let topRightWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x + selectionCanvasWidth,
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
-            ).toWorldPoint();
-
-            // Select all objects found in selection
-
-            for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
-
-                let x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i].x;
-                let y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i].y;
-
-                let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
-                let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
-
-                if(inXInterval && inYInterval) {
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.push(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i])
-                }
-
-
-            }
-
-        }
-
-        // Clear selection rectangle objects
-
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft = null
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = null
-
-        // Snap objects to grid
-
-        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length; i++) {
-           let gridCell = new _creator__WEBPACK_IMPORTED_MODULE_3__["default"].GridCell(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x, _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y); 
-           _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].x = gridCell.center.x;
-           _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects[i].y = gridCell.center.y;
-        }
-
-        // Clear selected objects
-        // Set length to zero instead of initalizing new array to preserve reference to single object
-        //selectedObjects.length = 0
-
-        // Set selection rectangle corner to null
-
-    });
-
-    document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "transform-viewport";
-    });
-
-    document.querySelector("#activate-object-transform").addEventListener("click", function(){
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool = "select-objects";
-    });
-
-    document.querySelector("#zoom-in").addEventListener("click", function(){
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor += 0.1
-    });
-
-    document.querySelector("#zoom-out").addEventListener("click", function(){
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor -= 0.1
-    });
-    
+document.querySelector("#zoom-in").addEventListener("click", function(){
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor += 0.1
 });
 
+document.querySelector("#zoom-out").addEventListener("click", function(){
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor -= 0.1
+});
 })();
 
 /******/ })()
