@@ -32,40 +32,31 @@ function generateDefintionsHTML() {
 
         var elm = createMenuItem(definitionTree.categories.block[i]);
 
-        // Closure for 
+        e.addEventListener("mousedown", function(){
 
-        (function(e) {
+            var newElm = document.createElement("img");
+            newElm.style.position = "absolute";
+            newElm.src = "799.svg";
+            newElm.style.zIndex = 300;
 
-            e.addEventListener("mousedown", function(){
+            document.body.appendChild(newElm);
 
-                var newElm = document.createElement("img");
-                newElm.style.position = "absolute";
-                newElm.src = "799.svg";
-                newElm.style.zIndex = 300;
+            var move = function(event){
+                newElm.style.left = event.x + "px";
+                newElm.style.top = event.y + "px";
+            }
 
-                document.body.appendChild(newElm);
+            var disable = function() {
+                document.body.removeEventListener("mousemove", move);
+                document.body.removeEventListener("mouseup", disable);
+                document.body.removeChild(newElm);
+            }
 
-                var move = function(event){
-                    newElm.style.left = event.x + "px";
-                    newElm.style.top = event.y + "px";
-                }
+            document.body.addEventListener("mousemove", move);
+            document.body.addEventListener("mouseup", disable);
 
-                var disable = function() {
-                    document.body.removeEventListener("mousemove", move);
-                    document.body.removeEventListener("mouseup", disable);
-                    document.body.removeChild(newElm);
-                }
+        });
 
-                document.body.addEventListener("mousemove", move);
-                document.body.addEventListener("mouseup", disable);
-
-            });
-
-            
-
-        })(elm);
-
-    
         o.blocks_and_tiles.appendChild(elm);
 
     }
