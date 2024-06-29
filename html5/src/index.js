@@ -150,14 +150,13 @@ window.addEventListener("load",function(){
             Creator.mousePosition.world.y
         ),
 
-        document.querySelector("#mouse-info").innerHTML = "World Position:" +
+        /**document.querySelector("#mouse-info").innerHTML = "World Position:" +
         "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
         "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
         Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
-        canvasOffsetX + ", " + canvasOffsetY + ")";
+        canvasOffsetX + ", " + canvasOffsetY + ")";**/
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
         // Draw sky color
         ctx.fillStyle = "#" + Creator.gameInstance.level.skyColor;
@@ -279,9 +278,10 @@ window.addEventListener("load",function(){
 
         /**
          * Used to see if objects in grid really do have a center
+         * (Comment out for debugging)
          */
 
-        if(Creator.mousePosition.objectsInGrid.length) {
+        /**if(Creator.mousePosition.objectsInGrid.length) {
 
             ctx.beginPath()
 
@@ -294,7 +294,7 @@ window.addEventListener("load",function(){
             );
 
             ctx.stroke(); 
-        }
+        }**/
 
     },16.66);
 
@@ -304,6 +304,17 @@ window.addEventListener("load",function(){
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
 
+       if(Creator.mouseTool === "transform-viewport" && !Creator.mousePosition.objectsInGrid.length) {
+            document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
+       }
+
+       if(Creator.mouseTool === "select-objects" && !Creator.mousePosition.objectsInGrid.length) {
+            document.querySelector("#mouse-info").innerText = "Drag to select objects"
+       }
+
+       if(Creator.mousePosition.objectsInGrid.length && !Creator.selectedObjects.length) {
+            document.querySelector("#mouse-info").innerText = "Click to select object"
+       }
 
     });
 

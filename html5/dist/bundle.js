@@ -24,6 +24,11 @@ const Creator = {
         selectedPointValue: 10
     },
 
+
+    /**
+     * @type {"select-objects"|"select-objects"}
+     */
+
     mouseTool: "select-objects",
 
     /**
@@ -930,14 +935,13 @@ window.addEventListener("load",function(){
             _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
         ),
 
-        document.querySelector("#mouse-info").innerHTML = "World Position:" +
-        "(" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x + ", " + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y + ") " +
-        "Gridcell Bottom Left: (" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.x + ", " + 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
-        canvasOffsetX + ", " + canvasOffsetY + ")";
+        /**document.querySelector("#mouse-info").innerHTML = "World Position:" +
+        "(" + Creator.mousePosition.world.x + ", " + Creator.mousePosition.world.y + ") " +
+        "Gridcell Bottom Left: (" + Creator.mousePosition.gridCell.bottomLeft.x + ", " + 
+        Creator.mousePosition.gridCell.bottomLeft.y + ")" + "Canvas Position: " + "(" +
+        canvasOffsetX + ", " + canvasOffsetY + ")";**/
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
         // Draw sky color
         ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
@@ -1059,22 +1063,23 @@ window.addEventListener("load",function(){
 
         /**
          * Used to see if objects in grid really do have a center
+         * (Comment out for debugging)
          */
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
+        /**if(Creator.mousePosition.objectsInGrid.length) {
 
             ctx.beginPath()
 
             ctx.arc(
                 selectedObjCanvasPoint.x, 
                 selectedObjCanvasPoint.y, 
-                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].debugConfig.selectedPointValue * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor, 
+                Creator.debugConfig.selectedPointValue * Creator.zoomFactor, 
                 0, 
                 Math.PI * 2
             );
 
             ctx.stroke(); 
-        }
+        }**/
 
     },16.66);
 
@@ -1084,6 +1089,17 @@ window.addEventListener("load",function(){
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
 
+       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
+            document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
+       }
+
+       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "select-objects" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
+            document.querySelector("#mouse-info").innerText = "Drag to select objects"
+       }
+
+       if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.length) {
+            document.querySelector("#mouse-info").innerText = "Click to select object"
+       }
 
     });
 

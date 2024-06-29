@@ -10,6 +10,11 @@ const Creator = {
         selectedPointValue: 10
     },
 
+
+    /**
+     * @type {"select-objects"|"select-objects"}
+     */
+
     mouseTool: "select-objects",
 
     /**
