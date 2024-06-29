@@ -1283,31 +1283,20 @@ setInterval(function(){
         
     }
 
-    ctx.beginPath();
+    /**ctx.beginPath();
 
-    let selectedObjCanvasPoint;
-
-    /** Get selected object point */
-
-    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
-
-        selectedObjCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].x,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length - 1].y
-        ).toCanvasPoint();
-
-    }
-
-    let gridcellCanvasPoint = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.topLeft.toCanvasPoint();
+    let gridcellCanvasPoint = creator.mousePosition.gridCell.topLeft.toCanvasPoint();
 
     ctx.rect(
         gridcellCanvasPoint.x,
         gridcellCanvasPoint.y,
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gridSize * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
+        creator.gridSize * creator.zoomFactor,
+        creator.gridSize * creator.zoomFactor
     )
 
     ctx.stroke(); 
+
+    ***/
 
     // Draw selection rectangle, if it exists
 

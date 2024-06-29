@@ -157,20 +157,7 @@ setInterval(function(){
         
     }
 
-    ctx.beginPath();
-
-    let selectedObjCanvasPoint;
-
-    /** Get selected object point */
-
-    if(creator.mousePosition.objectsInGrid.length) {
-
-        selectedObjCanvasPoint = new WorldPoint(
-            creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1].x,
-            creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1].y
-        ).toCanvasPoint();
-
-    }
+    /**ctx.beginPath();
 
     let gridcellCanvasPoint = creator.mousePosition.gridCell.topLeft.toCanvasPoint();
 
@@ -182,6 +169,8 @@ setInterval(function(){
     )
 
     ctx.stroke(); 
+
+    ***/
 
     // Draw selection rectangle, if it exists
 
