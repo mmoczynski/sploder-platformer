@@ -1,4 +1,4 @@
-import dictionary from "../definitions/definitions"
+import dictionary from "../definitions/definitions.js"
 
 const definitionTree = {
     categories: {}

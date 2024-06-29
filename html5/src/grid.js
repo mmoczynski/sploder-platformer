@@ -1,5 +1,5 @@
-import creator from "./creator";
-import { WorldPoint } from "./point";
+import creator from "./creator.js";
+import { WorldPoint } from "./point.js";
 
 export function GridCell(x,y) {
 

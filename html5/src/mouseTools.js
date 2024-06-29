@@ -1,6 +1,6 @@
-import creator from "./creator";
-import { GridCell } from "./grid";
-import { WorldPoint, CanvasPoint } from "./point";
+import creator from "./creator.js";
+import { GridCell } from "./grid.js";
+import { WorldPoint, CanvasPoint } from "./point.js";
 
 creator.canvas.addEventListener("mousemove",function(event){
 

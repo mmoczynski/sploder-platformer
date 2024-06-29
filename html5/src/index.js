@@ -1,10 +1,9 @@
-import definitionTree from "./definitionTree";
-import Game from "./game";
-import generateDefintionsHTML from "./generateDefinitionsHTML";
-import creator from "./creator";
-import { WorldPoint, CanvasPoint } from "./point";
-import { GridCell } from "./grid";
-import "./mouseTools";
+import Game from "./game.js";
+import generateDefintionsHTML from "./generateDefinitionsHTML.js";
+import creator from "./creator.js";
+import { WorldPoint, CanvasPoint } from "./point.js";
+import { GridCell } from "./grid.js";
+import "./mouseTools.js";
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";

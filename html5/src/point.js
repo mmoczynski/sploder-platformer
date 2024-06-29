@@ -5,7 +5,7 @@
  * 
  */
 
-import creator from "./creator";
+import creator from "./creator.js";
 
 /*
  * @param {Number} x 

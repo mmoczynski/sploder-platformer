@@ -1,4 +1,4 @@
-import GameLevel from "./gameLevel";
+import GameLevel from "./gameLevel.js";
 
 /**
  * This library is a partial port of the Game.as file created by Geoff.
