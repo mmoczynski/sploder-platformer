@@ -9,6 +9,21 @@ creator.canvas.addEventListener("mousemove",function(event){
         event.offsetY
     );
 
+    /**
+     * Get point of mouse relative to world
+     */
+
+    creator.mousePosition.world = creator.mousePosition.canvasOffset.toWorldPoint();
+
+    /**
+     * Get grid cell the mouse is hovering over
+     */
+
+    creator.mousePosition.gridCell = new GridCell(
+        creator.mousePosition.world.x,
+        creator.mousePosition.world.y
+    )
+
     if(creator.mouseTool === "transform-viewport" && !creator.mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
     }

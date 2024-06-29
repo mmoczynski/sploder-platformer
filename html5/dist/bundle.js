@@ -651,6 +651,21 @@ _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousem
         event.offsetY
     );
 
+    /**
+     * Get point of mouse relative to world
+     */
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.toWorldPoint();
+
+    /**
+     * Get grid cell the mouse is hovering over
+     */
+
+    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.gridCell = new _grid__WEBPACK_IMPORTED_MODULE_1__.GridCell(
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x,
+        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y
+    )
+
     if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
     }
@@ -1172,21 +1187,6 @@ setInterval(function(){
     // Reset objects in grid array
     _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
 
-    /**
-     * Get point of mouse relative to world
-     */
-
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.toWorldPoint();
-
-    /**
-     * Get grid cell the mouse is hovering over
-     */
-
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell = new _grid__WEBPACK_IMPORTED_MODULE_5__.GridCell(
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
-    ),
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw sky color
@@ -1225,8 +1225,19 @@ setInterval(function(){
 
         let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
 
-        // Check if object is in the grid cell pointed to by mouse
-        let isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y);
+        /**
+         * Check if object is in the grid cell pointed to by mouse
+         * By default, this is set to false.
+         * 
+         * However, if the creator.mousePosition.gridCell is a GridCell object,
+         * then it checks if it is in the grid.
+         */
+
+        let isInGrid = false;
+
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell instanceof _grid__WEBPACK_IMPORTED_MODULE_5__.GridCell) {
+            isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y)
+        }
 
         // Check if object is in selection array
         let isSelected = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.includes(o);
@@ -1237,6 +1248,8 @@ setInterval(function(){
             _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = true;
             console.log(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists);
         }
+
+        // If object is in grid, put it in array for list of objects in grid cell
 
         if(isInGrid) {
             _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
@@ -1291,7 +1304,8 @@ setInterval(function(){
 
     // Draw selection rectangle, if it exists
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
+    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft instanceof _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint && 
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight instanceof _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint) {
 
         ctx.lineWidth = 1;
 

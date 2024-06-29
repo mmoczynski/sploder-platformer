@@ -55,21 +55,6 @@ setInterval(function(){
     // Reset objects in grid array
     creator.mousePosition.objectsInGrid = [];
 
-    /**
-     * Get point of mouse relative to world
-     */
-
-    creator.mousePosition.world = creator.mousePosition.canvasOffset.toWorldPoint();
-
-    /**
-     * Get grid cell the mouse is hovering over
-     */
-
-    creator.mousePosition.gridCell = new GridCell(
-        creator.mousePosition.world.x,
-        creator.mousePosition.world.y
-    ),
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw sky color
@@ -108,8 +93,19 @@ setInterval(function(){
 
         let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
 
-        // Check if object is in the grid cell pointed to by mouse
-        let isInGrid = creator.mousePosition.gridCell.pointInGrid(o.x, o.y);
+        /**
+         * Check if object is in the grid cell pointed to by mouse
+         * By default, this is set to false.
+         * 
+         * However, if the creator.mousePosition.gridCell is a GridCell object,
+         * then it checks if it is in the grid.
+         */
+
+        let isInGrid = false;
+
+        if(creator.mousePosition.gridCell instanceof GridCell) {
+            isInGrid = creator.mousePosition.gridCell.pointInGrid(o.x, o.y)
+        }
 
         // Check if object is in selection array
         let isSelected = creator.selectedObjects.includes(o);
@@ -120,6 +116,8 @@ setInterval(function(){
             creator.selectedObjectPointedToExists = true;
             console.log(creator.selectedObjectPointedToExists);
         }
+
+        // If object is in grid, put it in array for list of objects in grid cell
 
         if(isInGrid) {
             creator.mousePosition.objectsInGrid.push(o);
@@ -174,7 +172,8 @@ setInterval(function(){
 
     // Draw selection rectangle, if it exists
 
-    if(creator.selectionRect.topLeft && creator.selectionRect.bottomRight) {
+    if(creator.selectionRect.topLeft instanceof CanvasPoint && 
+        creator.selectionRect.bottomRight instanceof CanvasPoint) {
 
         ctx.lineWidth = 1;
 
