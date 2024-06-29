@@ -148,3 +148,13 @@ html, body {
     background-position: center;
     border-radius: 20px;
 }
+
+.level-editing-button {
+    background-color: purple;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}

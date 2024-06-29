@@ -1,13 +1,40 @@
-/**
-* Image source: https://www.svgrepo.com/svg/509072/cross
+/*
+* CSS icon file
+* See comments for licensing information
+*
 */
 
-#delete-selection {
+/**
+* MIT license (copied from https://www.svgrepo.com/page/licensing/#MIT)
+* You are free:
+*
+* to share – to copy, distribute and transmit the work
+* to remix – to adapt the work
+* Under the following terms:
+
+* liability – the author doesn't provide any warranty and doesn't accepts any liability
+* copyright notice – a copy of the license or copyright notice must be included with software
+* share alike – If you remix, transform, or build upon the material, 
+* you can distribute your work under any license
+*
+*/
+
+/**
+* Filename: cross-svgrepo-com.svg
+* Image source: https://www.svgrepo.com/svg/509072/cross
+* Released under MIT license (See notice towards the top of the file for information)
+* Author: Orchid
+*/
+
+#delete-selection, #remove-level-button {
     background-image: url(../images/icons/cross-svgrepo-com.svg);
 }
 
 /*
+* Filename: pointer-svgrepo-com.svg
 * Image source: https://www.svgrepo.com/svg/491103/pointer
+* Released under MIT license (See notice towards the top of the file for information)
+* Author: Will Kely
 */
 
 #activate-object-transform {
@@ -15,7 +42,10 @@
 }
 
 /**
+* Filename: pointer-svgrepo-com-2.svg
 * Image source: https://www.svgrepo.com/svg/349610/pointer
+* Released under MIT license (See notice towards the top of the file for information)
+* Author: EvilIcons
 */
 
 #activate-viewport-transform {
@@ -23,15 +53,24 @@
 }
 
 /*
+* Filename: plus-large-svgrepo-com.svg
 * Image source: https://www.svgrepo.com/svg/509072/cross
+* Released under MIT license (See notice towards the top of the file for information)
+* Author: Orchid
 */
 
-#zoom-in {
+#zoom-in, #add-level-button {
     background-image: url(../images/icons/plus-large-svgrepo-com.svg);
 }
 
 /*
+* Filename: minus-svgrepo-com.svg
 * Image source: https://www.svgrepo.com/svg/532960/minus
+* Released under CC BY
+* Link to license: https://www.svgrepo.com/page/licensing/#CC%20Attribution
+* Changes made: Color was turned white
+* Author: Dazzle UI
+* 
 */
 
 #zoom-out {
@@ -39,7 +78,12 @@
 }
 
 /*
+* Filename: square-svgrepo-com.svg
 * Image source: https://www.svgrepo.com/svg/532287/square
+* Released under CC Attribution License
+* Link to license: https://www.svgrepo.com/page/licensing/#CC%20Attribution
+* Changes made: Changed color to white
+* Author: Dazze UI
 */
 
 #reset-delta {
@@ -47,9 +91,49 @@
 }
 
 /*
+* Filename: settings-svgrepo-com.svg
 * Image source: https://www.svgrepo.com/svg/521835/settings
+* Released under Attribution CC BY
+* Link to license: https://www.svgrepo.com/page/licensing/#CC%20Attribution
+* Changes made: Changed color to white
+* Author: Konstantin Filatov
 */
 
 #settings {
     background-image: url(../images/icons/settings-svgrepo-com.svg);
+}
+
+/**
+* Filename: triangle-svgrepo-com.svg
+* Image source: https://www.svgrepo.com/svg/488433/triangle
+* Released under MIT license (See top of file for more)
+* Author: Neuicons
+*/
+
+#move-level-up-button {
+    background-image: url(../images/icons/triangle-svgrepo-com.svg);
+}
+
+/**
+* Filename: clone-svgrepo-com.svg
+* Image source: https://www.svgrepo.com/svg/532744/clone
+* Released under CC Attribution License 
+* Link to license: https://www.svgrepo.com/page/licensing/#CC%20Attribution
+* Changes made: changed color to white
+* Author: Dazzle UI
+*/
+
+#clone-level-button {
+    background-image: url(../images/icons/clone-svgrepo-com.svg);
+}
+
+/**
+* Filename: pencil-ui-3-svgrepo-com.svg
+* Image source: https://www.svgrepo.com/svg/488320/pencil-ui-3
+* Released under MIT license (see notice at top of file)
+* Author: Neuicons
+*/
+
+#rename-level-button {
+    background-image: url(../images/icons/pencil-ui-3-svgrepo-com.svg);
 }
