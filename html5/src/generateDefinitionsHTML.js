@@ -32,7 +32,7 @@ function generateDefintionsHTML() {
 
         var elm = createMenuItem(definitionTree.categories.block[i]);
 
-        e.addEventListener("mousedown", function(){
+        elm.addEventListener("mousedown", function(){
 
             var newElm = document.createElement("img");
             newElm.style.position = "absolute";
