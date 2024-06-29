@@ -1118,6 +1118,9 @@ window.addEventListener("load",function(){
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
 
+       _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaX = canvasOffsetX - event.offsetX;
+       _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaY = canvasOffsetY - event.offsetY;
+
        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.length) {
             document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
        }
@@ -1138,8 +1141,8 @@ window.addEventListener("load",function(){
      */
 
     function transformViewportByMouse(event) {
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += event.movementX;
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += event.movementY;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaX += _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaX;
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY += _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseDeltaY;
     }
 
     function transformObjByMouse(event) {

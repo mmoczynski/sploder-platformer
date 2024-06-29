@@ -328,6 +328,9 @@ window.addEventListener("load",function(){
        canvasOffsetX = event.offsetX;
        canvasOffsetY = event.offsetY;
 
+       Creator.mouseDeltaX = canvasOffsetX - event.offsetX;
+       Creator.mouseDeltaY = canvasOffsetY - event.offsetY;
+
        if(Creator.mouseTool === "transform-viewport" && !Creator.mousePosition.objectsInGrid.length) {
             document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
        }
@@ -348,8 +351,8 @@ window.addEventListener("load",function(){
      */
 
     function transformViewportByMouse(event) {
-        Creator.deltaX += event.movementX;
-        Creator.deltaY += event.movementY;
+        Creator.deltaX += Creator.mouseDeltaX;
+        Creator.deltaY += Creator.mouseDeltaY;
     }
 
     function transformObjByMouse(event) {
