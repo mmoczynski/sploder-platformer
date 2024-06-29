@@ -357,6 +357,15 @@ window.addEventListener("load",function(){
         Creator.deltaY += event.movementY;
     }
 
+    /**
+     * A naive solution might be to transform objects by mouse delta.
+     * However, in that method, if an object is shaked extremely fast, then it abnormally shifts.
+     * This might be due to floating point numbers
+     * Therefore, all objects transform in respect to one being moved to by the mouse.
+     * 
+     * @param {*} event 
+     */
+
     function transformObjByMouse(event) {
 
         let oldPos = new WorldPoint(
