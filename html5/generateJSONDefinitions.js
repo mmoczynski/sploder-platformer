@@ -50,7 +50,7 @@ fs.readFile("../client/assets/library_definitions.xml",function(err,data){
 
         **/
 
-        fs.writeFile("../html5/definitions/definitions.json",JSON.stringify(obj,null,"  "),function(err){
+        fs.writeFile("../html5/definitions/definitions.js","export default " + JSON.stringify(obj,null,"  "),function(err){
             if(err) {
                 throw err;
             }

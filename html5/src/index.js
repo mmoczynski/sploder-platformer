@@ -123,6 +123,8 @@ setInterval(function(){
             creator.mousePosition.objectsInGrid.push(o);
         }
 
+        ctx.beginPath();
+
         ctx.drawImage(
             img1,
             objCanvasPoint.x - 30 * creator.zoomFactor,

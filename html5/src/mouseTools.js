@@ -216,9 +216,9 @@ window.addEventListener("mouseup", function(){
     // Snap objects to grid
 
     for(let i = 0; i < creator.selectedObjects.length; i++) {
-    let gridCell = new GridCell(creator.selectedObjects[i].x, creator.selectedObjects[i].y); 
-    creator.selectedObjects[i].x = gridCell.center.x;
-    creator.selectedObjects[i].y = gridCell.center.y;
+        let gridCell = new GridCell(creator.selectedObjects[i].x, creator.selectedObjects[i].y); 
+        creator.selectedObjects[i].x = gridCell.center.x;
+        creator.selectedObjects[i].y = gridCell.center.y;
     }
 
     // Clear selected objects
