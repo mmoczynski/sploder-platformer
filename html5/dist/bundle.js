@@ -44,7 +44,12 @@ const Creator = {
      * @type {GameObject[]}
      */
 
-    selectedObjects: []
+    selectedObjects: [],
+
+    selectionRect: {
+        topLeft: null,
+        bottomRight: null,
+    }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Creator);
@@ -1061,6 +1066,30 @@ window.addEventListener("load",function(){
 
         ctx.stroke(); 
 
+        // Draw selection rectangle, if it exists
+
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
+
+            ctx.lineWidth = 1;
+
+            ctx.strokeStyle = "rgb(0,255,255)";
+
+            ctx.fillStyle = "rgb(0,255,255,0.5)"
+
+            ctx.beginPath();
+
+            ctx.rect(
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
+            );
+
+            ctx.fill();
+
+            ctx.stroke();
+        }
+
         /**
          * Used to see if objects in grid really do have a center
          * (Comment out for debugging)
@@ -1120,7 +1149,12 @@ window.addEventListener("load",function(){
         }
     }
 
-    let topLeftSelectionWorldPoint = null;
+    function changeSelectionRectByMouse() {
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
+    }
+
+    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = null;
     
     canvas.addEventListener("mousedown", function(event){
 
@@ -1161,14 +1195,22 @@ window.addEventListener("load",function(){
             _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects = [];
 
             if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "transform-viewport") {
-                canvas.addEventListener("mousemove", transformViewportByMouse)
+                canvas.addEventListener("mousemove", transformViewportByMouse);
             }
 
             else if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mouseTool === "select-objects") {
-                topLeftSelectionWorldPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.x,
-                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.world.y
+
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x,
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
                 );
+
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.x,
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.canvasOffset.y
+                );
+
+                canvas.addEventListener("mousemove", changeSelectionRectByMouse);
 
             }   
 
@@ -1183,6 +1225,51 @@ window.addEventListener("load",function(){
 
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
+        canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+
+
+        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight) {
+
+            let selectionCanvasWidth = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x;
+            let selectionCanvasHeight = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y;
+
+            // Get bottom left corner of selection rectangle and convert it to point in world
+
+            let bottomLeftWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y + selectionCanvasHeight
+            ).toWorldPoint();
+
+            // Get top left corner of selection rectangle and convert it to point in world
+
+            let topRightWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint(
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x + selectionCanvasWidth,
+                _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
+            ).toWorldPoint();
+
+            // Select all objects found in selection rectangle
+
+            for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
+
+                let x = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i].x;
+                let y = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i].y;
+
+                let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
+                let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
+
+                if(inXInterval && inYInterval) {
+                    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.push(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i])
+                }
+
+
+            }
+
+        }
+
+        // Clear selection rectangle objects
+
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft = null
+        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight = null
 
         // Snap objects to grid
 
@@ -1197,7 +1284,6 @@ window.addEventListener("load",function(){
         //selectedObjects.length = 0
 
         // Set selection rectangle corner to null
-        topLeftSelectionWorldPoint = null;
 
     });
 

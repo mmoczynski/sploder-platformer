@@ -276,6 +276,30 @@ window.addEventListener("load",function(){
 
         ctx.stroke(); 
 
+        // Draw selection rectangle, if it exists
+
+        if(Creator.selectionRect.topLeft && Creator.selectionRect.bottomRight) {
+
+            ctx.lineWidth = 1;
+
+            ctx.strokeStyle = "rgb(0,255,255)";
+
+            ctx.fillStyle = "rgb(0,255,255,0.5)"
+
+            ctx.beginPath();
+
+            ctx.rect(
+                Creator.selectionRect.topLeft.x,
+                Creator.selectionRect.topLeft.y,
+                Creator.selectionRect.bottomRight.x - Creator.selectionRect.topLeft.x,
+                Creator.selectionRect.bottomRight.y - Creator.selectionRect.topLeft.y
+            );
+
+            ctx.fill();
+
+            ctx.stroke();
+        }
+
         /**
          * Used to see if objects in grid really do have a center
          * (Comment out for debugging)
@@ -335,7 +359,12 @@ window.addEventListener("load",function(){
         }
     }
 
-    let topLeftSelectionWorldPoint = null;
+    function changeSelectionRectByMouse() {
+        Creator.selectionRect.bottomRight.x = Creator.mousePosition.canvasOffset.x
+        Creator.selectionRect.bottomRight.y = Creator.mousePosition.canvasOffset.y
+    }
+
+    Creator.selectionRect.bottomRight = null;
     
     canvas.addEventListener("mousedown", function(event){
 
@@ -376,14 +405,22 @@ window.addEventListener("load",function(){
             Creator.selectedObjects = [];
 
             if(Creator.mouseTool === "transform-viewport") {
-                canvas.addEventListener("mousemove", transformViewportByMouse)
+                canvas.addEventListener("mousemove", transformViewportByMouse);
             }
 
             else if(Creator.mouseTool === "select-objects") {
-                topLeftSelectionWorldPoint = new WorldPoint(
-                    Creator.mousePosition.world.x,
-                    Creator.mousePosition.world.y
+
+                Creator.selectionRect.topLeft = new CanvasPoint(
+                    Creator.mousePosition.canvasOffset.x,
+                    Creator.mousePosition.canvasOffset.y
                 );
+
+                Creator.selectionRect.bottomRight = new CanvasPoint(
+                    Creator.mousePosition.canvasOffset.x,
+                    Creator.mousePosition.canvasOffset.y
+                );
+
+                canvas.addEventListener("mousemove", changeSelectionRectByMouse);
 
             }   
 
@@ -398,6 +435,51 @@ window.addEventListener("load",function(){
 
         canvas.removeEventListener("mousemove", transformViewportByMouse)
         canvas.removeEventListener("mousemove", transformObjByMouse)
+        canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+
+
+        if(Creator.selectionRect.topLeft && Creator.selectionRect.bottomRight) {
+
+            let selectionCanvasWidth = Creator.selectionRect.bottomRight.x - Creator.selectionRect.topLeft.x;
+            let selectionCanvasHeight = Creator.selectionRect.bottomRight.y - Creator.selectionRect.topLeft.y;
+
+            // Get bottom left corner of selection rectangle and convert it to point in world
+
+            let bottomLeftWorldCorner = new CanvasPoint(
+                Creator.selectionRect.topLeft.x,
+                Creator.selectionRect.topLeft.y + selectionCanvasHeight
+            ).toWorldPoint();
+
+            // Get top left corner of selection rectangle and convert it to point in world
+
+            let topRightWorldCorner = new CanvasPoint(
+                Creator.selectionRect.topLeft.x + selectionCanvasWidth,
+                Creator.selectionRect.topLeft.y
+            ).toWorldPoint();
+
+            // Select all objects found in selection rectangle
+
+            for(let i = 0; i < Creator.gameInstance.level.objects.length; i++) {
+
+                let x = Creator.gameInstance.level.objects[i].x;
+                let y = Creator.gameInstance.level.objects[i].y;
+
+                let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
+                let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
+
+                if(inXInterval && inYInterval) {
+                    Creator.selectedObjects.push(Creator.gameInstance.level.objects[i])
+                }
+
+
+            }
+
+        }
+
+        // Clear selection rectangle objects
+
+        Creator.selectionRect.topLeft = null
+        Creator.selectionRect.bottomRight = null
 
         // Snap objects to grid
 
@@ -412,7 +494,6 @@ window.addEventListener("load",function(){
         //selectedObjects.length = 0
 
         // Set selection rectangle corner to null
-        topLeftSelectionWorldPoint = null;
 
     });
 

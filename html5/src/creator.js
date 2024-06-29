@@ -30,7 +30,12 @@ const Creator = {
      * @type {GameObject[]}
      */
 
-    selectedObjects: []
+    selectedObjects: [],
+
+    selectionRect: {
+        topLeft: null,
+        bottomRight: null,
+    }
 }
 
 export default Creator;
