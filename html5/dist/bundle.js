@@ -7765,7 +7765,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _definitions_definitions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../definitions/definitions */ "./html5/definitions/definitions.js");
+/* harmony import */ var _definitions_definitions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../definitions/definitions.js */ "./html5/definitions/definitions.js");
 
 
 const definitionTree = {
@@ -7796,7 +7796,7 @@ function Sprite(objectID) {
 
 
 
-let a = _definitions_definitions__WEBPACK_IMPORTED_MODULE_0__["default"].objects.playobj
+let a = _definitions_definitions_js__WEBPACK_IMPORTED_MODULE_0__["default"].objects.playobj
 
 for(var i = 0; i < a.length; i++) {
 
@@ -7828,7 +7828,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _gameLevel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLevel */ "./html5/src/gameLevel.js");
+/* harmony import */ var _gameLevel_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameLevel.js */ "./html5/src/gameLevel.js");
 
 
 /**
@@ -7843,7 +7843,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Game(xmlDocument) {
     this.xmlDocument = xmlDocument;
-    this.level = new _gameLevel__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[0]);
+    this.level = new _gameLevel_js__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[0]);
     this.extractGraphicsFromXMLDocument();
 }
 
@@ -7894,7 +7894,7 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 }
 
 Game.prototype.selectLevelByIndex = function(i) {
-    this.level = new _gameLevel__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[i]);
+    this.level = new _gameLevel_js__WEBPACK_IMPORTED_MODULE_0__["default"](this,this.xmlDocument.getElementsByTagName("level")[i]);
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);
@@ -7911,7 +7911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
+/* harmony import */ var _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree.js */ "./html5/src/definitionTree.js");
 /**
  * This is a port of some of the functions from the client/GameLevel.as script
  */
@@ -7962,6 +7962,13 @@ function GameLevel(game,levelNode) {
     this.name = this.levelNode.getAttribute("name");
 
     this.avatar = this.levelNode.getAttribute("avatar");
+}
+
+GameLevel.prototype.deleteObject = function(object) {
+    return this.objects.splice(
+        this.objects.indexOf(object),
+        1
+    );
 }
 
 /**
@@ -8090,7 +8097,7 @@ GameObject.prototype.defineArgumentInteger = function(index) {
 }
 
 GameObject.prototype.getDefinitionObject = function() {
-    return _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"][this.objectID];
+    return _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"][this.objectID];
 }
 
 GameObject.prototype.toString = function() {
@@ -8111,7 +8118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
+/* harmony import */ var _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree.js */ "./html5/src/definitionTree.js");
 
 
 function createMenuItem(definition) {
@@ -8142,9 +8149,9 @@ function generateDefintionsHTML() {
         hazards: document.createElement("div")
     };
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block.length; i++) {
+    for(let i = 0; i < _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block.length; i++) {
 
-        var elm = createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block[i]);
+        var elm = createMenuItem(_definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.block[i]);
 
         elm.addEventListener("mousedown", function(){
 
@@ -8175,20 +8182,20 @@ function generateDefintionsHTML() {
 
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind[i]));
+    for(let i = 0; i < _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind.length; i++) {
+        o.walls_and_decoration.appendChild(createMenuItem(_definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.blockbehind[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger[i]));
+    for(let i = 0; i < _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger.length; i++) {
+        o.switches_and_doors.appendChild(createMenuItem(_definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.trigger[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup[i]));
+    for(let i = 0; i < _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup.length; i++) {
+        o.powerups.appendChild(createMenuItem(_definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.powerup[i]));
     }
 
-    for(let i = 0; i < _definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(_definitionTree__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard[i]));
+    for(let i = 0; i < _definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard.length; i++) {
+        o.hazards.appendChild(createMenuItem(_definitionTree_js__WEBPACK_IMPORTED_MODULE_0__["default"].categories.hazard[i]));
     }
 
     // Event Listener for Blocks and Tiles
@@ -8241,49 +8248,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   GridCell: () => (/* binding */ GridCell)
 /* harmony export */ });
-/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
-/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+/* harmony import */ var _creator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator.js */ "./html5/src/creator.js");
+/* harmony import */ var _point_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./point.js */ "./html5/src/point.js");
 
 
 
 function GridCell(x,y) {
 
-    this.numberOfGridsX = Math.floor(x/_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
+    this.numberOfGridsX = Math.floor(x/_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
 
-    this.numberofGridsY = Math.floor(y/_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
+    this.numberofGridsY = Math.floor(y/_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize);
 
 
-    this.bottomLeft = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
-        this.numberOfGridsX * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
-        this.numberofGridsY * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+    this.bottomLeft = new _point_js__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.numberOfGridsX * _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+        this.numberofGridsY * _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
     )
 
-    this.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+    this.bottomRight = new _point_js__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
         this.bottomLeft.y
     )
 
-    this.topLeft = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+    this.topLeft = new _point_js__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
         this.bottomLeft.x,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
+        this.bottomLeft.y + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
     )
 
-    this.topRight = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
+    this.topRight = new _point_js__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize,
+        this.bottomLeft.y + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize
     )
 
-    this.center = new _point__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
-        this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2,
-        this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2
+    this.center = new _point_js__WEBPACK_IMPORTED_MODULE_1__.WorldPoint(
+        this.bottomLeft.x + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2,
+        this.bottomLeft.y + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize / 2
     )
 
 }
 
 GridCell.prototype.pointInGrid = function(x, y) {
 
-    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize) && 
-        (this.bottomLeft.y < y && y < this.bottomLeft.y + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize)
+    if( (this.bottomLeft.x < x && x < this.bottomLeft.x + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize) && 
+        (this.bottomLeft.y < y && y < this.bottomLeft.y + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gridSize)
     ) {
         return true;
     }
@@ -8296,6 +8303,190 @@ GridCell.prototype.pointInGrid = function(x, y) {
 
 /***/ }),
 
+/***/ "./html5/src/modal.js":
+/*!****************************!*\
+  !*** ./html5/src/modal.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Modal module
+ * Written by @mmoczynski
+ */
+
+function Modal() {
+
+    this.modal = document.createElement("div");
+    this.modal.classList.add("modal");
+
+    this.modalContainer = document.createElement("div");
+    this.modalContainer.classList.add("modal-container");
+
+    this.modal.appendChild(this.modalContainer);
+}
+
+Modal.alert = function(text, ondismiss = function() {}) {
+
+    // Modal object
+    var m = new Modal();
+
+    // Modal body
+    var body = document.createElement("div");
+    body.classList.add("modal-body");
+    body.classList.add("alert");
+    body.innerText = text;
+    m.modalContainer.appendChild(body);
+
+    // Modal footer
+    var modalFooter = document.createElement("div");
+    modalFooter.classList.add("modal-footer");
+    m.modalContainer.appendChild(modalFooter);
+
+    // Dismiss button
+    var dismissButton = document.createElement("span");
+    dismissButton.classList.add("dismiss-modal");
+    dismissButton.classList.add("modal-button");
+    dismissButton.innerText = "OK"
+    modalFooter.appendChild(dismissButton);
+
+    dismissButton.addEventListener("click", function(){
+        document.body.removeChild(m.modal);
+        ondismiss();
+    })
+
+    document.body.appendChild(m.modal);
+
+    return m;
+}
+
+Modal.confirm = function(text, onconfirm = function() {}, oncancel = function(){} ) {
+
+    // Modal object
+    var m = new Modal();
+
+    // Modal body
+    var body = document.createElement("div");
+    body.classList.add("modal-body");
+    body.classList.add("alert");
+    body.innerText = text;
+    m.modalContainer.appendChild(body);
+
+    // Modal footer
+    var modalFooter = document.createElement("div");
+    modalFooter.classList.add("modal-footer");
+    m.modalContainer.appendChild(modalFooter);
+
+    // Cancel button
+    var cancelButton = document.createElement("span");
+    cancelButton.classList.add("cancel-modal");
+    cancelButton.classList.add("modal-button");
+    cancelButton.innerText = "Cancel"
+    modalFooter.appendChild(cancelButton);
+
+    cancelButton.addEventListener("click", function(){
+        document.body.removeChild(m.modal);
+        oncancel();
+    });
+
+    // Confirm
+    var confirmButton = document.createElement("span");
+    confirmButton.classList.add("confirm-modal");
+    confirmButton.classList.add("modal-button");
+    confirmButton.innerText = "OK"
+    modalFooter.appendChild(confirmButton);
+
+    confirmButton.addEventListener("click", function(){
+        document.body.removeChild(m.modal);
+        onconfirm();
+    });
+
+    document.body.appendChild(m.modal);
+
+    return m;
+}
+
+/**
+ * 
+ * @param {string} text 
+ * @param {Function} [onconfirm]
+ * @param {Function} [oncancel] 
+ * @param {string} [defaultValue] 
+ * @returns 
+ */
+
+Modal.prompt = function(text, onconfirm = function() {}, oncancel = function() {}, defaultValue) {
+
+    // Buffer for holding input text
+    var inputText = defaultValue;
+
+    // Modal object
+    var m = new Modal();
+
+    // Modal body
+    var body = document.createElement("div");
+    body.classList.add("modal-body");
+    body.classList.add("alert");
+    m.modalContainer.appendChild(body);
+
+    // Modal Text section
+    var textElm = document.createElement("div");
+    textElm.innerText = text;
+    textElm.classList.add("prompt-text");
+    body.appendChild(textElm);
+
+    // Modal input
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.value = defaultValue;
+    body.appendChild(input);
+
+    input.addEventListener("input", function(){
+        inputText = this.value;
+    });
+
+    // Modal footer
+    var modalFooter = document.createElement("div");
+    modalFooter.classList.add("modal-footer");
+    m.modalContainer.appendChild(modalFooter);
+
+    // Cancel button
+    var cancelButton = document.createElement("span");
+    cancelButton.classList.add("cancel-modal");
+    cancelButton.classList.add("modal-button");
+    cancelButton.innerText = "Cancel"
+    modalFooter.appendChild(cancelButton);
+
+    cancelButton.addEventListener("click", function(){
+        document.body.removeChild(m.modal);
+        oncancel(inputText);
+    });
+
+    // Confirm
+    var confirmButton = document.createElement("span");
+    confirmButton.classList.add("confirm-modal");
+    confirmButton.classList.add("modal-button");
+    confirmButton.innerText = "OK"
+    modalFooter.appendChild(confirmButton);
+
+    confirmButton.addEventListener("click", function(){
+        document.body.removeChild(m.modal);
+        onconfirm(inputText);
+    });
+
+    document.body.appendChild(m.modal);
+
+    return m;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
+
+/***/ }),
+
 /***/ "./html5/src/mouseTools.js":
 /*!*********************************!*\
   !*** ./html5/src/mouseTools.js ***!
@@ -8303,16 +8494,16 @@ GridCell.prototype.pointInGrid = function(x, y) {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
-/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./grid */ "./html5/src/grid.js");
-/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
+/* harmony import */ var _creator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator.js */ "./html5/src/creator.js");
+/* harmony import */ var _grid_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./grid.js */ "./html5/src/grid.js");
+/* harmony import */ var _point_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./point.js */ "./html5/src/point.js");
 
 
 
 
-_creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove",function(event){
+_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove",function(event){
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset = new _point_js__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
         event.offsetX, 
         event.offsetY
     );
@@ -8321,26 +8512,26 @@ _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousem
      * Get point of mouse relative to world
      */
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.toWorldPoint();
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.toWorldPoint();
 
     /**
      * Get grid cell the mouse is hovering over
      */
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.gridCell = new _grid__WEBPACK_IMPORTED_MODULE_1__.GridCell(
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x,
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.gridCell = new _grid_js__WEBPACK_IMPORTED_MODULE_1__.GridCell(
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x,
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y
     )
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport" && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport" && !_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
     }
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects" && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects" && !_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to select objects"
     }
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length && !_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length) {
          document.querySelector("#mouse-info").innerText = "Click to select object"
     }
 
@@ -8352,8 +8543,8 @@ _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousem
  */
 
 function transformViewportByMouse(event) {
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX += event.movementX;
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY += event.movementY;
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX += event.movementX;
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY += event.movementY;
 }
 
 /**
@@ -8367,53 +8558,53 @@ function transformViewportByMouse(event) {
 
 function transformObjByMouse(event) {
 
-    let oldPos = new _point__WEBPACK_IMPORTED_MODULE_2__.WorldPoint(
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x,
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
+    let oldPos = new _point_js__WEBPACK_IMPORTED_MODULE_2__.WorldPoint(
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x,
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
     )
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x;
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y;
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x;
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y;
 
-    let dx = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x - oldPos.x;
-    let dy = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y - oldPos.y;
+    let dx = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x - oldPos.x;
+    let dy = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y - oldPos.y;
 
-    for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
+    for(let i = 0; i < _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i] !== _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object) {
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x += dx;
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y += dy;
+        if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i] !== _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object) {
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x += dx;
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y += dy;
         }
 
     }
 }
 
 function changeSelectionRectByMouse() {
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
 }
 
-_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null;
+_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null;
 
-_creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = null;
+_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = null;
 
-_creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousedown", function(event){
+_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousedown", function(event){
 
     /**
      * Note: Avoid overusing nested if-then statements to avoid hard to follow logic.
      *
  */
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists) {
 
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformObjByMouse);
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformObjByMouse);
 
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1
         ];
         
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.x = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.x - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.x
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.offset.y = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.world.y - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].leadObject.object.y
 
     }
 
@@ -8423,44 +8614,44 @@ _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("moused
      * 
      */
 
-    if(!_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+    if(!_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
 
         if(event.shiftKey) {
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
             )
         }
 
         else {
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid[_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length - 1]
             ];
             //console.log("Selected Object Reset")
         }
 
     }
 
-    if(!_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && !_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
+    if(!_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjectPointedToExists && !_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.objectsInGrid.length) {
 
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [];
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects = [];
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport") {
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformViewportByMouse);
+        if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "transform-viewport") {
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", transformViewportByMouse);
         }
 
-        else if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects") {
+        else if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool === "select-objects") {
 
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = new _point_js__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
             );
 
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = new _point_js__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.x,
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mousePosition.canvasOffset.y
             );
 
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", changeSelectionRectByMouse);
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.addEventListener("mousemove", changeSelectionRectByMouse);
 
         }   
 
@@ -8473,42 +8664,42 @@ window.addEventListener("mouseup", function(){
 
     // Disable mousemove events
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformViewportByMouse)
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformObjByMouse)
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformViewportByMouse)
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", transformObjByMouse)
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
 
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft && _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft && _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight) {
 
-        let selectionCanvasWidth = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x;
-        let selectionCanvasHeight = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y;
+        let selectionCanvasWidth = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.x - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x;
+        let selectionCanvasHeight = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight.y - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y;
 
         // Get bottom left corner of selection rectangle and convert it to point in world
 
-        let bottomLeftWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x,
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y + selectionCanvasHeight
+        let bottomLeftWorldCorner = new _point_js__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x,
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y + selectionCanvasHeight
         ).toWorldPoint();
 
         // Get top left corner of selection rectangle and convert it to point in world
 
-        let topRightWorldCorner = new _point__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x + selectionCanvasWidth,
-            _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y
+        let topRightWorldCorner = new _point_js__WEBPACK_IMPORTED_MODULE_2__.CanvasPoint(
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.x + selectionCanvasWidth,
+            _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft.y
         ).toWorldPoint();
 
         // Select all objects found in selection
 
-        for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects.length; i++) {
+        for(let i = 0; i < _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects.length; i++) {
 
-            let x = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].x;
-            let y = _creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].y;
+            let x = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].x;
+            let y = _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i].y;
 
             let inXInterval = bottomLeftWorldCorner.x < x && x < topRightWorldCorner.x;
             let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
 
             if(inXInterval && inYInterval) {
-                _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i])
+                _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.push(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].gameInstance.level.objects[i])
             }
 
 
@@ -8518,15 +8709,15 @@ window.addEventListener("mouseup", function(){
 
     // Clear selection rectangle objects
 
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = null
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.topLeft = null
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectionRect.bottomRight = null
 
     // Snap objects to grid
 
-    for(let i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
-        let gridCell = new _grid__WEBPACK_IMPORTED_MODULE_1__.GridCell(_creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x, _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y); 
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x = gridCell.center.x;
-        _creator__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y = gridCell.center.y;
+    for(let i = 0; i < _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects.length; i++) {
+        let gridCell = new _grid_js__WEBPACK_IMPORTED_MODULE_1__.GridCell(_creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x, _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y); 
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].x = gridCell.center.x;
+        _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].selectedObjects[i].y = gridCell.center.y;
     }
 
     // Clear selected objects
@@ -8538,11 +8729,41 @@ window.addEventListener("mouseup", function(){
 });
 
 document.querySelector("#activate-viewport-transform").addEventListener("click", function(){
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "transform-viewport";
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "transform-viewport";
 });
 
 document.querySelector("#activate-object-transform").addEventListener("click", function(){
-    _creator__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "select-objects";
+    _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].mouseTool = "select-objects";
+});
+
+/*** Right side buttons info ***/
+
+document.querySelector("#delete-selection").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to delete the selected objects"
+});
+
+document.querySelector("#activate-viewport-transform").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to make it so dragging the mouse creates a rectangle that selects objects inside it."
+});
+
+document.querySelector("#activate-object-transform").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to make it so dragging the mouse drags the playfield."
+});
+
+document.querySelector("#zoom-in").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to zoom in playfield."
+});
+
+document.querySelector("#zoom-out").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to zoom out playfield."
+});
+
+document.querySelector("#reset-delta").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to see all of playfield."
+});
+
+document.querySelector("#settings").addEventListener("mouseover", function(){
+    document.querySelector("#mouse-info").innerText = "Click to edit level background and colors."
 });
 
 /***/ }),
@@ -8559,7 +8780,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Point: () => (/* binding */ Point),
 /* harmony export */   WorldPoint: () => (/* binding */ WorldPoint)
 /* harmony export */ });
-/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
+/* harmony import */ var _creator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./creator.js */ "./html5/src/creator.js");
 /**
  * Point class. Based off this flash library:
  * https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/geom/Point.html
@@ -8675,8 +8896,8 @@ Object.assign(WorldPoint.prototype, Point.prototype);
 WorldPoint.prototype.toCanvasPoint = function() {
 
     return new CanvasPoint(
-        (this.x * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width/2), 
-        (-this.y * _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY + _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height/2)
+        (this.x * _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width/2), 
+        (-this.y * _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY + _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height/2)
     );
 
 }
@@ -8708,8 +8929,8 @@ Object.assign(CanvasPoint.prototype, Point.prototype);
 CanvasPoint.prototype.toWorldPoint = function() {
 
     return new WorldPoint(
-        (this.x - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width / 2) / _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor,
-        -(this.y - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY - _creator__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height / 2) / _creator__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor
+        (this.x - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaX - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.width / 2) / _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor,
+        -(this.y - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].deltaY - _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].canvas.height / 2) / _creator_js__WEBPACK_IMPORTED_MODULE_0__["default"].zoomFactor
     )
 
 }
@@ -8779,13 +9000,13 @@ var __webpack_exports__ = {};
   !*** ./html5/src/index.js ***!
   \****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _definitionTree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./definitionTree */ "./html5/src/definitionTree.js");
-/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game */ "./html5/src/game.js");
-/* harmony import */ var _generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./generateDefinitionsHTML */ "./html5/src/generateDefinitionsHTML.js");
-/* harmony import */ var _creator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./creator */ "./html5/src/creator.js");
-/* harmony import */ var _point__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./point */ "./html5/src/point.js");
-/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./grid */ "./html5/src/grid.js");
-/* harmony import */ var _mouseTools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mouseTools */ "./html5/src/mouseTools.js");
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./html5/src/game.js");
+/* harmony import */ var _generateDefinitionsHTML_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generateDefinitionsHTML.js */ "./html5/src/generateDefinitionsHTML.js");
+/* harmony import */ var _creator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./creator.js */ "./html5/src/creator.js");
+/* harmony import */ var _point_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./point.js */ "./html5/src/point.js");
+/* harmony import */ var _grid_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./grid.js */ "./html5/src/grid.js");
+/* harmony import */ var _mouseTools_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mouseTools.js */ "./html5/src/mouseTools.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal.js */ "./html5/src/modal.js");
 
 
 
@@ -8793,6 +9014,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].Modal = _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"];
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
@@ -8800,7 +9023,7 @@ img1.src = "./799.svg";
  * Constructor for grid cell object
  */
 
-window.SploderPlatformerCreator = _creator__WEBPACK_IMPORTED_MODULE_3__["default"];
+window.SploderPlatformerCreator = _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 
 
 var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project" mode="2" date="Saturday, March 16, 2024" pubkey="" isprivate="0" fast="0" g="1" author="demo"><levels id="levels"><level name="" music="" avatar="0" env="8,6600cc,333333,100">3,210,210|3,90,90|3,30,30|3,150,150|3,270,270|3,330,330|3,390,330|3,450,330|3,390,270|3,390,210|1,-329,239</level></levels><graphics /><textures lastid="0" /></project>`
@@ -8809,11 +9032,11 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
  * @type {Game}
  */
 
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance = _game__WEBPACK_IMPORTED_MODULE_1__["default"].createFromXMLString(str1)
+_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance = _game_js__WEBPACK_IMPORTED_MODULE_0__["default"].createFromXMLString(str1)
 
 /*** Test code for showing locations of objects as circles***/
 
-let canvas = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas;
+let canvas = _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].canvas;
 
 let canvasPositionX = canvas.getBoundingClientRect().x;
 let canvasPositionY = canvas.getBoundingClientRect().y;
@@ -8829,26 +9052,26 @@ window.addEventListener("resize", setCanvasDim)
 
 let ctx = canvas.getContext("2d");
 
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].canvas = canvas;
+_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].canvas = canvas;
 
-_creator__WEBPACK_IMPORTED_MODULE_3__["default"].objectMenuItems = (0,_generateDefinitionsHTML__WEBPACK_IMPORTED_MODULE_2__["default"])();
+_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].objectMenuItems = (0,_generateDefinitionsHTML_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
 
 setInterval(function(){
 
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML = "";
+    _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.levelNode.innerHTML = "";
 
     // Default value for Creator.selectedObjectPointedToExists.
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = false;
+    _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectedObjectPointedToExists = false;
 
     // Reset objects in grid array
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid = [];
+    _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].mousePosition.objectsInGrid = [];
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw sky color
-    ctx.fillStyle = "#" + _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.skyColor;
+    ctx.fillStyle = "#" + _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.skyColor;
 
-    let centerWorldPointAsCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(0, 0).toCanvasPoint();
+    let centerWorldPointAsCanvasPoint = new _point_js__WEBPACK_IMPORTED_MODULE_3__.WorldPoint(0, 0).toCanvasPoint();
 
     ctx.fillRect(
         0,
@@ -8864,22 +9087,22 @@ setInterval(function(){
         0,
         centerWorldPointAsCanvasPoint.y, 
         canvas.width, 
-        canvas.height - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].deltaY
+        canvas.height - _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].deltaY
     );
 
-    for(var i = 0; i < _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects.length; i++) {
+    for(var i = 0; i < _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.objects.length; i++) {
 
         /**
          * @type {GameObject}
          */
 
-        let o = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.objects[i];
+        let o = _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.objects[i];
 
         // Write object data to level XML
 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
+        _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
 
-        let objCanvasPoint = new _point__WEBPACK_IMPORTED_MODULE_4__.WorldPoint(o.x, o.y).toCanvasPoint();
+        let objCanvasPoint = new _point_js__WEBPACK_IMPORTED_MODULE_3__.WorldPoint(o.x, o.y).toCanvasPoint();
 
         /**
          * Check if object is in the grid cell pointed to by mouse
@@ -8891,34 +9114,34 @@ setInterval(function(){
 
         let isInGrid = false;
 
-        if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell instanceof _grid__WEBPACK_IMPORTED_MODULE_5__.GridCell) {
-            isInGrid = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y)
+        if(_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].mousePosition.gridCell instanceof _grid_js__WEBPACK_IMPORTED_MODULE_4__.GridCell) {
+            isInGrid = _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].mousePosition.gridCell.pointInGrid(o.x, o.y)
         }
 
         // Check if object is in selection array
-        let isSelected = _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjects.includes(o);
+        let isSelected = _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectedObjects.includes(o);
 
         // If object is pointed to and also in selection, set variable
 
         if(isInGrid && isSelected) {
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists = true;
-            console.log(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectedObjectPointedToExists);
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectedObjectPointedToExists = true;
+            console.log(_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectedObjectPointedToExists);
         }
 
         // If object is in grid, put it in array for list of objects in grid cell
 
         if(isInGrid) {
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].mousePosition.objectsInGrid.push(o);
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].mousePosition.objectsInGrid.push(o);
         }
 
         ctx.beginPath();
 
         ctx.drawImage(
             img1,
-            objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-            objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-            img1.width * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-            img1.height * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
+            objCanvasPoint.x - 30 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+            objCanvasPoint.y - 30 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+            img1.width * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+            img1.height * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor
         )
 
         ctx.stroke();
@@ -8927,16 +9150,16 @@ setInterval(function(){
 
         if(isSelected) {
             
-            ctx.lineWidth = 10 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor;
+            ctx.lineWidth = 10 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor;
             ctx.strokeStyle = "blue";
 
             ctx.beginPath();
 
             ctx.rect(
-                objCanvasPoint.x - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                objCanvasPoint.y - 30 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor,
-                60 * _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor
+                objCanvasPoint.x - 30 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+                objCanvasPoint.y - 30 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+                60 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor,
+                60 * _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor
             );
 
             ctx.stroke();
@@ -8962,8 +9185,8 @@ setInterval(function(){
 
     // Draw selection rectangle, if it exists
 
-    if(_creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft instanceof _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint && 
-        _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight instanceof _point__WEBPACK_IMPORTED_MODULE_4__.CanvasPoint) {
+    if(_creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.topLeft instanceof _point_js__WEBPACK_IMPORTED_MODULE_3__.CanvasPoint && 
+        _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.bottomRight instanceof _point_js__WEBPACK_IMPORTED_MODULE_3__.CanvasPoint) {
 
         ctx.lineWidth = 1;
 
@@ -8974,10 +9197,10 @@ setInterval(function(){
         ctx.beginPath();
 
         ctx.rect(
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.x - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.x,
-            _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.bottomRight.y - _creator__WEBPACK_IMPORTED_MODULE_3__["default"].selectionRect.topLeft.y
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.topLeft.x,
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.topLeft.y,
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.bottomRight.x - _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.topLeft.x,
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.bottomRight.y - _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].selectionRect.topLeft.y
         );
 
         ctx.fill();
@@ -8988,11 +9211,41 @@ setInterval(function(){
 },16.66);
 
 document.querySelector("#zoom-in").addEventListener("click", function(){
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor += 0.1
+    _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor += 0.1
 });
 
 document.querySelector("#zoom-out").addEventListener("click", function(){
-    _creator__WEBPACK_IMPORTED_MODULE_3__["default"].zoomFactor -= 0.1
+    _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].zoomFactor -= 0.1
+});
+
+document.querySelector("#new-game-menu-item").addEventListener("click", function(){
+    _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"].confirm("Creating a new game will erase any unsaved game you are working on. Do you want to do this?")
+});
+
+document.querySelector("#test-game-menu-item").addEventListener("click", function(){
+    _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"].alert("Testing games is not available right now.");
+});
+
+document.querySelector("#publish-game-menu-item").addEventListener("click", function(){
+    _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"].alert("Publishing games is not available right now.");
+});
+
+document.querySelector("#rename-level-button").addEventListener("click", function(){
+
+    _modal_js__WEBPACK_IMPORTED_MODULE_6__["default"].prompt(
+
+        "Enter in new name for level:", 
+
+        function(input) {
+            _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.name = input;
+        }, 
+
+        function() {}, 
+
+        _creator_js__WEBPACK_IMPORTED_MODULE_2__["default"].gameInstance.level.name
+        
+    );
+
 });
 })();
 
