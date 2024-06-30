@@ -50,6 +50,13 @@ function GameLevel(game,levelNode) {
     this.avatar = this.levelNode.getAttribute("avatar");
 }
 
+GameLevel.prototype.deleteObject = function(object) {
+    return this.objects.splice(
+        this.objects.indexOf(object),
+        1
+    );
+}
+
 /**
  * 
  * @param {*} index - Index for XML env property argument
