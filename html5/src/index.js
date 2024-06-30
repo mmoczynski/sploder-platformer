@@ -4,6 +4,9 @@ import creator from "./creator.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
 import { GridCell } from "./grid.js";
 import "./mouseTools.js";
+import Modal from "./modal.js";
+
+creator.Modal = Modal;
 
 var img1 = document.createElement("img");
 img1.src = "./799.svg";
@@ -204,4 +207,42 @@ document.querySelector("#zoom-in").addEventListener("click", function(){
 
 document.querySelector("#zoom-out").addEventListener("click", function(){
     creator.zoomFactor -= 0.1
+});
+
+document.querySelector("#delete-selection").addEventListener("click", function(){
+
+    for(let i = 0; i < creator.selectedObjects.length; i++) {
+        creator.gameInstance.level.deleteObject(creator.selectedObjects[i]);
+    }
+    
+});
+
+document.querySelector("#new-game-menu-item").addEventListener("click", function(){
+    Modal.confirm("Creating a new game will erase any unsaved game you are working on. Do you want to do this?")
+});
+
+document.querySelector("#test-game-menu-item").addEventListener("click", function(){
+    Modal.alert("Testing games is not available right now.");
+});
+
+document.querySelector("#publish-game-menu-item").addEventListener("click", function(){
+    Modal.alert("Publishing games is not available right now.");
+});
+
+document.querySelector("#rename-level-button").addEventListener("click", function(){
+
+    Modal.prompt(
+
+        "Enter in new name for level:", 
+
+        function(input) {
+            creator.gameInstance.level.name = input;
+        }, 
+
+        function() {}, 
+
+        creator.gameInstance.level.name
+
+    );
+
 });
