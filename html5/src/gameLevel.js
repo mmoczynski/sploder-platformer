@@ -11,7 +11,7 @@ import definitionTree from "./definitionTree.js";
  * @param {Element} levelNode 
  */
 
-function GameLevel(game,levelNode) {
+export function GameLevel(game,levelNode) {
 
     this.game = game;
 
@@ -100,7 +100,7 @@ GameLevel.prototype.populateGame = function (str) {
  * @param x - X
  */
 
-function GameObject() {
+export function GameObject() {
 
     let self = this;
 
@@ -189,5 +189,3 @@ GameObject.prototype.getDefinitionObject = function() {
 GameObject.prototype.toString = function() {
     return this.data.join(",");
 }
-
-export default GameLevel;
