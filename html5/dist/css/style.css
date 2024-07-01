@@ -1,5 +1,5 @@
 :root {
-    --file-header-height: 10vh;
+    --file-header-height: 70px;
     --object-menu-width: 200px;
     --level-editing-menu-height: 
 }
@@ -7,6 +7,8 @@
 html, body {
     margin: 0;
     user-select: none; /** Used to prevent text selection when dragging things **/
+    color: white;
+    overflow: hidden;
 }
 
 * {
@@ -64,7 +66,6 @@ html, body {
 #main-canvas {
     margin-top: var(--file-header-height);
     margin-left: var(--object-menu-width);
-    border: 1px solid #aaa;
 }
 
 #navigation {

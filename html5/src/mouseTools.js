@@ -2,12 +2,21 @@ import creator from "./creator.js";
 import { GridCell } from "./grid.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
 
+document.addEventListener("mousemove", function(event){
+    console.log(
+        event.clientX - creator.canvasPositionX, 
+        event.clientY - creator.canvasPositionY
+    );
+})
+
 creator.canvas.addEventListener("mousemove",function(event){
 
     creator.mousePosition.canvasOffset = new CanvasPoint(
         event.offsetX, 
         event.offsetY
     );
+
+    console.log(creator.mousePosition.canvasOffset)
 
     /**
      * Get point of mouse relative to world
