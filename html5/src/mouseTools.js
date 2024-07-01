@@ -3,18 +3,32 @@ import { GridCell } from "./grid.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
 
 document.addEventListener("mousemove", function(event){
+
     console.log(
         event.clientX - creator.canvasPositionX, 
         event.clientY - creator.canvasPositionY
     );
+
+    creator.mousePosition.canvasOffset = new CanvasPoint(
+        event.clientX - creator.canvasPositionX, 
+        event.clientY - creator.canvasPositionY
+    );
+
+    creator.mousePosition.world = creator.mousePosition.canvasOffset.toWorldPoint();
+
+    creator.mousePosition.gridCell = new GridCell(
+        creator.mousePosition.world.x,
+        creator.mousePosition.world.y
+    );
+
 })
 
 creator.canvas.addEventListener("mousemove",function(event){
 
-    creator.mousePosition.canvasOffset = new CanvasPoint(
+    /*creator.mousePosition.canvasOffset = new CanvasPoint(
         event.offsetX, 
         event.offsetY
-    );
+    );*
 
     console.log(creator.mousePosition.canvasOffset)
 
@@ -22,16 +36,16 @@ creator.canvas.addEventListener("mousemove",function(event){
      * Get point of mouse relative to world
      */
 
-    creator.mousePosition.world = creator.mousePosition.canvasOffset.toWorldPoint();
+    /*creator.mousePosition.world = creator.mousePosition.canvasOffset.toWorldPoint();*/
 
     /**
      * Get grid cell the mouse is hovering over
      */
 
-    creator.mousePosition.gridCell = new GridCell(
+    /*creator.mousePosition.gridCell = new GridCell(
         creator.mousePosition.world.x,
         creator.mousePosition.world.y
-    )
+    )*/
 
     if(creator.mouseTool === "transform-viewport" && !creator.mousePosition.objectsInGrid.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
