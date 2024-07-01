@@ -53,7 +53,7 @@ const creator = {
          * @type {GameObject[]}
          */
 
-        objectsInGrid: [],
+        objectsContainingMousePoint: [],
 
         /**
          * @type {GridCell|null}
