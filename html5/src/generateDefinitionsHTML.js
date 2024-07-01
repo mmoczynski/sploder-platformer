@@ -1,4 +1,6 @@
 import definitionTree from "./definitionTree.js";
+import creator from "./creator.js";
+import { GameLevel, GameObject } from "./gameLevel.js";
 
 function createMenuItem(definition) {
 
@@ -8,6 +10,8 @@ function createMenuItem(definition) {
     var span = document.createElement("span");
     span.innerText = definition["@_cname"];
     elm.appendChild(span);
+
+    elm._creator_dictionary_entry = definition;
 
     return elm;
 }
@@ -50,6 +54,17 @@ function generateDefintionsHTML() {
                 document.body.removeEventListener("mousemove", move);
                 document.body.removeEventListener("mouseup", disable);
                 document.body.removeChild(newElm);
+
+                if(creator.gameInstance.level instanceof GameLevel) {
+
+                    creator.gameInstance.level.objects.push(new GameObject(
+                        elm._creator_dictionary_entry['@_cid'],
+                        creator.mousePosition.gridCell.center.x,
+                        creator.mousePosition.gridCell.center.y
+                    ))
+
+                }
+                
             }
 
             document.body.addEventListener("mousemove", move);
