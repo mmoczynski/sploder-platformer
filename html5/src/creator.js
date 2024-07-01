@@ -11,6 +11,13 @@ const creator = {
         selectedPointValue: 10
     },
 
+    setCanvasDimensions: function() {
+        creator.canvas.width = window.innerWidth - creator.canvasPositionX;
+        creator.canvas.height = window.innerHeight - creator.canvasPositionY;
+    },
+
+    canvasPositionX: null,
+    canvasPositionY: null,
 
     /**
      * @type {"select-objects"|"select-objects"}

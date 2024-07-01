@@ -27,23 +27,14 @@ creator.gameInstance = Game.createFromXMLString(str1)
 
 /*** Test code for showing locations of objects as circles***/
 
-let canvas = creator.canvas;
+creator.canvasPositionX = creator.canvas.getBoundingClientRect().x;
+creator.canvasPositionY = creator.canvas.getBoundingClientRect().y;
 
-let canvasPositionX = canvas.getBoundingClientRect().x;
-let canvasPositionY = canvas.getBoundingClientRect().y;
+creator.setCanvasDimensions();
 
-function setCanvasDim() {
-    canvas.width = window.innerWidth - canvasPositionX;
-    canvas.height = window.innerHeight - canvasPositionY;
-}
+window.addEventListener("resize", creator.setCanvasDimensions)
 
-setCanvasDim();
-
-window.addEventListener("resize", setCanvasDim)
-
-let ctx = canvas.getContext("2d");
-
-creator.canvas = canvas;
+let ctx = creator.canvas.getContext("2d");
 
 creator.objectMenuItems = generateDefintionsHTML();
 
@@ -57,7 +48,7 @@ setInterval(function(){
     // Reset objects in grid array
     creator.mousePosition.objectsInGrid = [];
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, creator.canvas.width, creator.canvas.height);
 
     // Draw sky color
     ctx.fillStyle = "#" + creator.gameInstance.level.skyColor;
@@ -67,7 +58,7 @@ setInterval(function(){
     ctx.fillRect(
         0,
         0,
-        canvas.width,
+        creator.canvas.width,
         centerWorldPointAsCanvasPoint.y
     );
 
@@ -77,8 +68,8 @@ setInterval(function(){
     ctx.fillRect(
         0,
         centerWorldPointAsCanvasPoint.y, 
-        canvas.width, 
-        canvas.height - creator.deltaY
+        creator.canvas.width, 
+        creator.canvas.height - creator.deltaY
     );
 
     for(var i = 0; i < creator.gameInstance.level.objects.length; i++) {
