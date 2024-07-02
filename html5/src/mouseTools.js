@@ -1,13 +1,14 @@
 import creator from "./creator.js";
+import Ghost from "./ghost.js";
 import { GridCell } from "./grid.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
 
 document.addEventListener("mousemove", function(event){
 
-    console.log(
+    /***console.log(
         event.clientX - creator.canvasPositionX, 
         event.clientY - creator.canvasPositionY
-    );
+    );**/
 
     creator.mousePosition.canvasOffset = new CanvasPoint(
         event.clientX - creator.canvasPositionX, 
@@ -20,6 +21,7 @@ document.addEventListener("mousemove", function(event){
         creator.mousePosition.world.x,
         creator.mousePosition.world.y
     );
+
 
 })
 
@@ -47,15 +49,15 @@ creator.canvas.addEventListener("mousemove",function(event){
         creator.mousePosition.world.y
     )*/
 
-    if(creator.mouseTool === "transform-viewport" && !creator.mousePosition.objectsInGrid.length) {
+    if(creator.mouseTool === "transform-viewport" && !creator.mousePosition.objectsContainingMousePoint.length) {
          document.querySelector("#mouse-info").innerText = "Drag to move the playfield"
     }
 
-    if(creator.mouseTool === "select-objects" && !creator.mousePosition.objectsInGrid.length) {
+    if(creator.mouseTool === "select-objects" && !creator.mousePosition.objectsContainingMousePoint.length) {
          document.querySelector("#mouse-info").innerText = "Drag to select objects"
     }
 
-    if(creator.mousePosition.objectsInGrid.length && !creator.selectedObjects.length) {
+    if(creator.mousePosition.objectsContainingMousePoint.length && !creator.selectedObjects.length) {
          document.querySelector("#mouse-info").innerText = "Click to select object"
     }
 
@@ -93,9 +95,41 @@ function transformObjByMouse(event) {
     let dx = creator.leadObject.object.x - oldPos.x;
     let dy = creator.leadObject.object.y - oldPos.y;
 
+    creator.leadObject.object.ghost.updatePoints();
+
+    /// Generate ghost
+
+    /*let gridCell = new GridCell(
+        creator.mousePosition.world.x,
+        creator.mousePosition.world.y
+    );
+
+    let ghostCenter = new WorldPoint(
+        gridCell.bottomLeft.x + creator.leadObject.object.objectClass.svgSprite.width / 2,
+        gridCell.bottomLeft.y + creator.leadObject.object.objectClass.svgSprite.height / 2
+    )
+
+    creator.leadObject.object.ghost = new Ghost(
+        ghostCenter, 
+        creator.leadObject.object.objectClass.svgSprite.width, 
+        creator.leadObject.object.objectClass.svgSprite.height
+    );*/
+
+
+
+    // Loop through other objects
+
     for(let i = 0; i < creator.selectedObjects.length; i++) {
 
         if(creator.selectedObjects[i] !== creator.leadObject.object) {
+
+            /*let gridCell = new GridCell(creator.selectedObjects[i].x, creator.selectedObjects[i].y); 
+
+            let ghostCenter = new WorldPoint(
+                gridCell.bottomLeft.x + creator.selectedObjects[i].objectClass.svgSprite.width / 2,
+                gridCell.bottomLeft.y + creator.selectedObjects[i].objectClass.svgSprite.height / 2
+            )*/
+
             creator.selectedObjects[i].x += dx;
             creator.selectedObjects[i].y += dy;
         }
@@ -123,9 +157,11 @@ creator.canvas.addEventListener("mousedown", function(event){
 
         creator.canvas.addEventListener("mousemove", transformObjByMouse);
 
-        creator.leadObject.object = creator.mousePosition.objectsInGrid[
-            creator.mousePosition.objectsInGrid.length - 1
+        creator.leadObject.object = creator.mousePosition.objectsContainingMousePoint[
+            creator.mousePosition.objectsContainingMousePoint.length - 1
         ];
+
+        creator.leadObject.object.ghost = new Ghost(creator.leadObject.object);
         
         creator.leadObject.offset.x = creator.mousePosition.world.x - creator.leadObject.object.x
         creator.leadObject.offset.y = creator.mousePosition.world.y - creator.leadObject.object.y
@@ -138,24 +174,24 @@ creator.canvas.addEventListener("mousedown", function(event){
      * 
      */
 
-    if(!creator.selectedObjectPointedToExists && creator.mousePosition.objectsInGrid.length) {
+    if(!creator.selectedObjectPointedToExists && creator.mousePosition.objectsContainingMousePoint.length) {
 
         if(event.shiftKey) {
             creator.selectedObjects.push(
-                creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1]
+                creator.mousePosition.objectsContainingMousePoint[creator.mousePosition.objectsContainingMousePoint.length - 1]
             )
         }
 
         else {
             creator.selectedObjects = [
-                creator.mousePosition.objectsInGrid[creator.mousePosition.objectsInGrid.length - 1]
+                creator.mousePosition.objectsContainingMousePoint[creator.mousePosition.objectsContainingMousePoint.length - 1]
             ];
             //console.log("Selected Object Reset")
         }
 
     }
 
-    if(!creator.selectedObjectPointedToExists && !creator.mousePosition.objectsInGrid.length) {
+    if(!creator.selectedObjectPointedToExists && !creator.mousePosition.objectsContainingMousePoint.length) {
 
         creator.selectedObjects = [];
 
@@ -238,11 +274,34 @@ window.addEventListener("mouseup", function(){
 
     // Snap objects to grid
 
+    //if(creator.leadObject && creator.leadObject.object.ghost) {
+    //    creator.leadObject.object.x = creator.leadObject.object.ghost.centerPoint.x 
+    //    creator.leadObject.object.y = creator.leadObject.object.ghost.centerPoint.y 
+    //}
+
     for(let i = 0; i < creator.selectedObjects.length; i++) {
-        let gridCell = new GridCell(creator.selectedObjects[i].x, creator.selectedObjects[i].y); 
-        creator.selectedObjects[i].x = gridCell.center.x;
-        creator.selectedObjects[i].y = gridCell.center.y;
+
+        //creator.selectedObjects[i].x = creator.selectedObjects[i].ghost.centerPoint.x;
+        //creator.selectedObjects[i].y = creator.selectedObjects[i].ghost.centerPoint.y;;
+
+        //let posX = numberOfGridsX * creator.gridSize + (creator.selectedObjects[i].objectClass.svgSprite.width / 2);
+
+        //let objectHeight = creator.selectedObjects[i].objectClass.svgSprite.height;
+        //let objectWidth = creator.selectedObjects[i].objectClass.svgSprite.width;
+
+        //creator.selectedObjects[i].x = gridCell.bottomLeft.x + objectHeight / 2;
+        //creator.selectedObjects[i].y = gridCell.bottomLeft.y + objectWidth / 2;
+
+        //creator.selectedObjects[i].y = posY;
+
+        //if(creator.selectedObjects[i] !== creator.leadObject.object) {
+        //    creator.selectedObjects[i].x += creator.leadObject.object.ghost.deltaX;
+        //    creator.selectedObjects[i].y += creator.leadObject.object.ghost.deltaY;
+        //}
+
     }
+
+    if (creator.leadObject.object.ghost) creator.leadObject.object.ghost = null
 
     // Clear selected objects
     // Set length to zero instead of initalizing new array to preserve reference to single object
