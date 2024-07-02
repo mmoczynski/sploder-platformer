@@ -7,6 +7,175 @@ const definitionTree = {
     categories: {}
 }
 
+const objectSprites = {
+
+    3: {
+        type: "svgSprite",
+        src: "images/sprites/3.svg"
+    },
+
+    4: {
+        type: "svgSprite",
+        src: "images/sprites/4.svg"
+    },
+
+    6: {
+        type: "svgSprite",
+        src: "images/sprites/6.svg"
+    },
+
+    8: {
+        type: "svgSprite",
+        src: "images/sprites/8.svg"
+    },
+
+    15: {
+        type: "svgSprite",
+        src: "images/sprites/15.svg"
+    },
+
+    16: {
+        type: "svgSprite",
+        src: "images/sprites/16.svg"
+    },
+
+    17: {
+        type: "svgSprite",
+        src: "images/sprites/4.svg"
+    },
+
+    18: {
+        type: "svgSprite",
+        src: "images/sprites/18.svg"
+    },
+
+    19: {
+        type: "svgSprite",
+        src: "images/sprites/19.svg"
+    },
+
+    20: {
+        type: "svgSprite",
+        src: "images/sprites/20.svg"
+    },
+
+    21: {
+        type: "svgSprite",
+        src: "images/sprites/21.svg"
+    },
+
+    49: {
+        type: "svgSprite",
+        src: "images/sprites/49.svg"
+    },
+
+    55: {
+        type: "svgSprite",
+        src: "images/sprites/55.svg"
+    },
+
+    56: {
+        type: "svgSprite",
+        src: "images/sprites/56.svg"
+    },
+
+    57: {
+        type: "svgSprite",
+        src: "images/sprites/57.svg"
+    },
+
+    58: {
+        type: "svgSprite",
+        src: "images/sprites/58.svg"
+    },
+
+    60: {
+        type: "svgSprite",
+        src: "images/sprites/60.svg"
+    },
+
+    289: {
+        type: "svgSprite",
+        src: "images/sprites/289.svg"
+    },
+
+    401: {
+        type: "svgSprite",
+        src: "images/sprites/401.svg"
+    },
+
+    402: {
+        type: "svgSprite",
+        src: "images/sprites/402.svg"
+    },
+
+    403: {
+        type: "svgSprite",
+        src: "images/sprites/403.svg"
+    },
+
+    404: {
+        type: "svgSprite",
+        src: "images/sprites/404.svg"
+    },
+
+    405: {
+        type: "svgSprite",
+        src: "images/sprites/405.svg"
+    },
+
+    406: {
+        type: "svgSprite",
+        src: "images/sprites/406.svg"
+    },
+
+    407: {
+        type: "svgSprite",
+        src: "images/sprites/407.svg"
+    },
+
+    408: {
+        type: "svgSprite",
+        src: "images/sprites/408.svg"
+    },
+
+    409: {
+        type: "svgSprite",
+        src: "images/sprites/409.svg"
+    },
+
+    410: {
+        type: "svgSprite",
+        src: "images/sprites/410.svg"
+    },
+
+    411: {
+        type: "svgSprite",
+        src: "images/sprites/411.svg"
+    },
+
+    412: {
+        type: "svgSprite",
+        src: "images/sprites/412.svg"
+    },
+
+    413: {
+        type: "svgSprite",
+        src: "images/sprites/413.svg"
+    },
+
+    459: {
+        type: "svgSprite",
+        src: "images/sprites/459.svg"
+    },
+
+    463: {
+        type: "svgSprite",
+        src: "images/sprites/463.svg"
+    },
+
+}
+
 function Sprite(objectID) {
 
     /**
@@ -55,23 +224,29 @@ function createMenuItem(definition) {
     var elm = document.createElement("div");
     elm.classList.add("object");
 
-    var img = new Image();
+    elm._creator_dictionary_entry = definitionTree.categories.block[i];
 
-    img.onerror = function() {
-        this._broken = true;
+    if(objectSprites[definition['@_cid']]) {
+
+        var img = new Image();
+
+        img.onerror = function() {
+            this._broken = true;
+        }
+
+        img.src = "images/sprites/" + definition['@_cid'] + ".svg";
+        definition.svgSprite = img;
+
+        img.addEventListener("load", function(){
+            definition.gridDividesX = (img.width % creator.gridSize === 0);
+            definition.gridDividesY = (img.height % creator.gridSize === 0)
+        });
+
+        img.draggable = false;
+
+        elm.appendChild(img);
+
     }
-
-    img.src = "images/sprites/" + definition['@_cid'] + ".svg";
-    definition.svgSprite = img;
-
-    img.addEventListener("load", function(){
-        definition.gridDividesX = (img.width % creator.gridSize === 0);
-        definition.gridDividesY = (img.height % creator.gridSize === 0)
-    })
-
-    img.draggable = false;
-
-    elm.appendChild(img);
 
     var span = document.createElement("span");
     span.innerText = definition["@_cname"];
@@ -96,9 +271,7 @@ var o = {
 
 for(let i = 0; i < definitionTree.categories.block.length; i++) {
 
-    let elm = createMenuItem(definitionTree.categories.block[i]);
-
-    elm._creator_dictionary_entry = definitionTree.categories.block[i];
+    let elm = createMenuItem(definitionTree.categories.block[i])
 
     elm.addEventListener("mousedown", function(){
 
@@ -111,7 +284,7 @@ for(let i = 0; i < definitionTree.categories.block.length; i++) {
         // Game object
 
         var newGameObject = new GameObject(
-            elm._creator_dictionary_entry['@_cid'],
+            this._creator_dictionary_entry['@_cid'],
             creator.mousePosition.world.x,
             creator.mousePosition.world.y
         );
