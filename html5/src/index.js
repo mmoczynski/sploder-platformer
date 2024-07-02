@@ -1,5 +1,4 @@
 import Game from "./game.js";
-import generateDefintionsHTML from "./generateDefinitionsHTML.js";
 import creator from "./creator.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
 import { GridCell } from "./grid.js";
@@ -37,8 +36,6 @@ window.addEventListener("resize", creator.setCanvasDimensions)
 let ctx = creator.canvas.getContext("2d");
 
 creator.ctx = ctx;
-
-creator.objectMenuItems = generateDefintionsHTML();
 
 setInterval(function(){
 
