@@ -301,7 +301,7 @@ window.addEventListener("mouseup", function(){
 
     }
 
-    if (creator.leadObject.object.ghost) creator.leadObject.object.ghost = null
+    if (creator.leadObject.object && creator.leadObject.object.ghost) creator.leadObject.object.ghost = null
 
     // Clear selected objects
     // Set length to zero instead of initalizing new array to preserve reference to single object
