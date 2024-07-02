@@ -48,6 +48,7 @@ export function GameLevel(game,levelNode) {
     this.name = this.levelNode.getAttribute("name");
 
     this.avatar = this.levelNode.getAttribute("avatar");
+
 }
 
 GameLevel.prototype.deleteObject = function(object) {
@@ -164,6 +165,8 @@ export function GameObject() {
         graphicAnimation: self.defineArgumentInteger(7),
     });
 
+    this.objectClass = definitionTree[this.objectID];
+
 }
 
 GameObject.prototype.defineArgumentInteger = function(index) {
@@ -188,4 +191,20 @@ GameObject.prototype.getDefinitionObject = function() {
 
 GameObject.prototype.toString = function() {
     return this.data.join(",");
+}
+
+GameObject.prototype.worldPointInObject = function(x, y) {
+
+    if(!this.objectClass.svgSprite) return false;
+
+    var width = this.objectClass.svgSprite.width;
+    var height = this.objectClass.svgSprite.height;
+
+    var bottomRightCornerX = this.x - width * 0.5;
+    var bottomRightCornerY = this.y - height * 0.5;
+
+    var inXinterval = bottomRightCornerX < x && x < bottomRightCornerX + width;
+    var inYinterval = bottomRightCornerY < y && y < bottomRightCornerY + height; 
+    
+    return inXinterval && inYinterval;
 }
