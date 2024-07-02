@@ -224,7 +224,7 @@ function createMenuItem(definition) {
     var elm = document.createElement("div");
     elm.classList.add("object");
 
-    elm._creator_dictionary_entry = definitionTree.categories.block[i];
+    elm._creator_dictionary_entry = definition;
 
     if(objectSprites[definition['@_cid']]) {
 
@@ -251,27 +251,6 @@ function createMenuItem(definition) {
     var span = document.createElement("span");
     span.innerText = definition["@_cname"];
     elm.appendChild(span);
-
-    return elm;
-}
-
-function changeSelectionClass(targetElement) {
-    var oldElm = document.querySelector("#navigation").querySelector(".selected");
-    oldElm.classList.remove("selected");
-    targetElement.classList.add("selected");
-}
-
-var o = {
-    blocks_and_tiles: document.createElement("div"),
-    walls_and_decoration: document.createElement("div"),
-    switches_and_doors: document.createElement("div"),
-    powerups: document.createElement("div"),
-    hazards: document.createElement("div")
-};
-
-for(let i = 0; i < definitionTree.categories.block.length; i++) {
-
-    let elm = createMenuItem(definitionTree.categories.block[i])
 
     elm.addEventListener("mousedown", function(){
 
@@ -332,6 +311,28 @@ for(let i = 0; i < definitionTree.categories.block.length; i++) {
         window.addEventListener("mouseup", disable);
 
     });
+
+    return elm;
+}
+
+function changeSelectionClass(targetElement) {
+    var oldElm = document.querySelector("#navigation").querySelector(".selected");
+    oldElm.classList.remove("selected");
+    targetElement.classList.add("selected");
+}
+
+var o = {
+    blocks_and_tiles: document.createElement("div"),
+    walls_and_decoration: document.createElement("div"),
+    switches_and_doors: document.createElement("div"),
+    powerups: document.createElement("div"),
+    hazards: document.createElement("div")
+};
+
+for(let i = 0; i < definitionTree.categories.block.length; i++) {
+
+    let elm = createMenuItem(definitionTree.categories.block[i])
+
 
     o.blocks_and_tiles.appendChild(elm);
 
