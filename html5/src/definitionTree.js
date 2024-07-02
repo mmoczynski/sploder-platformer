@@ -43,7 +43,8 @@ for(var i = 0; i < a.length; i++) {
     // Put object definition in category
     definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
 
-    
+    // Get sprite
+
 }
 
 export default definitionTree;
