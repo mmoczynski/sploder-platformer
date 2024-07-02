@@ -7,173 +7,47 @@ const definitionTree = {
     categories: {}
 }
 
+function CompoundSprite(parts) {
+
+}
+
 const objectSprites = {
-
-    3: {
-        type: "svgSprite",
-        src: "images/sprites/3.svg"
-    },
-
-    4: {
-        type: "svgSprite",
-        src: "images/sprites/4.svg"
-    },
-
-    6: {
-        type: "svgSprite",
-        src: "images/sprites/6.svg"
-    },
-
-    8: {
-        type: "svgSprite",
-        src: "images/sprites/8.svg"
-    },
-
-    15: {
-        type: "svgSprite",
-        src: "images/sprites/15.svg"
-    },
-
-    16: {
-        type: "svgSprite",
-        src: "images/sprites/16.svg"
-    },
-
-    17: {
-        type: "svgSprite",
-        src: "images/sprites/4.svg"
-    },
-
-    18: {
-        type: "svgSprite",
-        src: "images/sprites/18.svg"
-    },
-
-    19: {
-        type: "svgSprite",
-        src: "images/sprites/19.svg"
-    },
-
-    20: {
-        type: "svgSprite",
-        src: "images/sprites/20.svg"
-    },
-
-    21: {
-        type: "svgSprite",
-        src: "images/sprites/21.svg"
-    },
-
-    49: {
-        type: "svgSprite",
-        src: "images/sprites/49.svg"
-    },
-
-    55: {
-        type: "svgSprite",
-        src: "images/sprites/55.svg"
-    },
-
-    56: {
-        type: "svgSprite",
-        src: "images/sprites/56.svg"
-    },
-
-    57: {
-        type: "svgSprite",
-        src: "images/sprites/57.svg"
-    },
-
-    58: {
-        type: "svgSprite",
-        src: "images/sprites/58.svg"
-    },
-
-    60: {
-        type: "svgSprite",
-        src: "images/sprites/60.svg"
-    },
-
-    289: {
-        type: "svgSprite",
-        src: "images/sprites/289.svg"
-    },
-
-    401: {
-        type: "svgSprite",
-        src: "images/sprites/401.svg"
-    },
-
-    402: {
-        type: "svgSprite",
-        src: "images/sprites/402.svg"
-    },
-
-    403: {
-        type: "svgSprite",
-        src: "images/sprites/403.svg"
-    },
-
-    404: {
-        type: "svgSprite",
-        src: "images/sprites/404.svg"
-    },
-
-    405: {
-        type: "svgSprite",
-        src: "images/sprites/405.svg"
-    },
-
-    406: {
-        type: "svgSprite",
-        src: "images/sprites/406.svg"
-    },
-
-    407: {
-        type: "svgSprite",
-        src: "images/sprites/407.svg"
-    },
-
-    408: {
-        type: "svgSprite",
-        src: "images/sprites/408.svg"
-    },
-
-    409: {
-        type: "svgSprite",
-        src: "images/sprites/409.svg"
-    },
-
-    410: {
-        type: "svgSprite",
-        src: "images/sprites/410.svg"
-    },
-
-    411: {
-        type: "svgSprite",
-        src: "images/sprites/411.svg"
-    },
-
-    412: {
-        type: "svgSprite",
-        src: "images/sprites/412.svg"
-    },
-
-    413: {
-        type: "svgSprite",
-        src: "images/sprites/413.svg"
-    },
-
-    459: {
-        type: "svgSprite",
-        src: "images/sprites/459.svg"
-    },
-
-    463: {
-        type: "svgSprite",
-        src: "images/sprites/463.svg"
-    },
-
+    3: "images/sprites/3.svg",
+    4: "images/sprites/4.svg",
+    6: "images/sprites/6.svg",
+    8: "images/sprites/8.svg",
+    15: "images/sprites/15.svg",
+    16:  "images/sprites/16.svg",
+    17: "images/sprites/4.svg",
+    18: "images/sprites/18.svg",
+    19: "images/sprites/19.svg",
+    20: "images/sprites/20.svg",
+    21: "images/sprites/21.svg",
+    49: "images/sprites/49.svg",
+    55: "images/sprites/55.svg",
+    56: "images/sprites/56.svg",
+    57: "images/sprites/57.svg",
+    58: "images/sprites/58.svg",
+    60: "images/sprites/60.svg",
+    289: "images/sprites/289.svg",
+    401: "images/sprites/401.svg",
+    402: "images/sprites/402.svg",
+    403: "images/sprites/403.svg",
+    404: "images/sprites/404.svg",
+    405: "images/sprites/405.svg",
+    406: "images/sprites/406.svg",
+    407: "images/sprites/407.svg",
+    408: "images/sprites/408.svg",
+    409: "images/sprites/409.svg",
+    410:  "images/sprites/410.svg",
+    411: "images/sprites/411.svg",
+    412: "images/sprites/412.svg",
+    413: "images/sprites/413.svg",
+    459: "images/sprites/459.svg",
+    463: "images/sprites/463.svg",
+    353: "images/sprites/sageowl.svg",
+    352: "images/sprites/sagegeneral.svg",
+    351: "images/sprites/sagewizard.svg"
 }
 
 function Sprite(objectID) {
@@ -226,7 +100,7 @@ function createMenuItem(definition) {
 
     elm._creator_dictionary_entry = definition;
 
-    if(objectSprites[definition['@_cid']]) {
+    if(typeof objectSprites[definition['@_cid']] === "string") {
 
         var img = new Image();
 
@@ -234,7 +108,7 @@ function createMenuItem(definition) {
             this._broken = true;
         }
 
-        img.src = "images/sprites/" + definition['@_cid'] + ".svg";
+        img.src = objectSprites[definition['@_cid']];
         definition.svgSprite = img;
 
         img.addEventListener("load", function(){
