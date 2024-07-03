@@ -54,6 +54,30 @@ const objectSprites = {
     104: "images/sprites/wheel.svg",
     105: "images/sprites/smallwheel.svg",
 
+    53: {
+
+        stack: [
+            "images/sprites/windmill/windmill1.svg",
+            "images/sprites/windmill/windmill1-dots.svg",
+        ],
+
+        width: 248,
+        height:248
+
+    },
+
+    54: {
+
+        stack: [
+            "images/sprites/windmill/windmill2.svg",
+            "images/sprites/windmill/windmill2-dots.svg",
+        ],
+
+        width: 248,
+        height:248
+
+    },
+
     220: {
 
         stack: [
@@ -115,7 +139,26 @@ const objectSprites = {
         height: 300
 
 
-    }
+    },
+
+    151: "images/sprites/shield.svg",
+
+    22: "images/sprites/lamwalls/1.svg",
+    23: "images/sprites/lamwalls/2.svg",
+    24: "images/sprites/lamwalls/3.svg",
+    25: "images/sprites/lamwalls/4.svg",
+    26: "images/sprites/lamwalls/5.svg",
+    27: "images/sprites/lamwalls/6.svg",
+    28: "images/sprites/lamwalls/7.svg",
+    29: "images/sprites/lamwalls/8.svg",
+    30: "images/sprites/lamwalls/9.svg",
+    31: "images/sprites/lamwalls/10.svg",
+    32: "images/sprites/lamwalls/11.svg",
+    33: "images/sprites/lamwalls/12.svg",
+
+    69: "images/sprites/goldpanel1.svg",
+    70: "images/sprites/goldpanel2.svg"
+
 }
 
 
