@@ -202,6 +202,13 @@ const objectSprites = {
     605: "images/sprites/grass.svg"
 }
 
+var o = {
+    blocks_and_tiles: document.createElement("div"),
+    walls_and_decoration: document.createElement("div"),
+    switches_and_doors: document.createElement("div"),
+    powerups: document.createElement("div"),
+    hazards: document.createElement("div")
+};
 
 let a = dictionary.objects.playobj
 
@@ -389,14 +396,6 @@ function changeSelectionClass(targetElement) {
     oldElm.classList.remove("selected");
     targetElement.classList.add("selected");
 }
-
-var o = {
-    blocks_and_tiles: document.createElement("div"),
-    walls_and_decoration: document.createElement("div"),
-    switches_and_doors: document.createElement("div"),
-    powerups: document.createElement("div"),
-    hazards: document.createElement("div")
-};
 
 for(let i = 0; i < definitionTree.categories.block.length; i++) {
 
