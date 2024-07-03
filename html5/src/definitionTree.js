@@ -141,6 +141,35 @@ const objectSprites = {
 
     },
 
+
+    88: {
+
+        stack: [
+            "images/sprites/tunnels/tunnel-4way-junction-blue-1.svg",
+            "images/sprites/tunnels/tunnel-blue-middle.svg",
+            "images/sprites/tunnels/tunnel-4way-junction-blue-2.svg"
+        ],
+
+        width: 300,
+        height: 300
+
+
+    },
+
+    89: {
+
+        stack: [
+            "images/sprites/tunnels/tunnel-end-blue-1.svg",
+            "images/sprites/tunnels/tunnel-blue-middle.svg",
+            "images/sprites/tunnels/tunnel-end-blue-2.svg"
+        ],
+
+        width: 300,
+        height: 300
+
+
+    },
+
     151: "images/sprites/shield.svg",
 
     22: "images/sprites/lamwalls/1.svg",
@@ -157,8 +186,20 @@ const objectSprites = {
     33: "images/sprites/lamwalls/12.svg",
 
     69: "images/sprites/goldpanel1.svg",
-    70: "images/sprites/goldpanel2.svg"
+    70: "images/sprites/goldpanel2.svg",
 
+    250: "images/sprites/doors/autodoor.svg",
+    251: "images/sprites/doors/touchdoor.svg",
+    256: "images/sprites/doors/bluedoor.svg",
+    257: "images/sprites/doors/greendoor.svg",
+    258: "images/sprites/doors/yellowdoor.svg",
+    277: "images/sprites/doors/onewaydoor.svg",
+
+    601: "images/sprites/frontplant.svg",
+    602: "images/sprites/plant.svg",
+    603: "images/sprites/frontplant2.svg",
+    604: "images/sprites/frontgrass.svg",
+    605: "images/sprites/grass.svg"
 }
 
 
