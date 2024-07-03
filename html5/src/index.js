@@ -119,7 +119,7 @@ setInterval(function(){
 
         let img1 = definitionTree[creator.gameInstance.level.objects[i].objectID].svgSprite;
 
-        if(img1 && img1.complete && !img1._broken) {
+        if( (img1 && img1.complete && !img1._broken) || img1 instanceof HTMLCanvasElement ) {
 
             ctx.beginPath();
 
@@ -134,6 +134,7 @@ setInterval(function(){
             ctx.stroke();
 
         }
+
 
         else {
             //console.warn("Image not defined");

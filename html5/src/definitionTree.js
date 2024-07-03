@@ -53,10 +53,69 @@ const objectSprites = {
     207: "images/sprites/jetfuel.svg",
     104: "images/sprites/wheel.svg",
     105: "images/sprites/smallwheel.svg",
-    220: "images/sprites/crusher.svg", //Requires composite sprite object
+
+    220: {
+
+        stack: [
+            "images/sprites/crusher/crusher.svg",
+            "images/sprites/crusher/arrows.svg",
+        ],
+
+        width: 240,
+        height: 240,
+    }, 
+
     107: "images/sprites/barrel.svg",
     59: "images/sprites/rod.svg",
-    64: "images/sprites/crate.svg"
+    64: "images/sprites/crate.svg",
+    201: "images/sprites/medkit.svg",
+    200: "images/sprites/cookie.svg",
+    211: "images/sprites/atomic.svg",
+    287: "images/sprites/cinderblock.svg",
+    80: "images/sprites/tunnels/tunnel.svg",
+    81: "images/sprites/tunnels/tunnel-curve.svg",
+    82: "images/sprites/tunnels/tunnel-t-junction.svg",
+    83: "images/sprites/tunnels/tunnel-4way-junction.svg",
+    84: "images/sprites/tunnels/tunnel-end.svg",
+
+    85: {
+
+        stack: [
+            "images/sprites/tunnels/tunnel-blue-1.svg",
+            "images/sprites/tunnels/tunnel-blue-middle.svg",
+            "images/sprites/tunnels/tunnel-blue-2.svg"
+        ],
+
+        width: 300,
+        height: 300
+    },
+
+    86: {
+
+        stack: [
+            "images/sprites/tunnels/tunnel-curve-blue-1.svg", // needs resizing feature
+            "images/sprites/tunnels/tunnel-blue-middle.svg",
+            "images/sprites/tunnels/tunnel-curve-blue-2.svg"
+        ],
+
+        width: 300,
+        height: 300,
+
+    },
+
+    87: {
+
+        stack: [
+            "images/sprites/tunnels/tunnel-t-junction-blue-1.svg",
+            "images/sprites/tunnels/tunnel-blue-middle.svg",
+            "images/sprites/tunnels/tunnel-t-junction-blue-2.svg"
+        ],
+
+        width: 300,
+        height: 300
+
+
+    }
 }
 
 
@@ -86,7 +145,9 @@ function createMenuItem(definition) {
 
     elm._creator_dictionary_entry = definition;
 
-    if(typeof objectSprites[definition['@_cid']] === "string") {
+    let sprite = objectSprites[definition['@_cid']]
+
+    if(typeof sprite === "string") {
 
         var img = new Image();
 
@@ -94,7 +155,7 @@ function createMenuItem(definition) {
             this._broken = true;
         }
 
-        img.src = objectSprites[definition['@_cid']];
+        img.src = sprite;
         definition.svgSprite = img;
 
         img.addEventListener("load", function(){
@@ -108,11 +169,69 @@ function createMenuItem(definition) {
 
     }
 
-    // Sprites that are a stack of several sprites
+    // Simple stack of images
 
-    else if(Array.isArray(objectSprites[definition['@_cid']])) {
+    else if(typeof sprite === "object" && Array.isArray(sprite.stack) ){
         
+        let canvas = document.createElement("canvas");
+
+        let ctx = canvas.getContext("2d");
+        canvas.width = sprite.width;
+        canvas.height = sprite.height;
+        canvas._images_loaded = 0;
+
+        let images = [];
+
+        for(let i = 0; i < sprite.stack.length; i++) {
+
+            let img = new Image();
+            images.push(img);
+
+            if(typeof sprite.stack[i] === "string") {
+                img.src = sprite.stack[i];
+            }
+
+            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].src === "string") {
+                img.src = sprite.stack[i].src;
+            }
+
+            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].width === "number") {
+                img.width = sprite.stack[i].width;
+            }
+
+            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].height === "number") {
+                img.height = sprite.stack[i].height;
+            }
+
+            img.addEventListener("load", function(){
+
+                canvas._images_loaded++;
+
+                if(canvas._images_loaded === sprite.stack.length) {
+
+                    images.forEach(function(stackImage){
+                        
+                        ctx.drawImage(
+                            stackImage,
+                            canvas.width / 2 - stackImage.width / 2,
+                            canvas.height / 2 - stackImage.height / 2
+                        );
+
+                    });
+
+                }
+
+            });
+
+        }
+
+        definition.svgSprite = canvas;
+
+        elm.appendChild(canvas);
+
     }
+
+
 
     var span = document.createElement("span");
     span.innerText = definition["@_cname"];
