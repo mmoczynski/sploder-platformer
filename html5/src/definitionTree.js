@@ -43,35 +43,21 @@ const objectSprites = {
     411: "images/sprites/411.svg",
     412: "images/sprites/412.svg",
     413: "images/sprites/413.svg",
-    459: "images/sprites/459.svg",
-    463: "images/sprites/463.svg",
     353: "images/sprites/sageowl.svg",
     352: "images/sprites/sagegeneral.svg",
-    351: "images/sprites/sagewizard.svg"
+    351: "images/sprites/sagewizard.svg",
+    202: "images/sprites/crystal.svg",
+    216: "images/sprites/extra-life.svg",
+    217: "images/sprites/checkpoint.svg",
+    150: "images/sprites/torch.svg",
+    207: "images/sprites/jetfuel.svg",
+    104: "images/sprites/wheel.svg",
+    105: "images/sprites/smallwheel.svg",
+    220: "images/sprites/crusher.svg", //Requires composite sprite object
+    107: "images/sprites/barrel.svg",
+    59: "images/sprites/rod.svg",
+    64: "images/sprites/crate.svg"
 }
-
-function Sprite(objectID) {
-
-    /**
-     * @type {HTMLImageElement[]}
-     */
-
-    this.frames = [];
-
-    /**
-     * Width
-     */
-    this.width = width;
-
-    /**
-     * Height
-     */
-
-    this.height = height;
-
-    this.objectID = objectID;
-}
-
 
 
 let a = dictionary.objects.playobj
@@ -120,6 +106,12 @@ function createMenuItem(definition) {
 
         elm.appendChild(img);
 
+    }
+
+    // Sprites that are a stack of several sprites
+
+    else if(Array.isArray(objectSprites[definition['@_cid']])) {
+        
     }
 
     var span = document.createElement("span");
