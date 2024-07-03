@@ -199,8 +199,30 @@ const objectSprites = {
     602: "images/sprites/plant.svg",
     603: "images/sprites/frontplant2.svg",
     604: "images/sprites/frontgrass.svg",
-    605: "images/sprites/grass.svg"
+    605: "images/sprites/grass.svg",
+
+    613: "images/sprites/truss.svg",
+
+    611: "images/sprites/spiderweb.svg",
+
+    617: {
+        scaleX: -1,
+        src: "images/sprites/spiderweb.svg"
+    },
+
+    606: "images/sprites/etching1.svg",
+    607: "images/sprites/etching2.svg",
+
+    40: "images/sprites/statues/statue1.svg",
+    41: "images/sprites/statues/statue2.svg",
+    42: "images/sprites/statues/statue3.svg",
+
+    608: "images/sprites/statues/frontstatue.svg"
 }
+
+// Map that will be used for storing cache
+
+let imageURLCache = new Map();
 
 var o = {
     blocks_and_tiles: document.createElement("div"),
@@ -322,6 +344,46 @@ function createMenuItem(definition) {
 
     }
 
+    else if(typeof sprite === "object" && typeof sprite.src === "string") {
+        
+        let canvas = document.createElement("canvas");
+
+        let scaled = (typeof sprite.scaleX === "number" || typeof sprite.scaleX === "number");
+
+        // Used for turning sprite by 90 degrees or so
+
+        let scaleX = sprite.scaleX || 1
+        let scaleY = sprite.scaleY || 1
+
+        let ctx = canvas.getContext("2d");
+
+        definition.svgSprite = canvas;
+
+        let img = new Image();
+
+        img.addEventListener("load", function(){
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
+
+            ctx.scale(scaleX, scaleY);
+
+            ctx.drawImage(
+                img,
+                 - img.width / 2,
+                 - img.height / 2 
+            );
+
+        });
+
+        img.src = sprite.src;
+
+        elm.appendChild(canvas);
+
+
+    }
 
 
     var span = document.createElement("span");
