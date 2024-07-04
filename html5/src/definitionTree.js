@@ -217,7 +217,16 @@ const objectSprites = {
     41: "images/sprites/statues/statue2.svg",
     42: "images/sprites/statues/statue3.svg",
 
-    608: "images/sprites/statues/frontstatue.svg"
+    608: "images/sprites/statues/frontstatue.svg",
+    14: "images/sprites/backlight.svg",
+    117: "images/sprites/backwall.svg",
+
+    501: "images/sprites/backbrick-1.svg",
+    502: "images/sprites/backbrick-2.svg",
+    503: "images/sprites/backbrick-3.svg",
+    504: "images/sprites/backbrick-4.svg",
+
+
 }
 
 // Map that will be used for storing cache
