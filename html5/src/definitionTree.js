@@ -1,4 +1,5 @@
 import dictionary from "../definitions/definitions.js"
+import { CanvasColorTransformFixedPoint } from "./colorTransforms.js";
 import creator from "./creator.js";
 import { GameLevel, GameObject } from "./gameLevel.js";
 import Ghost from "./ghost.js";
@@ -11,11 +12,55 @@ function CompoundSprite(parts) {
 
 }
 
+const tempTile = document.createElement("canvas");
+tempTile.width = 60;
+tempTile.height = 60;
+
+const temptile_ctx = tempTile.getContext("2d");
+temptile_ctx.fillStyle = "white";
+temptile_ctx.fillRect(0,0,tempTile.width, tempTile.height);
+
+
+const tempLargeTile = document.createElement("canvas");
+tempLargeTile.width = 120;
+tempLargeTile.height = 120;
+
+const largetemptile_ctx = tempLargeTile.getContext("2d");
+largetemptile_ctx.fillStyle = "white";
+largetemptile_ctx.fillRect(0,0,tempTile.width, tempTile.height);
+
 const objectSprites = {
+
     3: "images/sprites/3.svg",
     4: "images/sprites/4.svg",
+
+    5: tempTile,
+
     6: "images/sprites/6.svg",
+
+    7: {
+        src: "images/sprites/6.svg",
+        scaleX: -1
+    },
+
+    456: {
+        src: "images/sprites/6.svg",
+        scaleY: -1
+    },
+
+    457: {
+        src: "images/sprites/6.svg",
+        scaleX: -1,
+        scaleY: -1
+    },
+
     8: "images/sprites/8.svg",
+
+    9: {
+        src: "images/sprites/8.svg",
+        scaleX: -1
+    },
+
     15: "images/sprites/15.svg",
     16:  "images/sprites/16.svg",
     17: "images/sprites/4.svg",
@@ -226,12 +271,85 @@ const objectSprites = {
     503: "images/sprites/backbrick-3.svg",
     504: "images/sprites/backbrick-4.svg",
 
+    61: {
+
+        stack: [
+
+            "images/sprites/teleporter/bg.svg",
+            
+            {
+                src: "images/sprites/teleporter/ring.svg",
+
+                colorTransform: {
+
+                    redAddTerm: 255,
+                    blueAddTerm: 255,
+                    greenAddTerm: 0,
+                    alphaAddTerm: 0,
+
+                    redMultTerm: 0,
+                    greenMultTerm: 0,
+                    blueMultTerm: 0,
+                    alphaMultTerm: 256,
+                }
+
+            }
+
+        ],
+
+        width: 180,
+        height: 180
+    },
+
+    62: {
+
+        stack: [
+            "images/sprites/teleporter/bg.svg",
+            "images/sprites/teleporter/ring.svg"
+        ],
+
+        width: 180,
+        height: 180
+    },
+
+    63: {
+
+        stack: [
+            "images/sprites/teleporter/bg.svg",
+            "images/sprites/teleporter/ring.svg"
+        ],
+
+        width: 180,
+        height: 180
+    }
 
 }
 
-// Map that will be used for storing cache
+// Objects that will be used for storing cache
 
-let imageURLCache = new Map();
+let urlSet = new Set();
+
+function populateURLset(o) {
+
+    if(typeof o === "string") {
+        urlSet.add(o);
+    }
+
+    else if (o.src && typeof o.src === "string") {
+        urlSet.add(o.src);
+    }
+
+    else if(Array.isArray(o.stack)) {
+        for(let x in o.stack) {
+            populateURLset(x)
+        }
+    }
+
+}
+
+for(let o in objectSprites) {
+    populateURLset(o);
+}
 
 var o = {
     blocks_and_tiles: document.createElement("div"),
@@ -260,6 +378,24 @@ for(var i = 0; i < a.length; i++) {
 
 }
 
+function generatePreviewCanvas(img) {
+
+    var previewCanvas = document.createElement("canvas");
+    previewCanvas.width = 100;
+    previewCanvas.height = 100;
+    previewCanvas.classList.add("preview-canvas");
+
+    var ctx = previewCanvas.getContext("2d");
+
+    let aspectRatio = img.width / img.height;
+
+
+    ctx.drawImage(img, 0, 0, 90, 90 / aspectRatio); 
+
+    return previewCanvas;
+
+}
+
 function createMenuItem(definition) {
 
     var elm = document.createElement("div");
@@ -282,12 +418,11 @@ function createMenuItem(definition) {
 
         img.addEventListener("load", function(){
             definition.gridDividesX = (img.width % creator.gridSize === 0);
-            definition.gridDividesY = (img.height % creator.gridSize === 0)
+            definition.gridDividesY = (img.height % creator.gridSize === 0);
+            elm.appendChild(generatePreviewCanvas(img));
         });
 
         img.draggable = false;
-
-        elm.appendChild(img);
 
     }
 
@@ -298,8 +433,10 @@ function createMenuItem(definition) {
         let canvas = document.createElement("canvas");
 
         let ctx = canvas.getContext("2d");
+
         canvas.width = sprite.width;
         canvas.height = sprite.height;
+
         canvas._images_loaded = 0;
 
         let images = [];
@@ -325,21 +462,61 @@ function createMenuItem(definition) {
                 img.height = sprite.stack[i].height;
             }
 
+            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].colorTransform === "object" ) {
+                
+                let ct = new CanvasColorTransformFixedPoint();
+
+                ct.redAddTerm = sprite.stack[i].colorTransform.redAddTerm;
+                ct.blueAddTerm = sprite.stack[i].colorTransform.blueAddTerm;
+                ct.greenAddTerm = sprite.stack[i].colorTransform.greenAddTerm;
+                ct.alphaAddTerm = sprite.stack[i].colorTransform.alphaAddTerm,
+
+                ct.redMultTerm = sprite.stack[i].colorTransform.redMultTerm;
+                ct.greenMultTerm = sprite.stack[i].colorTransform.greenMultTerm;
+                ct.blueMultTerm = sprite.stack[i].colorTransform.blueMultTerm;
+                ct.alphaMultTerm = sprite.stack[i].colorTransform.alphaMultTerm;
+
+                img._colorTransform = ct;
+
+            }
+
             img.addEventListener("load", function(){
 
                 canvas._images_loaded++;
+
+                // Copy image to canvas
+
+                this._imgCanvas = document.createElement("canvas");
+                this._imgCanvasCtx = img._imgCanvas.getContext("2d");
+
+                this._imgCanvas.width = this.width;
+                this._imgCanvas.height = this.height;
+
+                this._imgCanvasCtx.drawImage(this, 0, 0);
+
+                // Perform any color transformations that are defined
+
+                if(this._colorTransform) {
+
+                    this._colorTransform.applyToUntransformedCanvas(
+                        this._imgCanvasCtx
+                    );
+
+                } 
 
                 if(canvas._images_loaded === sprite.stack.length) {
 
                     images.forEach(function(stackImage){
                         
                         ctx.drawImage(
-                            stackImage,
-                            canvas.width / 2 - stackImage.width / 2,
-                            canvas.height / 2 - stackImage.height / 2
+                            stackImage._imgCanvas,
+                            canvas.width / 2 - stackImage._imgCanvas.width / 2,
+                            canvas.height / 2 - stackImage._imgCanvas.height / 2
                         );
 
                     });
+
+                    elm.appendChild(generatePreviewCanvas(canvas));
 
                 }
 
@@ -348,8 +525,6 @@ function createMenuItem(definition) {
         }
 
         definition.svgSprite = canvas;
-
-        elm.appendChild(canvas);
 
     }
 
@@ -372,8 +547,8 @@ function createMenuItem(definition) {
 
         img.addEventListener("load", function(){
 
-            canvas.width = img.width;
-            canvas.height = img.height;
+            canvas.width = sprite.width || img.width;
+            canvas.height = sprite.height || img.height;
 
             ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
 
@@ -385,13 +560,17 @@ function createMenuItem(definition) {
                  - img.height / 2 
             );
 
+            elm.appendChild(generatePreviewCanvas(canvas));
+
         });
 
         img.src = sprite.src;
 
-        elm.appendChild(canvas);
+    }
 
-
+    else if(sprite instanceof HTMLCanvasElement) {
+        definition.svgSprite = sprite;
+        elm.appendChild(sprite);
     }
 
 
