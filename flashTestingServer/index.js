@@ -217,4 +217,21 @@ const server = http.createServer(function(req, res){
 
 });
 
-server.listen(8081);
+const port = Number.parseInt(process.argv[2]) || 8081;
+const host = process.argv[3] || "localhost";
+
+server.on("error", function(error){
+
+    if(error.code === "EADDRINUSE") {
+        console.error("The port " + error.port + " is already in use. Try a different one.");
+    }
+
+    else {
+        console.error(error);
+    }
+
+});
+
+server.listen(port, host, undefined, function(){
+    console.log(`Server at http://${host}:${port}/`)
+});
