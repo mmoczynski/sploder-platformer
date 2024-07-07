@@ -1,0 +1,4 @@
+creator2.swf
+fullgame2.swf
+These files are modified versions of the platformer creator that do not need an internet connection to save/load games.
+With this, direct XML loading is possible.
