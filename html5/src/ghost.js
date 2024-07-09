@@ -11,7 +11,11 @@ function Ghost(object) {
     this.updatePoints();
 }
 
-Ghost.prototype.updatePoints = function() {
+Ghost.prototype.updatePoints = function(worldMousePoint) {
+
+    //worldMousePoint = worldMousePoint || creator.mousePosition.world;
+
+    worldMousePoint = this.object
 
     // Code copied from client/com/sploder/builder and modified
     // 
@@ -24,18 +28,18 @@ Ghost.prototype.updatePoints = function() {
     
     var newx;
 
-    if (xoffset == 0) newx = Math.round(creator.mousePosition.world.x / creator.gridSize) * creator.gridSize + xoffset;
-    else newx = Math.floor(creator.mousePosition.world.x / creator.gridSize) * creator.gridSize + xoffset;
+    if (xoffset == 0) newx = Math.round(worldMousePoint.x / creator.gridSize) * creator.gridSize + xoffset;
+    else newx = Math.floor(worldMousePoint.x / creator.gridSize) * creator.gridSize + xoffset;
     
     var newy;
 
-    if (yoffset == 0) newy = Math.round(creator.mousePosition.world.y / creator.gridSize) * creator.gridSize + yoffset;
-    else newy = Math.floor(creator.mousePosition.world.y / creator.gridSize) * creator.gridSize + yoffset;
+    if (yoffset == 0) newy = Math.round(worldMousePoint.y / creator.gridSize) * creator.gridSize + yoffset;
+    else newy = Math.floor(worldMousePoint.y / creator.gridSize) * creator.gridSize + yoffset;
 
     // New position relative to mouse position
 
-    var rx = newx - creator.mousePosition.world.x;
-    var ry = newy - creator.mousePosition.world.y;
+    var rx = newx - worldMousePoint.x;
+    var ry = newy - worldMousePoint.y;
 
     this.rx = rx;
     this.ry = ry;
