@@ -67,7 +67,9 @@ export default function loop(){
         //    isInGrid = creator.mousePosition.gridCell.pointInGrid(o.x, o.y)
         //}
 
-        isInGrid = o.worldPointInObject(creator.mousePosition.world.x, creator.mousePosition.world.y);
+        if(creator.mousePosition.world) {
+            isInGrid = o.worldPointInObject(creator.mousePosition.world.x, creator.mousePosition.world.y);
+        }
 
         // Check if object is in selection array
         let isSelected = creator.selectedObjects.includes(o);
