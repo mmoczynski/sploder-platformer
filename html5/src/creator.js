@@ -75,7 +75,9 @@ const creator = {
             y: null
         }
 
-    }
+    },
+
+    preloadedImages: new Map()
 }
 
 export default creator;
