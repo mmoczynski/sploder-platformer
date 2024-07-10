@@ -130,6 +130,8 @@ function transformObjByMouse(event) {
                 gridCell.bottomLeft.y + creator.selectedObjects[i].objectClass.svgSprite.height / 2
             )*/
 
+            creator.selectedObjects[i].ghost.updatePoints();
+
             creator.selectedObjects[i].x += dx;
             creator.selectedObjects[i].y += dy;
         }
@@ -161,7 +163,7 @@ creator.canvas.addEventListener("mousedown", function(event){
             creator.mousePosition.objectsContainingMousePoint.length - 1
         ];
 
-        creator.leadObject.object.ghost = new Ghost(creator.leadObject.object);
+        //creator.leadObject.object.ghost = new Ghost(creator.leadObject.object);
         
         creator.leadObject.offset.x = creator.mousePosition.world.x - creator.leadObject.object.x
         creator.leadObject.offset.y = creator.mousePosition.world.y - creator.leadObject.object.y
@@ -259,7 +261,13 @@ window.addEventListener("mouseup", function(){
             let inYInterval = bottomLeftWorldCorner.y < y && y < topRightWorldCorner.y;
 
             if(inXInterval && inYInterval) {
-                creator.selectedObjects.push(creator.gameInstance.level.objects[i])
+
+                creator.selectedObjects.push(creator.gameInstance.level.objects[i]);
+
+                //creator.gameInstance.level.objects[i].ghost = new Ghost(
+                //    creator.gameInstance.level.objects[i]
+                //);
+
             }
 
 
@@ -274,15 +282,15 @@ window.addEventListener("mouseup", function(){
 
     // Snap objects to grid
 
-    //if(creator.leadObject && creator.leadObject.object.ghost) {
+    // if(creator.leadObject && creator.leadObject.object.ghost) {
     //    creator.leadObject.object.x = creator.leadObject.object.ghost.centerPoint.x 
     //    creator.leadObject.object.y = creator.leadObject.object.ghost.centerPoint.y 
     //}
 
     for(let i = 0; i < creator.selectedObjects.length; i++) {
 
-        //creator.selectedObjects[i].x = creator.selectedObjects[i].ghost.centerPoint.x;
-        //creator.selectedObjects[i].y = creator.selectedObjects[i].ghost.centerPoint.y;;
+        creator.selectedObjects[i].x = creator.selectedObjects[i].ghost.centerPoint.x;
+        creator.selectedObjects[i].y = creator.selectedObjects[i].ghost.centerPoint.y;
 
         //let posX = numberOfGridsX * creator.gridSize + (creator.selectedObjects[i].objectClass.svgSprite.width / 2);
 
@@ -301,7 +309,7 @@ window.addEventListener("mouseup", function(){
 
     }
 
-    if (creator.leadObject.object && creator.leadObject.object.ghost) creator.leadObject.object.ghost = null
+    //if (creator.leadObject.object && creator.leadObject.object.ghost) creator.leadObject.object.ghost = null
 
     // Clear selected objects
     // Set length to zero instead of initalizing new array to preserve reference to single object
