@@ -1,6 +1,6 @@
 import creator from "./creator.js";
 import { WorldPoint, CanvasPoint } from "./point.js";
-import definitionTree from "./definitionTree.js";
+import {definitionTree} from "./definitionTree.js";
 import Ghost from "./ghost.js";
 
 let ctx = creator.canvas.getContext("2d");

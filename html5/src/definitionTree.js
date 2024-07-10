@@ -5,7 +5,7 @@ import { GameLevel, GameObject } from "./gameLevel.js";
 import Ghost from "./ghost.js";
 import objectSprites from "./objectSprites.js";
 
-const definitionTree = {
+export const definitionTree = {
     categories: {},
 }
 
@@ -27,7 +27,7 @@ function populateURLset(o, urlSet) {
 
 }
 
-function preloadSpriteImages(onload, onerror) {
+export function preloadSpriteImages(onload, onerror) {
     
     let urlSet = new Set();
 
@@ -73,7 +73,7 @@ function preloadSpriteImages(onload, onerror) {
     });
 }
 
-preloadSpriteImages(function(o) { console.log(o); generateDefinitionHTML(); }, function(e) { console.log(e) })
+//preloadSpriteImages(function(o) { console.log(o); generateDefinitionHTML(); }, function(e) { console.log(e) })
 
 // Objects that will be used for storing cache
 
@@ -104,7 +104,7 @@ for(var i = 0; i < a.length; i++) {
 
 }
 
-function generatePreviewCanvas(img) {
+export function generatePreviewCanvas(img) {
 
     var previewCanvas = document.createElement("canvas");
     previewCanvas.width = 100;
@@ -412,7 +412,7 @@ function changeSelectionClass(targetElement) {
     targetElement.classList.add("selected");
 }
 
-function generateDefinitionHTML() {
+export function generateDefinitionHTML() {
 
     for(let i = 0; i < definitionTree.categories.block.length; i++) {
 
@@ -472,5 +472,3 @@ document.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("c
     document.querySelector("#elements").appendChild(o.hazards);
     changeSelectionClass(this);
 });
-
-export default definitionTree;

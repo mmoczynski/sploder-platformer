@@ -3,7 +3,8 @@
  */
 
 
-import definitionTree from "./definitionTree.js";
+import {definitionTree} from "./definitionTree.js";
+import Ghost from "./ghost.js";
 
 /**
  * 
@@ -166,7 +167,9 @@ export function GameObject() {
     });
 
     this.objectClass = definitionTree[this.objectID];
-
+    
+    if(this.objectClass.svgSprite) this.ghost = new Ghost(this);
+    
 }
 
 GameObject.prototype.defineArgumentInteger = function(index) {
