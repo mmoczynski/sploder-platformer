@@ -3,6 +3,7 @@ import creator from "./creator.js";
 import "./mouseTools.js";
 import "./top-menu.js";
 import loop from "./loop.js";
+import { preloadSpriteImages, generateDefinitionHTML } from "./definitionTree.js";
 
 /**
  * Constructor for grid cell object
@@ -12,10 +13,14 @@ window.SploderPlatformerCreator = creator;
 
 new Promise(function(resolve, reject){
 
+    preloadSpriteImages(resolve, reject);
+
 }).then(function(){
 
     return new Promise(function(){
-        
+        generateDefinitionHTML();
+        creator.gameInstance = Game.createFromXMLString(str1);
+        setInterval(loop,16.66);
     }) 
 
 })
@@ -27,8 +32,6 @@ var str1 = `<project title="" comments="1" bitview="0" id="noid-unsaved-project"
  * @type {Game}
  */
 
-creator.gameInstance = Game.createFromXMLString(str1)
-
 /*** Test code for showing locations of objects as circles***/
 
 creator.canvasPositionX = creator.canvas.getBoundingClientRect().x;
@@ -39,8 +42,6 @@ creator.setCanvasDimensions();
 window.addEventListener("resize", creator.setCanvasDimensions)
 
 creator.ctx = creator.canvas.getContext("2d");
-
-setInterval(loop,16.66);
 
 document.querySelector("#zoom-in").addEventListener("click", function(){
     creator.zoomFactor += 0.1
