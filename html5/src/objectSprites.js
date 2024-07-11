@@ -307,6 +307,13 @@ export default {
 
         width: 180,
         height: 180
-    }
+    },
+
+    34: "images/sprites/techwall1.svg",
+    35: "images/sprites/techwall2.svg",
+    78: "images/sprites/rockpile.svg",
+    79: "images/sprites/rockpile1.svg",
+    609: "images/sprites/frontscreen.svg",
+    610: "images/sprites/skulls.svg"
 
 }
