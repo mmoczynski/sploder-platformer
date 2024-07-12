@@ -18,7 +18,7 @@ Ghost.prototype.updatePoints = function(worldMousePoint) {
     worldMousePoint = this.object
 
     // Code copied from client/com/sploder/builder and modified
-    // 
+    // Original code by @neurofuzzy.
 
     var w = this.object.objectClass.svgSprite.width;
     var h = this.object.objectClass.svgSprite.height;
