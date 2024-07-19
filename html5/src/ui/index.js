@@ -1,7 +1,7 @@
-import creator from "./creator.js";
-import Ghost from "./ghost.js";
-import { GridCell } from "./grid.js";
-import { WorldPoint, CanvasPoint } from "./point.js";
+import creator from "../creator.js";
+import Ghost from "../ghost.js";
+import { GridCell } from "../grid.js";
+import { WorldPoint, CanvasPoint } from "../point.js";
 
 document.addEventListener("mousemove", function(event){
 

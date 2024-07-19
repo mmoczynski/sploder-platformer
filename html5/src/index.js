@@ -1,6 +1,6 @@
 import creator from "./creator.js";
 import Game from "./game.js";
-import "./mouseTools.js";
+import "./ui/index.js";
 import "./top-menu.js";
 import loop from "./loop.js";
 import { preloadSpriteImages, generateDefinitionHTML } from "./definitionTree.js";
