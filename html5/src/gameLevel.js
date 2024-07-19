@@ -93,7 +93,9 @@ GameLevel.prototype.populateGame = function (str) {
     var objectStrings = this.levelNode.innerHTML.split("|");
 
     for(var i = 0; i < objectStrings.length; i++) {
-        this.objects.push(new GameObject(...objectStrings[i].split(",")));
+        if(objectStrings[i].includes(",")) {
+            this.objects.push(new GameObject(...objectStrings[i].split(",")));
+        }
     }
 }
 
