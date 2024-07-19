@@ -1,5 +1,5 @@
-import Game from "./game.js";
 import creator from "./creator.js";
+import Game from "./game.js";
 import "./mouseTools.js";
 import "./top-menu.js";
 import loop from "./loop.js";
@@ -12,6 +12,26 @@ import { createBlankFile } from "./file.js";
 
 window.SploderPlatformerCreator = creator;
 
+creator.ctx = creator.canvas.getContext("2d");
+
+document.querySelector("#canvas-container").appendChild(creator.canvas);
+creator.canvas.id = "main-canvas";
+
+/*** Test code for showing locations of objects as circles***/
+
+creator.canvasPositionX = creator.canvas.getBoundingClientRect().x;
+creator.canvasPositionY = creator.canvas.getBoundingClientRect().y;
+
+creator.setCanvasDimensions();
+
+let loadingLoopInteger = setInterval(function(){
+    creator.ctx.clearRect(0,0, creator.canvas.width, creator.canvas.height)
+    creator.ctx.beginPath();
+    creator.ctx.font = "50px sans-serif";
+    creator.ctx.fillText(creator.loadingTxt, creator.canvas.width / 2, creator.canvas.height / 2);
+    creator.ctx.stroke();
+}, 16.666);
+
 new Promise(function(resolve, reject){
 
     preloadSpriteImages(resolve, reject);
@@ -21,6 +41,7 @@ new Promise(function(resolve, reject){
     return new Promise(function(){
         generateDefinitionHTML();
         createBlankFile();
+        clearInterval(loadingLoopInteger);
         setInterval(loop,16.66);
     }) 
 
@@ -30,29 +51,4 @@ new Promise(function(resolve, reject){
  * @type {Game}
  */
 
-/*** Test code for showing locations of objects as circles***/
-
-creator.canvasPositionX = creator.canvas.getBoundingClientRect().x;
-creator.canvasPositionY = creator.canvas.getBoundingClientRect().y;
-
-creator.setCanvasDimensions();
-
 window.addEventListener("resize", creator.setCanvasDimensions)
-
-creator.ctx = creator.canvas.getContext("2d");
-
-document.querySelector("#zoom-in").addEventListener("click", function(){
-    creator.zoomFactor += 0.1
-});
-
-document.querySelector("#zoom-out").addEventListener("click", function(){
-    creator.zoomFactor -= 0.1
-});
-
-document.querySelector("#delete-selection").addEventListener("click", function(){
-
-    for(let i = 0; i < creator.selectedObjects.length; i++) {
-        creator.gameInstance.level.deleteObject(creator.selectedObjects[i]);
-    }
-    
-});

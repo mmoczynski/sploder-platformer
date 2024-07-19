@@ -274,3 +274,19 @@ document.querySelector("#reset-delta").addEventListener("mouseover", function(){
 document.querySelector("#settings").addEventListener("mouseover", function(){
     document.querySelector("#mouse-info").innerText = "Click to edit level background and colors."
 });
+
+document.querySelector("#zoom-in").addEventListener("click", function(){
+    creator.zoomFactor += 0.1
+});
+
+document.querySelector("#zoom-out").addEventListener("click", function(){
+    creator.zoomFactor -= 0.1
+});
+
+document.querySelector("#delete-selection").addEventListener("click", function(){
+
+    for(let i = 0; i < creator.selectedObjects.length; i++) {
+        creator.gameInstance.level.deleteObject(creator.selectedObjects[i]);
+    }
+    
+});
