@@ -47,6 +47,8 @@ export function preloadSpriteImages(onload, onerror) {
         preloadedImage.addEventListener("load", function(){
     
             imagesLoaded++;
+
+            creator.loadingTxt = "Loading Sprites: " + imagesLoaded + "/" + imagesToLoad;
     
             let canvas = document.createElement("canvas");
             let ctx = canvas.getContext("2d");
