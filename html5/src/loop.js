@@ -47,9 +47,15 @@ export default function loop(){
 
         let o = creator.gameInstance.level.objects[i];
 
+        let separator = "|"
+
+        if(i === creator.gameInstance.level.objects.length - 1) {
+            separator = "";
+        }
+
         // Write object data to level XML
 
-        creator.gameInstance.level.levelNode.innerHTML += (o.toString() + "|");
+        creator.gameInstance.level.levelNode.innerHTML += (o.toString() + separator);
 
         let objCanvasPoint = new WorldPoint(o.x, o.y).toCanvasPoint();
 
