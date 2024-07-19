@@ -6,6 +6,8 @@ const creator = {
     deltaX: 0,
     deltaY: 0,
 
+    loadingTxt: "",
+
     debugConfig: {
         enabled: true,
         selectedPointValue: 10
@@ -25,7 +27,7 @@ const creator = {
 
     mouseTool: "select-objects",
 
-    canvas: document.querySelector("#main-canvas"),
+    canvas: document.createElement("canvas"),
 
     /**
     * Variable to see if there exists a selected object that is pointed to by mouse
