@@ -185,15 +185,3 @@ export function generateDefinitionHTML() {
         o.hazards.appendChild(createMenuItem(definitionTree.categories.hazard[i]));
     }
 }
-
-// Event Listener for Blocks and Tiles
-
-//sideMenu.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", );
-
-//sideMenu.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", );
-
-//sideMenu.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", );
-
-//sideMenu.querySelector(".obj-menu-item.powerups").addEventListener("click", );
-
-//sideMenu.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("click", );
