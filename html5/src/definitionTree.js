@@ -1,9 +1,7 @@
 import dictionary from "../definitions/definitions.js"
-import { CanvasColorTransformFixedPoint } from "./colorTransforms.js";
 import creator from "./creator.js";
-import { GameLevel, GameObject } from "./gameLevel.js";
-import Ghost from "./ghost.js";
 import objectSprites from "./objectSprites.js";
+import { CanvasColorTransformFixedPoint } from "./colorTransforms.js";
 
 export const definitionTree = {
     categories: {},
@@ -47,8 +45,6 @@ export function preloadSpriteImages(onload, onerror) {
         preloadedImage.addEventListener("load", function(){
     
             imagesLoaded++;
-
-            creator.loadingTxt = "Loading Sprites: " + imagesLoaded + "/" + imagesToLoad;
     
             let canvas = document.createElement("canvas");
             let ctx = canvas.getContext("2d");
@@ -63,7 +59,9 @@ export function preloadSpriteImages(onload, onerror) {
             if(imagesLoaded === imagesToLoad) {
                 onload(imageData);
             }
-    
+
+            document.body.innerText = "Loading Sprites: " + imagesLoaded + "/" + imagesToLoad;
+
         });
 
         preloadedImage.addEventListener("error", function(error){
@@ -75,104 +73,47 @@ export function preloadSpriteImages(onload, onerror) {
     });
 }
 
-// Objects that will be used for storing cache
+export function generateSprite(spriteDefinition) {
 
-var o = {
-    blocks_and_tiles: document.createElement("div"),
-    walls_and_decoration: document.createElement("div"),
-    switches_and_doors: document.createElement("div"),
-    powerups: document.createElement("div"),
-    hazards: document.createElement("div")
-};
-
-let a = dictionary.objects.playobj
-
-for(var i = 0; i < a.length; i++) {
-
-    // Assign objectID to dictionary entry
-    definitionTree[a[i]["@_cid"]] = a[i];
-
-    // Create category if it does not exist
-    if(!definitionTree.categories[a[i]["@_ctype"]]) {
-        definitionTree.categories[a[i]["@_ctype"]] = []
+    if(typeof spriteDefinition === "string") {
+        return creator.preloadedImages.get(spriteDefinition)
     }
 
-    // Put object definition in category
-    definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
-
-    // Get sprite
-
-}
-
-export function generatePreviewCanvas(img) {
-
-    var previewCanvas = document.createElement("canvas");
-    previewCanvas.width = 100;
-    previewCanvas.height = 100;
-    previewCanvas.classList.add("preview-canvas");
-
-    var ctx = previewCanvas.getContext("2d");
-
-    let aspectRatio = img.width / img.height;
-
-
-    ctx.drawImage(img, 0, 0, 90, 90 / aspectRatio); 
-
-    return previewCanvas;
-
-}
-
-function createMenuItem(definition) {
-
-    var elm = document.createElement("div");
-    elm.classList.add("object");
-
-    elm._creator_dictionary_entry = definition;
-
-    let sprite = objectSprites[definition['@_cid']]
-
-    if(typeof sprite === "string") {
-        definition.svgSprite = creator.preloadedImages.get(sprite)
-        elm.appendChild(definition.svgSprite);
-    }
-
-    // Simple stack of images
-
-    else if(typeof sprite === "object" && Array.isArray(sprite.stack) ){
+    else if(typeof spriteDefinition === "object" && Array.isArray(spriteDefinition.stack) ){
         
         let canvas = document.createElement("canvas");
 
         let ctx = canvas.getContext("2d");
 
-        canvas.width = sprite.width;
-        canvas.height = sprite.height;
+        canvas.width = spriteDefinition.width;
+        canvas.height = spriteDefinition.height;
 
-        for(let i = 0; i < sprite.stack.length; i++) {
+        for(let i = 0; i < spriteDefinition.stack.length; i++) {
 
             let img;
             let ct;
 
-            if(typeof sprite.stack[i] === "string") {
-                img = creator.preloadedImages.get(sprite.stack[i]);
+            if(typeof spriteDefinition.stack[i] === "string") {
+                img = creator.preloadedImages.get(spriteDefinition.stack[i]);
             }
 
-            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].src === "string") {
-                img = creator.preloadedImages.get(sprite.stack[i].src);
+            if(typeof spriteDefinition.stack[i] === "object" && typeof spriteDefinition.stack[i].src === "string") {
+                img = creator.preloadedImages.get(spriteDefinition.stack[i].src);
             }
 
-            if(typeof sprite.stack[i] === "object" && typeof sprite.stack[i].colorTransform === "object" ) {
+            if(typeof spriteDefinition.stack[i] === "object" && typeof spriteDefinition.stack[i].colorTransform === "object" ) {
                 
                 ct = new CanvasColorTransformFixedPoint();
 
-                ct.redAddTerm = sprite.stack[i].colorTransform.redAddTerm;
-                ct.blueAddTerm = sprite.stack[i].colorTransform.blueAddTerm;
-                ct.greenAddTerm = sprite.stack[i].colorTransform.greenAddTerm;
-                ct.alphaAddTerm = sprite.stack[i].colorTransform.alphaAddTerm,
+                ct.redAddTerm = spriteDefinition.stack[i].colorTransform.redAddTerm;
+                ct.blueAddTerm = spriteDefinition.stack[i].colorTransform.blueAddTerm;
+                ct.greenAddTerm = spriteDefinition.stack[i].colorTransform.greenAddTerm;
+                ct.alphaAddTerm = spriteDefinition.stack[i].colorTransform.alphaAddTerm,
 
-                ct.redMultTerm = sprite.stack[i].colorTransform.redMultTerm;
-                ct.greenMultTerm = sprite.stack[i].colorTransform.greenMultTerm;
-                ct.blueMultTerm = sprite.stack[i].colorTransform.blueMultTerm;
-                ct.alphaMultTerm = sprite.stack[i].colorTransform.alphaMultTerm;
+                ct.redMultTerm = spriteDefinition.stack[i].colorTransform.redMultTerm;
+                ct.greenMultTerm = spriteDefinition.stack[i].colorTransform.greenMultTerm;
+                ct.blueMultTerm = spriteDefinition.stack[i].colorTransform.blueMultTerm;
+                ct.alphaMultTerm = spriteDefinition.stack[i].colorTransform.alphaMultTerm;
 
             }
 
@@ -205,28 +146,24 @@ function createMenuItem(definition) {
 
         }
 
-        definition.svgSprite = canvas;
-
-        elm.appendChild(generatePreviewCanvas(canvas));
+        return canvas;
 
     }
 
-    else if(typeof sprite === "object" && typeof sprite.src === "string") {
+    else if(typeof spriteDefinition === "object" && typeof spriteDefinition.src === "string") {
 
-        let img = creator.preloadedImages.get(sprite.src);
+        let img = creator.preloadedImages.get(spriteDefinition.src);
         let canvas = document.createElement("canvas");
 
         // Used for turning sprite by 90 degrees or so
 
-        let scaleX = sprite.scaleX || 1
-        let scaleY = sprite.scaleY || 1
+        let scaleX = spriteDefinition.scaleX || 1
+        let scaleY = spriteDefinition.scaleY || 1
 
         let ctx = canvas.getContext("2d");
 
-        definition.svgSprite = canvas;
-
-        canvas.width = sprite.width || img.width;
-        canvas.height = sprite.height || img.height;
+        canvas.width = spriteDefinition.width || img.width;
+        canvas.height = spriteDefinition.height || img.height;
 
         ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
 
@@ -238,125 +175,52 @@ function createMenuItem(definition) {
              - img.height / 2 
         );
 
-        elm.appendChild(generatePreviewCanvas(canvas));
+        return canvas;
 
     }
 
-    else if(sprite instanceof HTMLCanvasElement) {
-        definition.svgSprite = sprite;
-        elm.appendChild(sprite);
-    }
-
-
-    var span = document.createElement("span");
-    span.innerText = definition["@_cname"];
-    elm.appendChild(span);
-
-    elm.addEventListener("mousedown", function(){
-
-        // Game object
-
-        var newGameObject = new GameObject(
-            this._creator_dictionary_entry['@_cid'],
-            creator.mousePosition.world.x,
-            creator.mousePosition.world.y
-        );
-
-        newGameObject.ghost = new Ghost(newGameObject);
-
-        if(creator.gameInstance.level instanceof GameLevel) {
-            creator.gameInstance.level.objects.push(newGameObject);
-        }
-
-        var move = function(event){
-            newGameObject.x = creator.mousePosition.world.x;
-            newGameObject.y = creator.mousePosition.world.y;
-
-            newGameObject.ghost.updatePoints();
-
-        }
-
-        var disable = function() {
-            window.removeEventListener("mousemove", move);
-            window.removeEventListener("mouseup", disable);
-            //document.body.removeChild(newElm);
-
-            newGameObject.x = newGameObject.ghost.centerPoint.x;
-            newGameObject.y = newGameObject.ghost.centerPoint.y;
-
-        }
-
-        window.addEventListener("mousemove", move);
-        window.addEventListener("mouseup", disable);
-
-    });
-
-    return elm;
-}
-
-function changeSelectionClass(targetElement) {
-    var oldElm = document.querySelector("#navigation").querySelector(".selected");
-    oldElm.classList.remove("selected");
-    targetElement.classList.add("selected");
-}
-
-export function generateDefinitionHTML() {
-
-    for(let i = 0; i < definitionTree.categories.block.length; i++) {
-
-        let elm = createMenuItem(definitionTree.categories.block[i])
-    
-    
-        o.blocks_and_tiles.appendChild(elm);
-    
-    }
-    
-    for(let i = 0; i < definitionTree.categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(definitionTree.categories.blockbehind[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(definitionTree.categories.trigger[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(definitionTree.categories.powerup[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(definitionTree.categories.hazard[i]));
+    else if(spriteDefinition instanceof HTMLCanvasElement) {
+        return spriteDefinition;
     }
 }
 
-// Event Listener for Blocks and Tiles
+// Objects that will be used for storing cache
 
-document.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.blocks_and_tiles);
-    changeSelectionClass(this);
-    o.blocks_and_tiles.scrollTo(0,this.scrollTop);
-});
+let a = dictionary.objects.playobj
 
-document.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.walls_and_decoration);
-    changeSelectionClass(this);
-});
+for(var i = 0; i < a.length; i++) {
 
-document.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.switches_and_doors);
-    changeSelectionClass(this);
-});
+    // Get id
 
-document.querySelector(".obj-menu-item.powerups").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.powerups);
-    changeSelectionClass(this);
-});
+    let id = a[i]["@_cid"];
 
-document.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.hazards);
-    changeSelectionClass(this);
-});
+    // Assign objectID to dictionary entry
+    definitionTree[id] = a[i];
+
+    // Create category if it does not exist
+    if(!definitionTree.categories[a[i]["@_ctype"]]) {
+        definitionTree.categories[a[i]["@_ctype"]] = []
+    }
+
+    // Put object definition in category
+    definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
+
+    // Get sprite
+
+}
+
+export function generateSprites() {
+
+    a.forEach(function(o){
+
+        let id = o["@_cid"];
+
+        if(objectSprites[id]) {
+            definitionTree[id].spriteDefinition = objectSprites[id]
+            document.body.innerText = "Generating sprite #" + id;
+            definitionTree[id].svgSprite = generateSprite(objectSprites[id]);
+        };
+
+    })
+
+}

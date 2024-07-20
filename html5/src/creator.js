@@ -5,7 +5,6 @@ const creator = {
     zoomFactor: 1,
     deltaX: 0,
     deltaY: 0,
-
     loadingTxt: "",
 
     debugConfig: {

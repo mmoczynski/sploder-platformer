@@ -9,6 +9,7 @@ html, body {
     user-select: none; /** Used to prevent text selection when dragging things **/
     color: white;
     overflow: hidden;
+    background: #333;
 }
 
 * {
@@ -38,6 +39,7 @@ html, body {
     padding-left: var(--object-menu-width);
     z-index: 2;
     height: var(--file-header-height);
+    top: 0;
 }
 
 #menu li {
@@ -115,6 +117,7 @@ html, body {
     display: flex;
     height: 40px;
     align-items: center;
+    top: 0;
 }
 
 #mouse-info {
@@ -160,6 +163,7 @@ html, body {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    list-style: none;
 }
 
 .modal {
@@ -203,4 +207,11 @@ html, body {
     margin-top: 25px;
     width: 100%;
     height: 25px;
+}
+
+#loading-screen {
+    margin-top: 50vh;
+    position: absolute;
+    margin-left: 50vw;
+    font-size: 30px;
 }
