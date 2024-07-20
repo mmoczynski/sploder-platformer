@@ -33,7 +33,7 @@ nav_list.append(
 
 nav_list.querySelector(".blocks-and-tiles.obj-menu-item").classList.add("selected");
 
-let elements = document.createElement("div");
+const elements = document.createElement("div");
 elements.id = "elements";
 sideMenu.appendChild(elements);
 
@@ -160,27 +160,27 @@ export function generateDefinitionHTML() {
 // Event Listener for Blocks and Tiles
 
 sideMenu.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", function(){
-    sideMenu.querySelector("#elements").innerHTML = "";
-    sideMenu.querySelector("#elements").appendChild(o.blocks_and_tiles);
+    elements.innerHTML = "";
+    elements.appendChild(o.blocks_and_tiles);
     changeSelectionClass(this);
     o.blocks_and_tiles.scrollTo(0,this.scrollTop);
 });
 
 sideMenu.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", function(){
-    sideMenu.querySelector("#elements").innerHTML = "";
-    sideMenu.querySelector("#elements").appendChild(o.walls_and_decoration);
+    elements.innerHTML = "";
+    elements.appendChild(o.walls_and_decoration);
     changeSelectionClass(this);
 });
 
 sideMenu.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", function(){
-    sideMenu.querySelector("#elements").innerHTML = "";
-    sideMenu.querySelector("#elements").appendChild(o.switches_and_doors);
+    elements.innerHTML = "";
+    elements.appendChild(o.switches_and_doors);
     changeSelectionClass(this);
 });
 
 sideMenu.querySelector(".obj-menu-item.powerups").addEventListener("click", function(){
-    sideMenu.querySelector("#elements").innerHTML = "";
-    sideMenu.querySelector("#elements").appendChild(o.powerups);
+    elements.innerHTML = "";
+    elements.appendChild(o.powerups);
     changeSelectionClass(this);
 });
 
