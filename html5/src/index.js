@@ -18,17 +18,6 @@ creator.ctx = creator.canvas.getContext("2d");
 
 creator.canvas.id = "main-canvas";
 
-/*** Test code for showing locations of objects as circles***/
-
-let loadingLoopInteger = setInterval(function(){
-    //creator.ctx.clearRect(0,0, creator.canvas.width, creator.canvas.height)
-    //creator.ctx.beginPath();
-    //creator.ctx.font = "50px sans-serif";
-    //creator.ctx.fillText(creator.loadingTxt, creator.canvas.width / 2, creator.canvas.height / 2);
-    //creator.ctx.stroke();
-    //document.body.innerText = creator.loadingTxt;
-}, 16.666);
-
 new Promise(function(resolve, reject){
 
     preloadSpriteImages(resolve, reject);
@@ -42,7 +31,6 @@ new Promise(function(resolve, reject){
         document.body.innerHTML = "";
 
         createBlankFile();
-        clearInterval(loadingLoopInteger);
         generateStructure(document.body);
         generateDefinitionHTML();
 
