@@ -3,7 +3,7 @@ import "./ui/index.js";
 import Game from "./game.js";
 import "./top-menu.js";
 import loop from "./loop.js";
-import { generateSprites, preloadSpriteImages } from "./definitionTree.js";
+import { generateDefinitionMap, generateSprites, getDefinitionXML, preloadSpriteImages } from "./definitionTree.js";
 import { createBlankFile } from "./file.js";
 import { generateDefinitionHTML } from "./ui/generateSideMenu.js";
 import { generateStructure } from "./ui/generateStructure.js";
@@ -24,9 +24,17 @@ new Promise(function(resolve, reject){
 
 }).then(function(){
 
-    return new Promise(function(){
+    // Get XML Defintions
+
+    return new Promise(function(resolve, reject){
+        getDefinitionXML(resolve, reject);
+    })
+
+}).then(function(){
+    return new Promise(function(resolve, reject){
 
         generateSprites();
+        generateDefinitionMap();
         createBlankFile();
 
         generateStructure(document.body);
@@ -39,6 +47,8 @@ new Promise(function(resolve, reject){
         creator.setCanvasDimensions();
 
         setInterval(loop,16.66);
+
+        resolve();
     }) 
 
 })

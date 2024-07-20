@@ -3,7 +3,7 @@
  */
 
 
-import {definitionTree} from "./definitionTree.js";
+import { definitionTree } from "./definitionTree.js";
 import Ghost from "./ghost.js";
 
 /**
@@ -168,9 +168,9 @@ export function GameObject() {
         graphicAnimation: self.defineArgumentInteger(7),
     });
 
-    this.objectClass = definitionTree[this.objectID];
+    this.objectClass = definitionTree[this.objectID]
     
-    if(this.objectClass.svgSprite) this.ghost = new Ghost(this);
+    if(this.objectClass._svgSprite) this.ghost = new Ghost(this);
     
 }
 
@@ -200,10 +200,10 @@ GameObject.prototype.toString = function() {
 
 GameObject.prototype.worldPointInObject = function(x, y) {
 
-    if(!this.objectClass.svgSprite) return false;
+    if(!this.objectClass._svgSprite) return false;
 
-    var width = this.objectClass.svgSprite.width;
-    var height = this.objectClass.svgSprite.height;
+    var width = this.objectClass._svgSprite.width;
+    var height = this.objectClass._svgSprite.height;
 
     var bottomRightCornerX = this.x - width * 0.5;
     var bottomRightCornerY = this.y - height * 0.5;

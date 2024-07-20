@@ -20,8 +20,8 @@ Ghost.prototype.updatePoints = function(worldMousePoint) {
     // Code copied from client/com/sploder/builder and modified
     // Original code by @neurofuzzy.
 
-    var w = this.object.objectClass.svgSprite.width;
-    var h = this.object.objectClass.svgSprite.height;
+    var w = this.object.objectClass._svgSprite.width;
+    var h = this.object.objectClass._svgSprite.height;
 
     var xoffset = (Math.floor(w / creator.gridSize) % 2 == 1) ? creator.gridSize / 2 : 0;
     var yoffset = (Math.floor(h / creator.gridSize) % 2 == 1) ? creator.gridSize / 2 : 0;

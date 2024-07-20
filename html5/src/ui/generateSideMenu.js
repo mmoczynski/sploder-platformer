@@ -99,14 +99,14 @@ function createMenuItem(definition) {
 
     elm._creator_dictionary_entry = definition;
 
-    let sprite = objectSprites[definition['@_cid']]
+    let sprite = objectSprites[definition.getAttribute("cid")]
 
     if(sprite) {
-        elm.appendChild(definition.svgSprite);
+        elm.appendChild(definition._svgSprite);
     }
 
     var span = document.createElement("span");
-    span.innerText = definition["@_cname"];
+    span.innerText = definition.getAttribute("cname");
     elm.appendChild(span);
 
     elm.addEventListener("mousedown", function(){
@@ -114,7 +114,7 @@ function createMenuItem(definition) {
         // Game object
 
         var newGameObject = new GameObject(
-            this._creator_dictionary_entry['@_cid'],
+            this._creator_dictionary_entry.getAttribute('cid'),
             creator.mousePosition.world.x,
             creator.mousePosition.world.y
         );
@@ -160,28 +160,32 @@ function changeSelectionClass(targetElement) {
 
 export function generateDefinitionHTML() {
 
-    for(let i = 0; i < definitionTree.categories.block.length; i++) {
+    let objectDefinitions = Array.from(creator.xmlDefinitions.querySelectorAll("playobj"));
 
-        let elm = createMenuItem(definitionTree.categories.block[i])
-    
-    
-        o.blocks_and_tiles.appendChild(elm);
-    
+    for(let i = 0; i < objectDefinitions.length; i++) {
+
+        let ctype = objectDefinitions[i].getAttribute("ctype")
+
+        if(ctype === "block") {
+            o.blocks_and_tiles.appendChild( createMenuItem(objectDefinitions[i]) );
+        }
+
+        if(ctype === "blockbehind") {
+            o.walls_and_decoration.appendChild( createMenuItem(objectDefinitions[i]) );
+        }
+
+        if(ctype === "trigger") {
+            o.switches_and_doors.appendChild( createMenuItem(objectDefinitions[i]) );
+        }
+
+        if(ctype === "powerup") {
+            o.powerups.appendChild( createMenuItem(objectDefinitions[i]) );
+        }
+
+        if(ctype === "hazard") {
+            o.hazards.appendChild( createMenuItem(objectDefinitions[i]) );
+        }
+
     }
     
-    for(let i = 0; i < definitionTree.categories.blockbehind.length; i++) {
-        o.walls_and_decoration.appendChild(createMenuItem(definitionTree.categories.blockbehind[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.trigger.length; i++) {
-        o.switches_and_doors.appendChild(createMenuItem(definitionTree.categories.trigger[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.powerup.length; i++) {
-        o.powerups.appendChild(createMenuItem(definitionTree.categories.powerup[i]));
-    }
-    
-    for(let i = 0; i < definitionTree.categories.hazard.length; i++) {
-        o.hazards.appendChild(createMenuItem(definitionTree.categories.hazard[i]));
-    }
 }

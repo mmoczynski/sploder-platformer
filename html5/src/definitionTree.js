@@ -3,8 +3,28 @@ import creator from "./creator.js";
 import objectSprites from "./objectSprites.js";
 import { CanvasColorTransformFixedPoint } from "./colorTransforms.js";
 
-export const definitionTree = {
-    categories: {},
+export const definitionTree = {}
+
+export function getDefinitionXML(onload, onerror) {
+
+    document.body.innerText = "Starting object definitions..."
+
+    var x = new XMLHttpRequest();
+
+    x.open("GET","xml/library_definitions.xml")
+    
+    x.addEventListener("load", function(){
+        creator.xmlDefinitions = x.responseXML;
+        onload();
+    });
+
+    x.addEventListener("progress", function(){
+        document.body.innerText = "Requesting object definitions..."
+    })
+
+    x.addEventListener("error", onerror);
+
+    x.send();
 }
 
 function populateURLset(o, urlSet) {
@@ -24,6 +44,7 @@ function populateURLset(o, urlSet) {
     }
 
 }
+
 
 export function preloadSpriteImages(onload, onerror) {
     
@@ -184,34 +205,36 @@ export function generateSprite(spriteDefinition) {
     }
 }
 
-// Objects that will be used for storing cache
+export function generateDefinitionMap() {
+    
+    let a = creator.xmlDefinitions.querySelectorAll("playobj")
 
-let a = dictionary.objects.playobj
-
-for(var i = 0; i < a.length; i++) {
-
-    // Get id
-
-    let id = a[i]["@_cid"];
-
-    // Assign objectID to dictionary entry
-    definitionTree[id] = a[i];
-
-    // Create category if it does not exist
-    if(!definitionTree.categories[a[i]["@_ctype"]]) {
-        definitionTree.categories[a[i]["@_ctype"]] = []
+    for(var i = 0; i < a.length; i++) {
+        let cid = a[i].getAttribute("cid");
+        definitionTree[cid] = a[i];
     }
-
-    // Put object definition in category
-    definitionTree.categories[a[i]["@_ctype"]].push(a[i]);
-
-    // Get sprite
-
 }
 
 export function generateSprites() {
 
-    a.forEach(function(o){
+    let objectDefinitions = Array.from(creator.xmlDefinitions.querySelectorAll("playobj"));
+
+    objectDefinitions.forEach(function(definition){
+
+        let id = definition.getAttribute("cid");
+
+        if(objectSprites[id]) {
+
+            document.body.innerText = "Generating sprite #" + id;
+
+            definition._spriteDefinition = objectSprites[id]
+            definition._svgSprite = generateSprite(objectSprites[id]);
+
+        };
+
+    })
+
+    /*a.forEach(function(o){
 
         let id = o["@_cid"];
 
@@ -221,6 +244,6 @@ export function generateSprites() {
             definitionTree[id].svgSprite = generateSprite(objectSprites[id]);
         };
 
-    })
+    })*/
 
 }

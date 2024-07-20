@@ -93,7 +93,7 @@ export default function loop(){
             creator.mousePosition.objectsContainingMousePoint.push(o);
         }
 
-        let img1 = definitionTree[creator.gameInstance.level.objects[i].objectID].svgSprite;
+        let img1 = definitionTree[creator.gameInstance.level.objects[i].objectID]._svgSprite;
 
         if( (img1 && img1.complete && !img1._broken) || img1 instanceof HTMLCanvasElement ) {
 
