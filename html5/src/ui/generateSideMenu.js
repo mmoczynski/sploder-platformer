@@ -4,13 +4,15 @@ import creator from "../creator.js";
 import { definitionTree } from "../definitionTree.js";
 import objectSprites from "../objectSprites.js";
 
-function createNavItem(className, text) {
+function createNavItem(className, text, onclick) {
 
     let e = document.createElement("li");
     e.innerText = text;
 
     e.classList.add("obj-menu-item")
     e.classList.add(className);
+
+    e.addEventListener("click", onclick)
 
     return e;
 }
@@ -24,11 +26,38 @@ nav_list.id = "navigation";
 sideMenu.appendChild(nav_list);
 
 nav_list.append(
-    createNavItem("blocks-and-tiles", "Blocks and Tiles"),
-    createNavItem("walls-and-decoration", "Walls and Decoration"),
-    createNavItem("switches-and-doors", "Switches and Doors"),
-    createNavItem("powerups", "Powerups"),
-    createNavItem("enemies-and-hazards", "Enemies and Hazards")
+
+    createNavItem("blocks-and-tiles", "Blocks and Tiles", function(){
+        elements.innerHTML = "";
+        elements.appendChild(o.blocks_and_tiles);
+        changeSelectionClass(this);
+        o.blocks_and_tiles.scrollTo(0,this.scrollTop);
+    }),
+
+    createNavItem("walls-and-decoration", "Walls and Decoration", function(){
+        elements.innerHTML = "";
+        elements.appendChild(o.walls_and_decoration);
+        changeSelectionClass(this);
+    }),
+
+    createNavItem("switches-and-doors", "Switches and Doors", function(){
+        elements.innerHTML = "";
+        elements.appendChild(o.switches_and_doors);
+        changeSelectionClass(this);
+    }),
+
+    createNavItem("powerups", "Powerups", function(){
+        elements.innerHTML = "";
+        elements.appendChild(o.powerups);
+        changeSelectionClass(this);
+    }),
+
+    createNavItem("enemies-and-hazards", "Enemies and Hazards", function(){
+        elements.innerHTML = "";
+        elements.appendChild(o.hazards);
+        changeSelectionClass(this);
+    })
+
 )
 
 nav_list.querySelector(".blocks-and-tiles.obj-menu-item").classList.add("selected");
@@ -159,33 +188,12 @@ export function generateDefinitionHTML() {
 
 // Event Listener for Blocks and Tiles
 
-sideMenu.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", function(){
-    elements.innerHTML = "";
-    elements.appendChild(o.blocks_and_tiles);
-    changeSelectionClass(this);
-    o.blocks_and_tiles.scrollTo(0,this.scrollTop);
-});
+//sideMenu.querySelector(".obj-menu-item.blocks-and-tiles").addEventListener("click", );
 
-sideMenu.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", function(){
-    elements.innerHTML = "";
-    elements.appendChild(o.walls_and_decoration);
-    changeSelectionClass(this);
-});
+//sideMenu.querySelector(".obj-menu-item.walls-and-decoration").addEventListener("click", );
 
-sideMenu.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", function(){
-    elements.innerHTML = "";
-    elements.appendChild(o.switches_and_doors);
-    changeSelectionClass(this);
-});
+//sideMenu.querySelector(".obj-menu-item.switches-and-doors").addEventListener("click", );
 
-sideMenu.querySelector(".obj-menu-item.powerups").addEventListener("click", function(){
-    elements.innerHTML = "";
-    elements.appendChild(o.powerups);
-    changeSelectionClass(this);
-});
+//sideMenu.querySelector(".obj-menu-item.powerups").addEventListener("click", );
 
-sideMenu.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("click", function(){
-    document.querySelector("#elements").innerHTML = "";
-    document.querySelector("#elements").appendChild(o.hazards);
-    changeSelectionClass(this);
-});
+//sideMenu.querySelector(".obj-menu-item.enemies-and-hazards").addEventListener("click", );
