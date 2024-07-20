@@ -8,6 +8,10 @@ mouseInfo.id = "mouse-info";
 
 export function generateStructure(container) {
 
+    document.body.innerHTML = "";
+
+    document.body.classList.remove("loading-screen");
+
     container.append(
         fileMenu,
         //creator.canvas,

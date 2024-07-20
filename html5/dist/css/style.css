@@ -209,9 +209,11 @@ html, body {
     height: 25px;
 }
 
-#loading-screen {
-    margin-top: 50vh;
-    position: absolute;
-    margin-left: 50vw;
+.loading-screen {
     font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }

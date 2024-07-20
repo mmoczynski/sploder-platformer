@@ -1,3 +1,6 @@
+// Starting text
+document.body.innerText = "Starting..."
+
 // Creator object
 
 const creator = {

@@ -27,10 +27,8 @@ new Promise(function(resolve, reject){
     return new Promise(function(){
 
         generateSprites();
-
-        document.body.innerHTML = "";
-
         createBlankFile();
+
         generateStructure(document.body);
         generateDefinitionHTML();
 
