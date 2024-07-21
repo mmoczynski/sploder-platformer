@@ -314,6 +314,17 @@ export default {
     78: "images/sprites/rockpile.svg",
     79: "images/sprites/rockpile1.svg",
     609: "images/sprites/frontscreen.svg",
-    610: "images/sprites/skulls.svg"
+    610: "images/sprites/skulls.svg",
+    161: "images/sprites/mace.svg",
+    154: "images/sprites/railgun.svg",
+    162: "images/sprites/whip.svg",
+    157: "images/sprites/powergluv.svg",
+    156: "images/sprites/grapple.svg",
+    155: "images/sprites/grenades.svg",
+    163: "images/sprites/mousegun.svg",
+    158: "images/sprites/blastgun.svg",
+    160: "images/sprites/big-sword.svg",
+    153: "images/sprites/gun.svg",
+    152: "images/sprites/jetpack.svg"
 
 }
