@@ -6,6 +6,7 @@ const temptile_ctx = tempTile.getContext("2d");
 temptile_ctx.fillStyle = "white";
 temptile_ctx.fillRect(0,0,tempTile.width, tempTile.height);
 
+// Large tile
 
 const tempLargeTile = document.createElement("canvas");
 tempLargeTile.width = 120;
@@ -49,7 +50,7 @@ export default {
 
     15: "images/sprites/15.svg",
     16:  "images/sprites/16.svg",
-    17: "images/sprites/4.svg",
+    17: "images/sprites/17.svg",
     18: "images/sprites/18.svg",
     19: "images/sprites/19.svg",
     20: "images/sprites/20.svg",

@@ -8,11 +8,26 @@
 * 
 */
 
+
+
 /**
  * Voronoi constructor
  */
 
-function Voronoi() {
+
+function Voronoi(
+    clip, 
+    width = 100, 
+    height = 100, 
+    backgroundColor = 0x33cccc, 
+    edgeColor = 0xcccc33, 
+    edgeThickness = 2, 
+    cellsX = 4, 
+    cellsY = 4, 
+    perturbation = 0.3, 
+    randomSeed = 1, 
+    bond = false
+) {
 
     let self = this;
 
@@ -225,6 +240,21 @@ function Voronoi() {
         
 
     });
+
+    init(
+        clip, 
+        width, 
+        height, 
+        backgroundColor, 
+        edgeColor, 
+        edgeThickness, 
+        cellsX, 
+        cellsY, 
+        perturbation, 
+        randomSeed, 
+        bond
+    );
+
 }
 
 // JavaScript replacement for clip
