@@ -1,34 +1,70 @@
 import creator from "../creator.js";
 import Modal from "../modal.js";
 
-function generateLevelEditingButton(id) {
+function generateLevelEditingButton(id, onclick) {
     var b = document.createElement("li");
     b.className = "level-editing-button";
     b.id = id;
+    b.addEventListener("click", onclick)
     return b;
 }
 
-const levelEditingMenu = document.createElement("ul");
+export const levelEditingMenu = document.createElement("ul");
 
 levelEditingMenu.id = "level-editing-menu";
 
 // Selection menu
 
-let selectionMenuItem = document.createElement("li");
+export const selectionMenuItem = document.createElement("li");
+
 levelEditingMenu.appendChild(selectionMenuItem);
 
-let selectionMenu = document.createElement("select");
+export const selectionMenu = document.createElement("select");
 selectionMenu.id = "level-selection";
 selectionMenuItem.appendChild(selectionMenu);
+
+selectionMenu.addEventListener("change", function(){
+    creator.gameInstance.level = selectionMenu.selectedOptions[0]._gameLevel;
+})
 
 // Level editing buttons
 
 levelEditingMenu.append(
-    generateLevelEditingButton("add-level-button"),
-    generateLevelEditingButton("remove-level-button"),
-    generateLevelEditingButton("move-level-up-button"),
-    generateLevelEditingButton("clone-level-button"),
-    generateLevelEditingButton("rename-level-button"),
+
+    generateLevelEditingButton("add-level-button", function() {
+        creator.gameInstance.createLevel();
+    }),
+
+    generateLevelEditingButton("remove-level-button", function() {
+
+    }),
+
+    generateLevelEditingButton("move-level-up-button", function() {
+
+    }),
+
+    generateLevelEditingButton("clone-level-button", function() {
+
+    }),
+
+    generateLevelEditingButton("rename-level-button", function() {
+
+        Modal.prompt(
+    
+            "Enter in new name for level:", 
+    
+            function(input) {
+                creator.gameInstance.level.name = input;
+            }, 
+    
+            function() {}, 
+    
+            creator.gameInstance.level.name
+    
+        );
+
+    }),
+
 )
 
 // Music Button
@@ -51,22 +87,4 @@ levelEditingMenu.appendChild(graphics);
 
 
 
-levelEditingMenu.querySelector("#rename-level-button").addEventListener("click", function(){
-
-    Modal.prompt(
-
-        "Enter in new name for level:", 
-
-        function(input) {
-            creator.gameInstance.level.name = input;
-        }, 
-
-        function() {}, 
-
-        creator.gameInstance.level.name
-
-    );
-
-});
-
-export default levelEditingMenu;
+//levelEditingMenu.querySelector("#rename-level-button").addEventListener("click", );
