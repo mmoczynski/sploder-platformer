@@ -62,8 +62,18 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 
 }
 
+Game.prototype.createLevel = function() {
+
+    var levelElm = this.xmlDocument.createElement("level");
+
+    levelElm.setAttribute("env", "0,33cccc,666666,100");
+
+    this.level = new GameLevel(this, levelElm);
+    this.level.selectionOption.selected = true;
+}
+
 Game.prototype.selectLevelByIndex = function(i) {
-    this.level = new GameLevel(this,this.xmlDocument.getElementsByTagName("level")[i]);
+    this.level = new GameLevel(this.xmlDocument.getElementsByTagName("level")[i]);
 }
 
 export default Game;
