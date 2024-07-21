@@ -5,6 +5,7 @@
 
 import { definitionTree } from "./definitionTree.js";
 import Ghost from "./ghost.js";
+import { selectionMenu } from "./ui/levelEditingMenu.js";
 
 /**
  * 
@@ -21,6 +22,17 @@ export function GameLevel(game,levelNode) {
      */
 
     this.levelNode = levelNode;
+
+    levelNode._levelObject = this;
+
+    // Option html element for level selection menu
+
+    this.selectionOption = document.createElement("option");
+    this.selectionOption.innerHTML = "Level " + (selectionMenu.children.length + 1);
+    this.selectionOption._gameLevel = this;
+
+    selectionMenu.appendChild(this.selectionOption);
+
     this.objects = [];
     this.populateGame();
 
@@ -44,11 +56,31 @@ export function GameLevel(game,levelNode) {
 
         // Value between 0 and 100 representing brightness
         brightness: self.defineEnvProperty(3),
+
+        name: {
+
+            get: function() {
+                return self.levelNode.getAttribute("name")
+            },
+
+            set: function(value) {
+                return self.levelNode.setAttribute("name", value);
+            }
+
+        },
+
+        avatar: {
+
+            get: function() {
+                return self.levelNode.getAttribute("avatar")
+            },
+
+            set: function(value) {
+                return self.levelNode.setAttribute("avatar", value);
+            }
+
+        }
     });
-
-    this.name = this.levelNode.getAttribute("name");
-
-    this.avatar = this.levelNode.getAttribute("avatar");
 
 }
 
@@ -77,6 +109,7 @@ GameLevel.prototype.defineEnvProperty = function(index) {
 
         set: function(value) {
             self.env[index] = value;
+            self.levelNode.setAttribute("env", self.env.join(","))
         }
 
     }
