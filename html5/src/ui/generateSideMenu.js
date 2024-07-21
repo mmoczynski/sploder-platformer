@@ -178,7 +178,7 @@ export function generateDefinitionHTML() {
             o.switches_and_doors.appendChild( createMenuItem(objectDefinitions[i]) );
         }
 
-        if(ctype === "powerup") {
+        if(ctype === "powerup" || ctype === "tool") {
             o.powerups.appendChild( createMenuItem(objectDefinitions[i]) );
         }
 
