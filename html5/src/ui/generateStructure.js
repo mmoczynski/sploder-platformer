@@ -1,6 +1,6 @@
 import fileMenu from "./fileMenu.js";
 import {sideMenu} from "./generateSideMenu.js";
-import levelEditingMenu from "./levelEditingMenu.js";
+import {levelEditingMenu} from "./levelEditingMenu.js";
 import rightButtons from "./rightButtons.js";
 
 let mouseInfo = document.createElement("div");
