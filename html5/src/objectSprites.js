@@ -527,4 +527,35 @@ export default {
     273: "images/sprites/leveldoors/leveldoor-5.svg",
     274: "images/sprites/leveldoors/leveldoor-6.svg",
 
+    260: {
+        stack: [
+            "images/sprites/bluering-1.svg",
+            "images/sprites/bluering-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    },
+
+    262: {
+        stack: [
+            "images/sprites/greenring-1.svg",
+            "images/sprites/greenring-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    },
+
+
+    264: {
+        stack: [
+            "images/sprites/yellowring-1.svg",
+            "images/sprites/yellowring-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    }
+
 }
