@@ -326,6 +326,205 @@ export default {
     158: "images/sprites/blastgun.svg",
     160: "images/sprites/big-sword.svg",
     153: "images/sprites/gun.svg",
-    152: "images/sprites/jetpack.svg"
+    152: "images/sprites/jetpack.svg",
+    278: "images/sprites/closer.svg",
+    266: "images/sprites/permblock-1.svg",
+    268: "images/sprites/permblock-2.svg",
+    208: "images/sprites/armor/armor-1.svg",
+    209: "images/sprites/armor/armor-2.svg",
+    210: "images/sprites/armor/armor-3.svg",
+    159: "images/sprites/flamethrower.svg",
+
+    66: {
+
+        stack: [
+            "images/sprites/jeep-body.svg",
+            "images/sprites/car-wheel.svg",
+        ],
+
+        height: 218.95,
+        width: 253.60
+    },
+
+    301: "images/sprites/ninja/ninjaboy.svg",
+
+    302: "images/sprites/thug/thug.svg",
+
+    212: "images/sprites/escapepod/escapepod.svg",
+    303: "images/sprites/snarley/creator.svg",
+    308: "images/sprites/kikuchiyo/creator.svg",
+    306: "images/sprites/archer/creator.svg",
+    305: "images/sprites/george/creator.svg",
+    304: "images/sprites/thor/creator.svg",
+
+    259: {
+
+        stack: [
+            "images/sprites/blueswitch-1.svg",
+            "images/sprites/blueswitch-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    },
+
+    261: {
+
+        stack: [
+            "images/sprites/greenswitch-1.svg",
+            "images/sprites/greenswitch-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    },
+
+
+    263: {
+
+        stack: [
+            "images/sprites/yellowswitch-1.svg",
+            "images/sprites/yellowswitch-2.svg"
+        ],
+
+        width: 60,
+        height: 60
+    },
+
+    213: "images/sprites/ablity/stomp.svg",
+    214: "images/sprites/ablity/roll.svg",
+    215: "images/sprites/ablity/smash.svg",
+    221: "images/sprites/ablity/jump.svg",
+
+    67: "images/sprites/powersuit/creator.svg",
+
+    65: "images/sprites/rover-creator.svg",
+
+    // Blue key
+
+    253: {
+
+        stack: [
+
+            {
+                src: "images/sprites/key/bg.svg",
+
+                colorTransform: {
+
+                    redAddTerm: 0,
+                    greenAddTerm: 153,
+                    blueAddTerm: 238,
+                    alphaAddTerm: 0,
+
+                    redMultTerm: 0,
+                    greenMultTerm: 0,
+                    blueMultTerm: 0,
+                    alphaMultTerm: 256,
+                }
+            },
+
+            "images/sprites/key/gradient.svg",
+            "images/sprites/key/lines.svg"
+        ],
+
+        height: 63.5,
+        width: 49.6
+    },
+
+    // Green key
+
+    254: {
+        stack: [
+            {
+                src: "images/sprites/key/bg.svg",
+
+                colorTransform: {
+
+                    redAddTerm: 0,
+                    greenAddTerm: 238,
+                    blueAddTerm: 102,
+                    alphaAddTerm: 0,
+
+                    redMultTerm: 0,
+                    greenMultTerm: 0,
+                    blueMultTerm: 0,
+                    alphaMultTerm: 256,
+                }
+            },
+            
+            "images/sprites/key/gradient.svg",
+            "images/sprites/key/lines.svg"
+        ],
+
+        height: 63.5,
+        width: 49.6
+    },
+
+    // Yellow key
+
+    255: {
+
+        stack: [
+            {
+                src: "images/sprites/key/bg.svg",
+
+                colorTransform: {
+
+                    redAddTerm: 238,
+                    greenAddTerm: 221,
+                    blueAddTerm: 0,
+                    alphaAddTerm: 0,
+
+                    redMultTerm: 0,
+                    greenMultTerm: 0,
+                    blueMultTerm: 0,
+                    alphaMultTerm: 256,
+                }
+            },
+            
+            "images/sprites/key/gradient.svg",
+            "images/sprites/key/lines.svg"
+        ],
+
+        height: 63.5,
+        width: 49.6
+    },
+
+    // Purple key
+
+    283: {
+
+        stack: [
+            {
+                src: "images/sprites/key/bg.svg",
+
+                colorTransform: {
+
+                    redAddTerm: 204,
+                    greenAddTerm: 0,
+                    blueAddTerm: 255,
+                    alphaAddTerm: 0,
+
+                    redMultTerm: 0,
+                    greenMultTerm: 0,
+                    blueMultTerm: 0,
+                    alphaMultTerm: 256,
+                }
+            },
+            
+            "images/sprites/key/gradient.svg",
+            "images/sprites/key/lines.svg"
+        ],
+
+        height: 63.5,
+        width: 49.6
+    },
+
+    269: "images/sprites/leveldoors/leveldoor-1.svg",
+    270: "images/sprites/leveldoors/leveldoor-2.svg",
+    271: "images/sprites/leveldoors/leveldoor-3.svg",
+    272: "images/sprites/leveldoors/leveldoor-4.svg",
+    273: "images/sprites/leveldoors/leveldoor-5.svg",
+    274: "images/sprites/leveldoors/leveldoor-6.svg",
 
 }

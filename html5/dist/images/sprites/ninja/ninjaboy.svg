@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:ffdec="https://www.free-decompiler.com/flash" xmlns:xlink="http://www.w3.org/1999/xlink" ffdec:objectType="frame" height="127.6px" width="109.75px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 39.05, 80.65)">
+    <use ffdec:characterId="1518" height="42.0" id="leg_rt" transform="matrix(0.0, 0.45, -0.45, 0.0, 8.0749, -0.7625)" width="65.0" xlink:href="#sprite0"/>
+    <use ffdec:characterId="1519" height="42.0" id="leg_lt" transform="matrix(1.0E-4, 0.45, -0.45, 1.0E-4, 21.3489, -0.7647)" width="65.0" xlink:href="#sprite2"/>
+    <use ffdec:characterId="1528" height="72.85" id="arm_lt" transform="matrix(0.0782, 0.4432, -0.4438, 0.0781, 25.1572, -31.0895)" width="134.8" xlink:href="#sprite3"/>
+    <use ffdec:characterId="1533" height="222.75" id="arm_rt" transform="matrix(-0.0782, 0.4432, -0.4438, -0.0781, 70.6854, -14.7504)" width="139.2" xlink:href="#sprite8"/>
+    <use ffdec:characterId="1535" height="97.45" id="torso" transform="matrix(0.45, 0.0, 0.0, 0.45, -21.4623, -33.8499)" width="104.5" xlink:href="#sprite12"/>
+    <use ffdec:characterId="1541" ffdec:characterName="library_fla.ninjahead_355" height="128.0" id="head" transform="matrix(0.45, 0.0, 0.0, 0.45, -35.5022, -80.6721)" width="173.15" xlink:href="#sprite13"/>
+  </g>
+  <defs>
+    <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.25, 29.5)">
+      <use ffdec:characterId="1517" height="42.0" id="leg" transform="matrix(1.0, 0.0, 0.0, 1.0, -13.25, -29.5)" width="65.0" xlink:href="#sprite1"/>
+    </g>
+    <g id="sprite1" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.25, 29.0)">
+      <use ffdec:characterId="1516" height="42.0" transform="matrix(1.0, 0.0, 0.0, 1.0, -13.25, -29.0)" width="65.0" xlink:href="#shape0"/>
+    </g>
+    <g id="shape0" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.25, 29.0)">
+      <pattern ffdec:smoothed="true" height="42" id="PatternID_1516_1" overflow="visible" patternTransform="matrix(1.0, 0.0, 0.0, 1.0, -13.25, -29.0)" patternUnits="userSpaceOnUse" viewBox="0 0 65 42" width="65">
+        <image height="42" width="65" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAEEAAAAqCAYAAADsxDbcAAADMklEQVR4Xu2a/6niQBDHA4IgCPlDEAQhfwiCIPgjBVwJV4IlvBJeCVfClWAJV4IlWMKV4O037sj4zSRuNLnbl3Pgw3uou+58M7s7s2uS9Nx2u13m+LHf738x2+32G+A2vbE8z1Pn/E/39/IIbtsLc0934570b3a2Cm7/5c0J8J2dfAT38aWtKgKWy+VlsVhcZrPZZb1e91cE50zqBDhr5+bz+WUwGMDJGxCktyJgB9COTSaTO+eF3oqAbVA7lWVZyXmhzyLcogBznqeAprci6MVwOp2WHNdEKUJ+TWoyfj3U9Ja42WxqowBEKQLSVgzEPc2T46OpIDorrFsLhKhF0DQRRE+FNE1LTjPRiICkRooX58QnD4o4Og6O1OqHnHlIJyJgcOIQ5iecUuiqrZTJPcGdIP7/4j04lxhOM0+J4PfgA+aecujMHb0KUlqktljc+L0KjhiLbp8YTjONRPChBuVLjbogUQMdjUbFVoeFzsr1LaoyRCZYBCxK/MGuSYwBC8PhsHAStcBqtSq1BRCO21kEiRB6EBECvlCAAwhZgFV8PB4XyGcxwFCQC6AP9CVO8WeqeChCrhYaC3EIYSoOIWzFodCnoXlGhFeoFcHarwHmJELxUSb2LNGIkF9r8dIWhifelfNCNCJYCQsWIO6gC6IQgWtxEFKItEUUIuTGYhi657ZBLCLcJUSIAm7YJVGIwAsiUldu2CVRiMAvhObgbfEWIXmLUBCFCFwW/69rwnt3sMrmkLO6V0ChxWUxf6YrTBGsjBGDaztjhLCoRapOjqQyRTWK8wNu3xamCDDrDCHk+LoOOQjBGsN9h6LL9rbEqRMh46QJNI0IhDkGXHX60xZaHERYk3OMShFguVFDADhUV0tgEJjfoWeBghf9yLfJr4Cxyu8QqsSpFQFmTQsBTuojsoYnwwXYjuE0jublO/0PKzo5wRa0ONbD0hoUZp0tvML+epv0CWf5uyyTixm08UCgE/fbJjyGwvKKqdGA4pIk5BqtiaE/L9BHmwLx99xMwpQbWGB+YyrpMP/blvubMPf34KP57nKmDu6rZOjY3z6dyfGTn99BYf4vjQVSt2nFjvgHuMkQeHCnF3gAAAAASUVORK5CYII="/>
+      </pattern>
+      <path d="M51.75 13.0 L-13.25 13.0 -13.25 -29.0 51.75 -29.0 51.75 13.0" ffdec:fill-bitmapId="1515" style="fill:url(#PatternID_1516_1)"/>
+    </g>
+    <g id="sprite2" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.25, 29.0)">
+      <use ffdec:characterId="1517" height="42.0" id="leg" transform="matrix(1.0, 0.0, 0.0, 1.0, -13.25, -29.0)" width="65.0" xlink:href="#sprite1"/>
+    </g>
+    <g id="sprite3" transform="matrix(1.0, 0.0, 0.0, 1.0, 20.45, 22.1)">
+      <use ffdec:characterId="1522" height="47.0" id="arm" transform="matrix(1.0004, 0.0, 0.0, 1.0, -20.47, -20.1)" width="77.0" xlink:href="#sprite4"/>
+      <use ffdec:characterId="1527" height="72.85" id="hand_lt" transform="matrix(1.0, 0.0, 0.0, 1.0, 33.95, -22.1)" width="80.4" xlink:href="#sprite5"/>
+    </g>
+    <g id="sprite4" transform="matrix(1.0, 0.0, 0.0, 1.0, 48.45, 20.1)">
+      <use ffdec:characterId="1521" height="47.0" transform="matrix(1.0, 0.0, 0.0, -1.0, -48.45, 26.9)" width="77.0" xlink:href="#shape1"/>
+    </g>
+    <g id="shape1" transform="matrix(1.0, 0.0, 0.0, 1.0, 22.8, 24.45)">
+      <pattern ffdec:smoothed="true" height="47" id="PatternID_1521_1" overflow="visible" patternTransform="matrix(1.0, 0.0, 0.0, 1.0, -22.8, -24.45)" patternUnits="userSpaceOnUse" viewBox="0 0 77 47" width="77">
+        <image height="47" width="77" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAvCAYAAACmNUfhAAADYklEQVR4Xu2b7YnjMBCGBYFAIJAfC4FAID8CgUAgHyogJVwJKeFKuBK2hJSwJaSEK2FL2BJ8es4S5x1ZtpU4sc/2Cy/shyRrXo1mJpai1IDuQms9OxwOZ8Mfp9Ppl+UNmv8lhh/m55/H43El+3YWGIsoxvgLgpjfr1aU31aUyjR9Pk3/d8aTz/mvYL3kjDcgivUMRPmSRtdJO/6H4cVwJufVGJhMydZpDfFcFs7MdS/tqBXaiqJr2Dptot3GVxZb2vww7HbyHtpB1pNMGODZcacqt9ttstlskuVymSwWi+Tt7S2ZTqfJfD5P1uu11/4RsovuTia4rxzwWUQQiCAQQeBoNErMVCpxNpslq9Uq2e123vj3MptMSr2QBnKAe4kRCIJHIAjegSCTycQzvC4yNs/BQ+V8HuBFFSHGy0JbZzwee8Y0QbyVObFo+/3em39VFm7XIi9DnHu2TpvI3Fng2G2silDkZW3xnrqIPVWSCSWKCqHIywiyKufBXSE7Bxul3Va0mwqhT16WR2KytBtSgqg89NnLHInZ0nZIka/y0Hcvg6ESJTdzDl6WUtqeEc3/kD94WZpJpe2OSmLwspTUb9J+mFtuDF6WknpN2m9Fu6ksBi/7x8rlhk4/wXsNYZ+8DFYqNwYv+87K5YZs4EhQlIN2nVKDjGjfyw2CnGwECYpy0C6Tz51SA0clQZCTjWDftmdBufGlJHR6Jug1Zn8zWF/IS0qpgRXtpiTYr7KhI4P1hQXlxlXlQTZ07FMyCL2EDL7dGJJBuEYLHiYPyaCw3DirPOieJ4OocsOh78kgqtzIQnZwbDoZcOhLZuO4jTNLd77qDpzrOEaMKjeyaFsy4IpBKDjnkbbEYHelIeZlQ3S54dCGZIBXseqxh7hFrCJmdLnhoBtKBhiBQTFeVQexy90tCS1SsNxweEUyIP6w2kz00XsVr2Cw3MhCdnK8J+jSnriEQGyP0LuqNtPpUohQMmiapH7iCyt/Sm8rvjNX/i7b1sXScsMhlAyaopn4py67E6bS2+O0Q1grJv288WJYWm446EAyeCUx2HqVfzgbiUfELC03HIqSwZNZzyXhisBOMiNi2md7N9X5n+wXxDPjBGS1WUVEqpSdXoismFELqGv6voDte7NB+28Q12361siA1+EPcGC1qP8O24IAAAAASUVORK5CYII="/>
+      </pattern>
+      <path d="M54.2 22.55 L-22.8 22.55 -22.8 -24.45 54.2 -24.45 54.2 22.55" ffdec:fill-bitmapId="1520" style="fill:url(#PatternID_1521_1)"/>
+    </g>
+    <g id="sprite5" transform="matrix(1.0, 0.0, 0.0, 1.0, 7.9, 21.0)">
+      <use ffdec:characterId="1526" height="72.85" id="throwingstar" transform="matrix(1.0, 0.0, 0.0, 1.0, -7.9002, -20.9995)" width="80.4" xlink:href="#sprite6"/>
+    </g>
+    <g id="sprite6" transform="matrix(1.0, 0.0, 0.0, 1.0, 10.15, 23.9)">
+      <use ffdec:characterId="1524" height="65.0" transform="matrix(1.0, 0.0, 0.0, -1.0, 6.25, 48.95)" width="64.0" xlink:href="#shape2"/>
+      <use ffdec:characterId="1525" height="53.45" transform="matrix(1.0, 0.0, 0.0, 1.0, -10.15, -23.9)" width="71.7" xlink:href="#shape3"/>
+      <filter id="filter0">
+        <feColorMatrix in="SourceGraphic" result="filterResult0" type="matrix" values="0 0 0 0 0.0,0 0 0 0 1.0,0 0 0 0 0.0,0 0 0 1 0"/>
+        <feConvolveMatrix divisor="100.0" in="filterResult0" kernelMatrix="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1" order="10 10" result="filterResult1"/>
+        <feConvolveMatrix divisor="100.0" in="filterResult1" kernelMatrix="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1" order="10 10" result="filterResult2"/>
+        <feConvolveMatrix divisor="100.0" in="filterResult2" kernelMatrix="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1" order="10 10" result="filterResult3"/>
+        <feComposite in="SourceGraphic" in2="filterResult3" operator="over" result="filterResult4"/>
+        <feConvolveMatrix divisor="9.0" in="filterResult4" kernelMatrix="1 1 1 1 1 1 1 1 1" order="3 3" result="filterResult5"/>
+      </filter>
+      <use ffdec:characterId="1429" filter="url(#filter0)" height="0.0" id="tooltip" transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 15.6)" width="0.0" xlink:href="#sprite7"/>
+    </g>
+    <g id="shape2" transform="matrix(1.0, 0.0, 0.0, 1.0, 34.1, 34.35)">
+      <pattern ffdec:smoothed="true" height="65" id="PatternID_1524_1" overflow="visible" patternTransform="matrix(1.0, 0.0, 0.0, 1.0, -34.1, -34.35)" patternUnits="userSpaceOnUse" viewBox="0 0 64 65" width="64">
+        <image height="65" width="64" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAYAAABhNaJ7AAAFYUlEQVR4XuWb22kbURCG3UFKSAkpISW4hJSgElxCng0GgcHgB4PAYPCDYcFgMPjYKSEluARlv9X8yniyZ2/alTbWwI+M9nJm/rmeo+TkZIby+vr69eXl5TR+fzRSGr9MKZ3F749C3t7evpXGr0us4rWjkNLwAgLKKPgVr316Kb3/3bxfIV7/9CLvC6RDvOfTivf+8/Nz9XlUnUDeL4pifXd3pyiYTycgHKcKSe/9q6ur9Wq1EgHz6QSlMl/KkHwv8ZO/4/VdxHv//Py8IsEIKOK9BxVC0nLzvfxcxOtDJHofApbLpQiYVydgRJViRsRvDIj39ZHofUFrsGZ85qBiY+pWQUMxpD7UeV+AEL7fleDRxY2q69vb262iFhHLPh7LeR/c39/rvfPpBBIp/vDwUCl7fX29fnp6EgnUh7PUUiibvA8gV6TGZw8uDChSnoIlpWlfboj5XX7+iM9KmrwPZtsJJGZgFape8YuLCz/IVJuamMdt3geXl5fbiPLP7iqkaNRnkOBdFMTjGB0NIDJIERmKJ1Uf2rwvuGcb0yknVq9+2OxSrQmGFOx/BKUs36vQj8oLeNgXyhIr/Z3zvvD4+CiFWz2WM7YG2bTsLbZYVQCj8hE3NzfbQgnavA9cBH0YunRkljbFtpAjIohO1aTRjUf8YISB0YAIUoXqjlLkeLweoU6QNlHTaiyk8gxdiRTkU9cn6ya8mAW6eLQvvAERrEexhfg6MvnOdaRpjEe6VPSh0J6gzdiIYPz0R2vJik5siYcAaeaGsl9pYAfpJclaIvCD0b6B8eocNqdMb7xEgxGhGhXbF9RuKZSj9Po+Ui68YPHcYDQ1tHk6iPFI3CVGBaeEH71Jx6jbpGL5XxVBgTyMStaBNgdZHl2qvAedYe/G2yT2Mw4lhGHXVqhiVYeudcQbjz5Rz9EFhlPwNi2HvUCfvFfIQiCKp82Ud6ahCrQRqd2ivWe6QWcMb3u4fT6Kn8b1jJDGNPKDTprq6DyN5O2ItqOu5HaZuZkihP54w87Y3q6DenXTFlfEN61JAfXj7uDWB3tps4+GyVG9XQd3NpCt2NKliQAQZn76f5bUrKRN8flgvKDtZZsifeAOO2s3KX5zFZ+tgx9/24htlLTJvVNLgSwhREXfXu1BXvttKutKB0vBau0+GytIcLVlnJZohx2kxvLF5nwPjODEZgghoYjx7gKo9vDuXAFsQpgIV2ms4oiIEF4sRT2oGXgB47ooH1rZFkTZLnUndog+P9T0Epv9FzlCmg5KPagvQt9IyqGmOA7rEH2E4kXuiYAuUTAlWN+dDeCgYcWxj1BEWbBpitsnSCXXdkHt8DWaWFXvvJnpCoyAVD4Fv4Mk3ZpSKXSI6fYNqgVRgV0RvNgbFGhfcK3VjtchEB2IsFA0YFc4AhbUGhuWzgSrPYVgBv5DhAf3jFocVQC7DjAUqa4TpggYNOqe/P1B1JFH94K8Rbx3sIh1NinRgAh6NZHS9fxwVwImF/8TWZNBcWQF+kcWTZg9ARZSjcZQGF1frvJPUdM2NImsuO5sJNlP3jlDFPJm/DJZBbbNz3vb7D9rAjBGCkYjfMjnprFk0UOYR8P/CwJy018YRRtbTrIToNzvCXMngJD+MP2F46ptyOeE601D1NwJ+KB42JN37rO5SJo1AX76CyHPP6HNhnxOkhXTuJeYLQGa/sKsjRGNIZ8TnoM83uOnxDkTUPVxh84hnxMbVStSNVTNkgA//Q0N+ZwoshisSC2tEe87qOBtI2BwyDeJossV1SLec1Axw3cO+ZyowDrMi4AxQz4nyf6HyiwJ2Jdg+FEToA3T0RKA2JR4vAQgkBC/G0P+ADGuEsuIOrS4AAAAAElFTkSuQmCC"/>
+      </pattern>
+      <path d="M-34.1 -34.35 L29.9 -34.35 29.9 30.65 -34.1 30.65 -34.1 -34.35" ffdec:fill-bitmapId="1523" style="fill:url(#PatternID_1524_1)"/>
+    </g>
+    <g id="shape3" transform="matrix(1.0, 0.0, 0.0, 1.0, 10.15, 23.9)">
+      <path d="M12.8 -15.2 L26.7 -21.9 48.1 -21.9 48.1 -15.9 30.45 -15.9 13.1 -4.9 12.8 -15.2 M48.1 -9.85 L53.5 -9.9 53.5 -4.15 40.1 -9.85 48.1 -9.85 M53.5 1.55 L59.55 1.55 59.55 8.9 47.45 1.55 53.5 1.55 M13.4 15.25 L-0.8 19.8 -4.45 12.15 13.4 5.75 13.4 15.25" fill="#1d1d1d" fill-rule="evenodd" stroke="none"/>
+      <path d="M12.8 -15.2 L13.1 -4.9 30.45 -15.9 48.1 -15.9 48.1 -9.85 40.1 -9.85 53.5 -4.15 53.5 1.55 47.45 1.55 59.55 8.9 59.55 16.25 55.25 19.6 47.55 19.6 43.6 15.1 30.0 15.1 24.7 27.55 13.4 15.25 13.4 5.75 -4.45 12.15 -8.15 4.45 -1.45 -21.0 12.8 -15.2 M47.15 15.1 L43.6 15.1 47.15 15.1" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M12.85 22.05 L12.8 22.25 12.8 22.05 12.85 22.05" fill="#585858" fill-rule="evenodd" stroke="none"/>
+      <path d="M48.1 -15.9 L48.1 -21.9 26.7 -21.9 12.8 -15.2 -1.45 -21.0 -8.15 4.45 -4.45 12.15 -0.8 19.8 13.4 15.25 24.7 27.55 M48.1 -15.9 L48.1 -9.85 53.5 -9.9 53.5 -4.15 53.5 1.55 59.55 1.55 59.55 8.9 59.55 16.25 55.25 19.6 47.55 19.6 43.6 15.1 30.0 15.1 M48.1 -9.85 L40.1 -9.85 M43.6 15.1 L47.15 15.1 M47.45 1.55 L53.5 1.55" fill="none" stroke="#333333" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="3.0" stroke-width="3.0"/>
+      <path d="M30.0 15.1 L24.7 27.55" fill="none" stroke="#cccccc" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="3.0" stroke-width="2.0"/>
+    </g>
+    <g id="sprite8" transform="matrix(1.0, 0.0, 0.0, 1.0, 20.45, 187.0)">
+      <use ffdec:characterId="1522" height="47.0" id="arm" transform="matrix(1.0, 0.0, 0.0, -1.0, -20.45, 20.1)" width="77.0" xlink:href="#sprite4"/>
+      <use ffdec:characterId="1532" height="222.75" id="hand_rt" transform="matrix(0.999, 0.0, 0.0, 1.0, -8.0751, -187.0)" width="126.95" xlink:href="#sprite9"/>
+    </g>
+    <g id="sprite9" transform="matrix(1.0, 0.0, 0.0, 1.0, 72.2, 171.55)">
+      <use ffdec:characterId="1531" height="75.05" id="katana" transform="matrix(-0.2588, -0.9659, 0.9659, -0.2588, -17.7247, 51.1925)" width="210.5" xlink:href="#sprite10"/>
+    </g>
+    <g id="sprite10" transform="matrix(1.0, 0.0, 0.0, 1.0, 37.9, 57.7)">
+      <use ffdec:characterId="1529" height="46.3" transform="matrix(1.0, 0.0, 0.0, 1.0, -11.3, -29.9)" width="183.9" xlink:href="#shape4"/>
+      <use ffdec:characterId="178" height="0.0" id="tooltip" transform="matrix(0.8, 0.0, 0.0, 0.8, 137.2, -7.0)" width="0.0" xlink:href="#sprite11"/>
+      <use ffdec:characterId="1530" height="75.05" transform="matrix(1.0, 0.0, 0.0, 1.0, -37.9, -57.7)" width="56.3" xlink:href="#shape5"/>
+    </g>
+    <g id="shape4" transform="matrix(1.0, 0.0, 0.0, 1.0, 11.3, 29.9)">
+      <path d="M169.95 -17.35 L166.05 -9.85 138.25 2.45 138.25 -4.35 169.95 -17.35" fill="#cccccc" fill-rule="evenodd" stroke="none"/>
+      <path d="M138.25 2.45 L24.3 1.75 24.3 -5.05 138.25 -4.35 138.25 2.45" fill="#999999" fill-rule="evenodd" stroke="none"/>
+      <path d="M24.3 -15.25 L169.95 -17.35 138.25 -4.35 24.3 -5.05 24.3 -15.25" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
+      <path d="M24.3 1.75 L24.3 13.75 12.3 13.75 12.3 1.75 -4.55 1.75 Q-8.65 -4.25 -8.65 -6.75 -8.65 -9.25 -4.55 -15.25 L12.3 -15.25 12.3 -27.25 24.3 -27.25 24.3 -15.25 24.3 -5.05 24.3 1.75 M12.3 1.75 L12.3 -15.25 12.3 1.75" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M12.3 -15.25 L12.3 1.75" fill="none" stroke="#000000" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="4.0"/>
+      <path d="M24.3 1.75 L24.3 13.75 12.3 13.75 12.3 1.75 -4.55 1.75 Q-8.65 -4.25 -8.65 -6.75 -8.65 -9.25 -4.55 -15.25 L12.3 -15.25 12.3 -27.25 24.3 -27.25 24.3 -15.25" fill="none" stroke="#000000" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="4.0"/>
+      <path d="M24.3 -15.25 L169.95 -17.35 166.05 -9.85 138.25 2.45 24.3 1.75 24.3 -5.05 24.3 -15.25" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="4.0"/>
+      <path d="M24.3 -5.05 L138.25 -4.35 169.95 -17.35" fill="none" stroke="#393d40" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="3.0"/>
+    </g>
+    <g id="shape5" transform="matrix(1.0, 0.0, 0.0, 1.0, 37.9, 57.7)">
+      <path d="M-19.7 -40.75 L-19.25 -54.85 4.65 -54.7 10.55 -49.7 0.75 -35.55 -12.35 -38.85 -19.65 -40.75 -19.7 -40.75 M8.85 -33.1 L8.85 -18.15 -2.35 -18.15 -2.35 3.45 4.25 3.4 4.25 11.0 -5.15 15.35 -11.65 13.65 -15.25 1.3 -16.65 6.6 -21.65 5.3 -23.5 -7.8 -25.35 -0.8 -30.65 -2.25 -26.5 -17.7 -10.5 -38.3 8.2 -33.3 8.85 -33.1" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M-19.7 -40.75 L-19.65 -40.75 -12.35 -38.85 -10.5 -38.3 -26.5 -17.7 -30.65 -2.25 -35.9 -3.65 -30.9 -22.4 -19.7 -40.75 M0.75 -35.55 L10.55 -49.7 16.4 -44.65 8.85 -33.1 8.2 -33.3 0.75 -35.55 M-11.65 13.65 L-18.05 11.9 -16.65 6.6 -15.25 1.3 -11.65 13.65 M-21.65 5.3 L-26.65 3.9 -25.35 -0.8 -23.5 -7.8 -21.65 5.3" fill="#1d1d1d" fill-rule="evenodd" stroke="none"/>
+      <path d="M10.55 -49.7 L4.65 -54.7 -19.25 -54.85 -19.7 -40.75 -19.65 -40.75 -12.35 -38.85 -10.5 -38.3 8.2 -33.3 M10.55 -49.7 L16.4 -44.65 8.85 -33.1 8.85 -18.15 -2.35 -18.15 -2.35 3.45 M4.25 3.4 L4.25 11.0 -5.15 15.35 -11.65 13.65 -18.05 11.9 -16.65 6.6 -21.65 5.3 -26.65 3.9 -25.35 -0.8 -30.65 -2.25 -35.9 -3.65 -30.9 -22.4 -19.7 -40.75 M-25.35 -0.8 L-23.5 -7.8 M-16.65 6.6 L-15.25 1.3" fill="none" stroke="#333333" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="3.0" stroke-width="3.0"/>
+    </g>
+    <g id="sprite12" transform="matrix(1.0, 0.0, 0.0, 1.0, 51.25, 44.0)">
+      <use ffdec:characterId="1534" height="97.45" transform="matrix(1.0, 0.0, 0.0, 1.0, -51.25, -44.0)" width="104.5" xlink:href="#shape6"/>
+    </g>
+    <g id="shape6" transform="matrix(1.0, 0.0, 0.0, 1.0, 51.25, 44.0)">
+      <path d="M-27.0 -14.05 L-27.0 -27.0 27.0 -27.0 27.0 -10.2 -27.0 -14.05" fill="#c6cc4a" fill-rule="evenodd" stroke="none"/>
+      <path d="M27.0 -10.2 L27.0 27.0 -27.0 27.0 -27.0 -14.05 27.0 -10.2" fill="#e1e49e" fill-rule="evenodd" stroke="none"/>
+      <path d="M27.0 -10.2 L27.0 -27.0 -27.0 -27.0 -27.0 -14.05 -27.0 27.0 27.0 27.0 27.0 -10.2 M33.0 -33.0 L33.0 33.0 -33.0 33.0 -33.0 -33.0 33.0 -33.0" fill="#818525" fill-rule="evenodd" stroke="none"/>
+      <path d="M-15.2 -40.0 L0.5 -22.6 1.0 -23.15 1.5 -22.6 17.25 -40.0 29.9 -40.0 5.65 13.4 -3.6 13.4 -27.85 -40.0 -15.2 -40.0" fill="#222222" fill-rule="evenodd" stroke="none"/>
+      <path d="M-15.2 -40.0 L1.0 -40.0 17.25 -40.0 1.5 -22.6 1.0 -23.15 0.5 -22.6 -15.2 -40.0 M29.9 -40.0 L44.3 -40.0 36.1 9.25 27.2 13.4 36.1 13.4 36.1 14.65 48.7 29.45 16.45 49.45 1.0 31.9 -14.4 49.45 -46.7 29.45 -34.1 14.65 -34.1 13.4 -25.15 13.4 Q-29.8 11.45 -34.1 9.25 L-42.3 -40.0 -27.85 -40.0 -3.6 13.4 5.65 13.4 27.2 13.4 5.65 13.4 29.9 -40.0 M-25.15 13.4 L-3.6 13.4 -25.15 13.4" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M36.1 9.25 L36.1 13.4 27.2 13.4 36.1 9.25 M-34.1 13.4 L-34.1 9.25 Q-29.8 11.45 -25.15 13.4 L-34.1 13.4" fill="#333333" fill-rule="evenodd" stroke="none"/>
+      <path d="M17.25 -40.0 L1.0 -40.0 -15.2 -40.0 -27.85 -40.0 -42.3 -40.0 -34.1 9.25 -34.1 13.4 -34.1 14.65 -46.7 29.45 -14.4 49.45 1.0 31.9 16.45 49.45 48.7 29.45 36.1 14.65 36.1 13.4 36.1 9.25 44.3 -40.0 29.9 -40.0 17.25 -40.0" fill="none" stroke="#333333" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="10.0" stroke-width="6.0"/>
+      <path d="M5.65 13.4 L27.2 13.4 36.1 13.4 M5.65 13.4 L-3.6 13.4 -25.15 13.4 -34.1 13.4" fill="none" stroke="#333333" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="3.0" stroke-width="6.0"/>
+    </g>
+    <g id="sprite13" transform="matrix(1.0, 0.0, 0.0, 1.0, 82.45, 123.05)">
+      <use ffdec:characterId="1536" height="127.95" transform="matrix(1.0, 0.0, 0.0, 1.0, -64.0, -123.0)" width="128.0" xlink:href="#shape7"/>
+      <use ffdec:characterId="1538" height="52.0" transform="matrix(1.0, 0.0, 0.0, 1.0, -42.6, -76.05)" width="85.0" xlink:href="#shape8"/>
+    </g>
+    <g id="shape7" transform="matrix(1.0, 0.0, 0.0, 1.0, 64.0, 123.0)">
+      <path d="M50.0 -19.05 L-50.0 -19.05 -50.0 -59.05 50.0 -59.05 50.0 -19.05" fill="#f2efbb" fill-rule="evenodd" stroke="none"/>
+      <path d="M9.15 -60.95 L9.2 -60.9 9.25 -60.85 9.15 -60.95 M50.0 -19.05 L50.0 -59.05 -50.0 -59.05 -50.0 -19.05 50.0 -19.05 M60.0 0.95 L-60.0 0.95 -60.0 -119.0 60.0 -119.0 60.0 0.95" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M60.0 0.95 L-60.0 0.95 -60.0 -119.0 60.0 -119.0 60.0 0.95 Z" fill="none" stroke="#333333" stroke-linecap="square" stroke-linejoin="miter-clip" stroke-miterlimit="3.0" stroke-width="6.0"/>
+    </g>
+    <g id="shape8" transform="matrix(1.0, 0.0, 0.0, 1.0, 42.6, 25.75)">
+      <pattern ffdec:smoothed="true" height="52" id="PatternID_1538_1" overflow="visible" patternTransform="matrix(1.0, 0.0, 0.0, 1.0, -42.6, -25.75)" patternUnits="userSpaceOnUse" viewBox="0 0 85 52" width="85">
+        <image height="52" width="85" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAAA0CAYAAAD7XXSlAAAFOElEQVR4Xu2YP48jRRDFOyECZCIkSCwCIOFk6URAghwQISGcwOl2k5FW693LLCGRYomUwCkBkhMSIn8DHJAtB94DEZ78EfwRhvkN01a5pnv+eXqGPftJT/bOdFf1e13VM15jOsLNzc1gOp0u+dT3QqKvvMGRCdskn3H22YnAvvIGhxRm2YXAvvIGh0tYFwL7yhscRcJCCuwrbye4vb0dJYvfaUGabQokTpmhWc4d69PzHwS6NJb5r7yhFnWM1XPr4GQMtahh7FLPrQLm6Viar5ShFqGMPVlDLdo29uQNtWjL2LOhCscaezbUg6bGng0tQV1jz4ZWxPX19UQb42Ji1lZfc5F4OsdJIjEj0uY0ZKRjnzQwxGFSHZ4NdQFjHGZV4dnQIjQw9uEb+uffT0Z3f12MNbmuxzZFDWNbM7QLXQdIE9w/Xd3dX+x+f3EZ+8j9dFwyXseoiwrGHm1oDV3bhMtWDE4CTgiok1RhNu+o15sCY48y9Ehd68a62BkdsAmJo2PXgcPYowztRdfzl18PkgkbHeQYEo+4OldVCGMbG9qrLs4YPbkNElfnqoOrq6uhvlYHvenKzovcxLZYuoBACK/LcxTc3V/O9eAQfP7iaeMWboKudLneeIbTZ4/i777/JP75l89zE9okT12dPBT++OdyqPO3TfzCtycX7+d0Ub6x5AcfvhV/8eV7MWb/+NNn8a+/fZUL2JRdVWtbT3qIfnzAD3zBH6M8SzizuXl6xcPhMB6Px3rQAd9487X48cdvp4GPqeouqpWnss5blbb60IledBuHH5b4NhgM+L7XFXFjuVzGFtvtNl6tVvF8Pk8nYLgOJElidu+bbx9XrupWfp0UgG7QOTVt9bFu1o8O49BnaQsPX/AHnywWi4Udl/4wWPLHbrfbD3CB++v1Og0YRVE8Go1ySSXfeff1fVX/sPg0X9X3FwuSh4JuffKzDlt9rM841m2JPnSiF91l/jAmm5vqWhOgKQhGlc9ms9LjA9qqnj77aE3yUCB+leqDrJv1owM9TZHFS3WlQauCpPI4YENoBYmKx8eG5AFB/IOcRe1rQUWKVk7PSsZXgchVz1RAYm0UO10E0R4HyQPiIFfdCqT15fwq3SzG1zcVsHt64fJhp/HQTAU6BkYXQYz974sPGOVqE5eptIrvQHeNJ3lAHOQqamGf4ToG9I1VRZO+W8WbzUaPS0HZu1pbt7+lr1onk4keS96QSHVZkt8FCsbV2vJclfRVK7qzMamuNX/4dpJ7VCBJ2A1Y9JR3xaF6s5djSfKGRKrL0tdF1gxMt/ooIjlX0ndUiqJJdc2LkuqgZXSZ6mn9uQkL4jddm5cuU6l2MWae0PDLxpvU1+Y+6vb3VCkM+ovKCF2WrsIRbVuJrvZXR9te19Ze1GerfrUoo36oOc5SuDXdgDwHufXZqqqslLpo1ANqawQie4PdlMbyXUwqpF5wwYZEphuQR+fOVZtn43Oka2Wl443qwsgorLMbKeWO8N3Twnty1tiEfBb8b4A8XYJ8eg3p+uR6ix6+EENlsTmODfLkwFmwM2IgT3wL2sSV2L4ZyHEFhhI/9FmqkdNlyTrlccVT31U8VLLcAMfrVqGuyKiAGCmrlkXYVw8or/sWJUj8PpDTZcl6Wbc1F9OkPnkdHzwP7lJdE+PYWYLZf4VpuipYkXjE7RNOXZLo0Nogleopllq6vC3TgIWt0TF618WEjckHq0Pm104cGG3oWpsjdc2M432vhIxn3v8ZTXVNmNwWCLYy/vbhOvdbTdoBquoa2wll+Bcz76ApZjNnFwAAAABJRU5ErkJggg=="/>
+      </pattern>
+      <path d="M42.4 26.25 L-42.6 26.25 -42.6 -25.75 42.4 -25.75 42.4 26.25" ffdec:fill-bitmapId="1537" style="fill:url(#PatternID_1538_1)"/>
+    </g>
+  </defs>
+</svg>
