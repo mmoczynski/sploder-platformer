@@ -102,7 +102,16 @@ function createMenuItem(definition) {
     let sprite = objectSprites[definition.getAttribute("cid")]
 
     if(sprite) {
-        elm.appendChild(definition._svgSprite);
+
+        let canvas = definition._svgSprite;
+
+        canvas.toBlob(function(blob){
+            let previewImage = document.createElement("img");
+            previewImage.draggable = false;
+            previewImage.src = URL.createObjectURL(blob);
+            elm.appendChild(previewImage);
+        })
+
     }
 
     var span = document.createElement("span");

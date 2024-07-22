@@ -237,3 +237,8 @@ html, body {
 #level-editing-menu li {
     list-style: none;
 }
+
+.object img {
+    max-height: 100px;
+    max-width: 100px;
+}

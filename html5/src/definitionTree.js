@@ -97,7 +97,17 @@ export function preloadSpriteImages(onload, onerror) {
 export function generateSprite(spriteDefinition) {
 
     if(typeof spriteDefinition === "string") {
-        return creator.preloadedImages.get(spriteDefinition)
+
+        let img = creator.preloadedImages.get(spriteDefinition)
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0);
+
+        return canvas;
     }
 
     else if(typeof spriteDefinition === "object" && Array.isArray(spriteDefinition.stack) ){
