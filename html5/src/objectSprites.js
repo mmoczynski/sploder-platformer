@@ -556,6 +556,10 @@ export default {
 
         width: 60,
         height: 60
-    }
+    },
 
+    312: "images/sprites/segfault/creator.svg",
+    309: "images/sprites/mongol/mongol.svg",
+    319: "images/sprites/native/native.svg",
+    
 }
