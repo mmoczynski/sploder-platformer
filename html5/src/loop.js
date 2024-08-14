@@ -155,7 +155,7 @@ export default function loop(){
         
             creator.ctx.stroke();
 
-            creator.ctx.beginPath();
+            /*creator.ctx.beginPath();
 
             creator.ctx.arc(
                 o.ghost.centerPoint.toCanvasPoint().x, 
@@ -164,7 +164,7 @@ export default function loop(){
                 0, 
                 2 * Math.PI)
 
-            creator.ctx.stroke();
+            creator.ctx.stroke();*/
 
         }
         
