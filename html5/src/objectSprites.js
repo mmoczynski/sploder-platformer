@@ -572,4 +572,7 @@ export default {
     317: "images/sprites/mutant2/creator.svg",
     318: "images/sprites/big-mutant/creator.svg",
     300: "images/sprites/vampire-bat/creator.svg",
+    100: "images/sprites/hotblock.svg",
+    101: "images/sprites/spike.svg",
+    106: "images/sprites/spikeblock.svg"
 }
