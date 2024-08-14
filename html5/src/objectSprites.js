@@ -561,5 +561,8 @@ export default {
     312: "images/sprites/segfault/creator.svg",
     309: "images/sprites/mongol/mongol.svg",
     319: "images/sprites/native/native.svg",
+    322: "images/sprites/rocky/rocky.svg",
+    313: "images/sprites/enemymech/creator.svg",
+    310: "images/sprites/firetroll/firetroll.svg",
     
 }
