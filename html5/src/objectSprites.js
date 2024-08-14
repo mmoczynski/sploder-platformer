@@ -564,5 +564,12 @@ export default {
     322: "images/sprites/rocky/rocky.svg",
     313: "images/sprites/enemymech/creator.svg",
     310: "images/sprites/firetroll/firetroll.svg",
-    
+    320: "images/sprites/mercenary/creator.svg",
+    321: "images/sprites/minion/creator.svg",
+    324: "images/sprites/robot1/creator.svg",
+    323: "images/sprites/robot2/creator.svg",
+    316: "images/sprites/mutant1/creator.svg",
+    317: "images/sprites/mutant2/creator.svg",
+    318: "images/sprites/big-mutant/creator.svg",
+    300: "images/sprites/vampire-bat/creator.svg",
 }
