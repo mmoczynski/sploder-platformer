@@ -81,7 +81,10 @@ const creator = {
 
     },
 
-    preloadedImages: new Map()
+    preloadedImages: new Map(),
+
+    transformingObjects: false,
+    
 }
 
 export default creator;

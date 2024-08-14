@@ -138,7 +138,7 @@ export default function loop(){
 
         // If ghost exists
 
-        if(o.ghost instanceof Ghost) {
+        if(o.ghost instanceof Ghost && creator.selectedObjects.includes(o) && creator.transformingObjects) {
 
             creator.ctx.beginPath();
 

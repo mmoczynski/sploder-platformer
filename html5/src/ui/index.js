@@ -62,6 +62,8 @@ function transformViewportByMouse(event) {
 
 function transformObjByMouse(event) {
 
+    creator.transformingObjects = true;
+
     let oldPos = new WorldPoint(
         creator.leadObject.object.x,
         creator.leadObject.object.y
@@ -177,6 +179,8 @@ window.addEventListener("mouseup", function(){
     creator.canvas.removeEventListener("mousemove", transformViewportByMouse)
     creator.canvas.removeEventListener("mousemove", transformObjByMouse)
     creator.canvas.removeEventListener("mousemove", changeSelectionRectByMouse);
+
+    creator.transformingObjects = false;
 
 
     if(creator.selectionRect.topLeft && creator.selectionRect.bottomRight) {
