@@ -147,10 +147,10 @@ export default function loop(){
             creator.ctx.strokeStyle = "orange";
         
             creator.ctx.rect(
-                o.ghost.centerPoint.toCanvasPoint().x - o.ghost.width * 0.5,
-                o.ghost.centerPoint.toCanvasPoint().y - o.ghost.height * 0.5,
-                o.ghost.width,
-                o.ghost.height
+                o.ghost.centerPoint.toCanvasPoint().x - (o.ghost.width * creator.zoomFactor) * 0.5,
+                o.ghost.centerPoint.toCanvasPoint().y - (o.ghost.height * creator.zoomFactor) * 0.5,
+                o.ghost.width * creator.zoomFactor,
+                o.ghost.height * creator.zoomFactor
             )
         
             creator.ctx.stroke();
