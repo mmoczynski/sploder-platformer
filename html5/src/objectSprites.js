@@ -574,5 +574,7 @@ export default {
     300: "images/sprites/vampire-bat/creator.svg",
     100: "images/sprites/hotblock.svg",
     101: "images/sprites/spike.svg",
-    106: "images/sprites/spikeblock.svg"
+    106: "images/sprites/spikeblock.svg",
+    314: "images/sprites/shark/shark.svg",
+    315: "images/sprites/grouperfish/1.svg",
 }
