@@ -18,6 +18,8 @@ largetemptile_ctx.fillRect(0,0,tempTile.width, tempTile.height);
 
 export default {
 
+    1: "images/sprites/player/player-creator.svg",
+
     3: "images/sprites/3.svg",
     4: "images/sprites/4.svg",
 
