@@ -70,6 +70,8 @@ Game.prototype.createLevel = function() {
 
     this.level = new GameLevel(this, levelElm);
     this.level.selectionOption.selected = true;
+
+    levelElm.innerText = "1,-329,239";
 }
 
 Game.prototype.selectLevelByIndex = function(i) {
