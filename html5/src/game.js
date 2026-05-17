@@ -65,13 +65,13 @@ Game.prototype.extractGraphicsFromXMLDocument = function() {
 Game.prototype.createLevel = function() {
 
     var levelElm = this.xmlDocument.createElement("level");
-
+    levelElm.innerHTML = "1,0,0";
     levelElm.setAttribute("env", "0,33cccc,666666,100");
 
     this.level = new GameLevel(this, levelElm);
     this.level.selectionOption.selected = true;
 
-    levelElm.innerText = "1,-329,239";
+
 }
 
 Game.prototype.selectLevelByIndex = function(i) {
