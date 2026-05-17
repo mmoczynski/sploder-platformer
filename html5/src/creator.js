@@ -4,9 +4,17 @@ document.body.innerText = "Starting..."
 // Creator object
 
 const creator = {
+
+    // Size for snap grid for creator
     gridSize: 60,
+
+    // Zoom factor for creator viewport
     zoomFactor: 1,
+
+    // Creator viewport offset in the X direction
     deltaX: 0,
+
+    // Creator viewport offset in the Y direction.
     deltaY: 0,
     loadingTxt: "",
 
@@ -14,6 +22,8 @@ const creator = {
         enabled: true,
         selectedPointValue: 10
     },
+
+    // Function used to set width and height of canvas
 
     setCanvasDimensions: function() {
         creator.canvas.width = window.innerWidth - creator.canvasPositionX;
@@ -66,6 +76,11 @@ const creator = {
         gridCell: null
     },
 
+    /**
+     * This is used to move a collection of objects
+     * When a collection of objects is transformed, there is one special item that 
+     */
+
     leadObject: {
 
         /**
@@ -81,7 +96,14 @@ const creator = {
 
     },
 
+    /*
+    * Map object used for preloading images
+    * It maps URL strings to HTML Canvas JavaScript Objects.
+    */
+
     preloadedImages: new Map(),
+
+    // Boolean for transforming objects
 
     transformingObjects: false,
     
