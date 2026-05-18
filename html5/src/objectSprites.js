@@ -579,4 +579,5 @@ export default {
     106: "images/sprites/spikeblock.svg",
     314: "images/sprites/shark/shark.svg",
     315: "images/sprites/grouperfish/1.svg",
+    102: "images/sprites/energy-beam/energy-beam-creator.svg"
 }
